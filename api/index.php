@@ -1,12 +1,17 @@
 <?php
-
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); ini_set('display_errors','On');
 require 'vendor/autoload.php';
 
 use Phroute\Phroute\RouteCollector;
 
+
+$path= 'api/index.php';
+
 $router = new RouteCollector();
-$router->get('/', App\Action\User::tampil());
-$router->get('/haha', function(){
+$router->get($path.'/',function(){
+    return 'halooo';
+});
+$router->get($path.'/haha', function(){
     return App\Action\User::tampil();
 });
 
