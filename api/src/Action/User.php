@@ -63,8 +63,9 @@ class User{
         $data_output['user_level']=$data_user->user_level;
         $data_output['user_privilege']=$data_user->privilege;
 
+        $pass= hash('ripemd160', $data['password']);
         //check password
-        if (password_verify($data['password'], $data_user->password))
+        if ($pass == $data_user->password)
               {
                 $output=array('auth'=>1,
                               'token'=> \App\Helper\Jwt::encode($data_output)

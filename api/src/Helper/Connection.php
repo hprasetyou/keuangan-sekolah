@@ -9,10 +9,12 @@ class Connection{
     public $condition='1';
 
     public function __construct(){
-      $this->conf['db_user']='hprasetyou';
-      $this->conf['db_pass']='Rp.15000';
-      $this->conf['db_name']='KSAAS_main';
-      $this->conf['db_host']='127.3.136.2 ';
+      $setting = \App\Helper\Setting::get();
+
+      $this->conf['db_user']=$setting['db']['username'];
+      $this->conf['db_pass']=$setting['db']['password'];
+      $this->conf['db_name']=$setting['db']['dbname'];
+      $this->conf['db_host']=$setting['db']['dbhost'];
     }
 
       private function getConnection()

@@ -4,18 +4,16 @@ require 'vendor/autoload.php';
 
 use Phroute\Phroute\RouteCollector;
 
+$setting = \App\Helper\Setting::get();
 
 $data = json_decode(file_get_contents('php://input'), true);
 
 $useraction = new \App\Action\User();
 
-$path= 'api/index.php';
+$path= $setting['path'];
 
 $router = new RouteCollector();
 $router->get($path.'/',function(){
-    return 'halooo';
-});
-$router->get('/',function(){
     return 'halooo';
 });
 //user route
