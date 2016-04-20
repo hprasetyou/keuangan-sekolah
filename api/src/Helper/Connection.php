@@ -12,7 +12,7 @@ class Connection{
       $this->conf['db_user']='hprasetyou';
       $this->conf['db_pass']='Rp.15000';
       $this->conf['db_name']='KSAAS_main';
-      $this->conf['db_host']='localhost';
+      $this->conf['db_host']='127.3.136.2 ';
     }
 
       private function getConnection()
