@@ -9,8 +9,8 @@ class Connection{
     public $condition='1';
 
     public function __construct(){
-      $this->conf['db_user']='root';
-      $this->conf['db_pass']='0000000';
+      $this->conf['db_user']='hprasetyou';
+      $this->conf['db_pass']='Rp.15000';
       $this->conf['db_name']='KSAAS_main';
       $this->conf['db_host']='localhost';
     }
