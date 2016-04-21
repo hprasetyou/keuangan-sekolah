@@ -22,6 +22,11 @@ $router->get($path.'/user', function() use($useraction){
     return $useraction->tampil($args);
 });
 
+$router->post($path.'/user', function() use($useraction,$data){
+    $args= array ();
+    return $useraction->add($args,$data);
+});
+
 $router->get($path.'/user/{cond}/filter', function($cond) use($useraction){
   $args= array ('cond'=>$cond);
     return $useraction->tampil($args);
@@ -50,15 +55,19 @@ $router->post($path.'/_session', function() use($useraction,$data){
 $router->get($path.'/_session', function() use($useraction,$data){
 
     $args= array ();
-    $embuh=array('name'=>'embuh','iss'=>'haahah');
     try{
-        $output= \App\Helper\Auth::reset_timeout();
-
+        $output= \App\Helper\Auth::user_data();
     }
     catch(Exception $e){
-    $output = $e;
+    $output = array('error'=>$e);
     }
     return  $output;
+});
+
+$router->post($path.'/_session/update', function() use($useraction,$data){
+  $args= array ();
+  $output= \App\Helper\Auth::reset_timeout();
+  return  $output;
 });
 
 

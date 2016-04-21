@@ -12,6 +12,7 @@ class Auth{
   }
 
   function user_data(){
+
       $headers = getallheaders();
       try{
         $output = \App\Helper\Jwt::decode($headers['token']);
@@ -25,8 +26,12 @@ class Auth{
   function reset_timeout(){
     $headers = getallheaders();
     $userdata= \App\Helper\Jwt::decode($headers['token']);
-    $userdata['expired'] = time()+1800;
-    return \App\Helper\Jwt::encode($input_data);
+    foreach ($userdata as $key => $value) {
+      # code...
+      $newuserdata[$key] = $value;
+    }
+    $newuserdata['expired'] = time()+1800;
+    return \App\Helper\Jwt::encode($newuserdata);
   }
 
 

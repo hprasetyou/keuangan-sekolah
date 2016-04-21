@@ -26,6 +26,12 @@ class User{
       public function update($args,$data){
 
           foreach ($data as $key => $value) {
+            if($key=='password'){
+              $value =   $pass= hash('ripemd160', $value);
+            }
+            else{
+
+            }
               $newdata[$key]= $value;
           }
           $this->usermodel->update($args['user_id'],$newdata);
@@ -68,7 +74,7 @@ class User{
         if ($pass == $data_user->password)
               {
                 $output=array('auth'=>1,
-                              'token'=> \App\Helper\Jwt::encode($data_output)
+                              'token'=> \App\Helper\Auth::set_token($data_output)
                             );
               }
         else
@@ -79,6 +85,49 @@ class User{
               }
       }
       return $output;
+    }
+
+    function add($args,$data){
+
+      $this->sekolahmodel->find = array('group_id' => $data['user_group']);
+      $group=$this->sekolahmodel->detail();
+
+      if($group->num_rows<1)
+        {
+
+          $this->sekolahmodel->group_id  = $data['user_group'];
+          $this->sekolahmodel->group_name  = $data['group_name'];
+          $this->sekolahmodel->create();
+
+        }
+        else{
+
+        }
+
+            $password="kosong";
+
+            $this->usermodel->user_group   = $data['user_group'];
+
+
+            $this->usermodel->user_id          =$data['user_id'];
+            $this->usermodel->email            =$data['email'];
+
+            $this->usermodel->password         =$password;
+
+            $this->usermodel->create();
+
+            //setup validation token
+            $ver_token=\App\Helper\Jwt::encode(array(
+              'user_id'    => $data['user_id'],
+              'val_time'    => time()+1800
+            ));
+            $mail_subject='Halo '.$data['email'];
+            $mail_body='Silahkan verifikasi email anda, salin dan tempel token dibawah ini untuk memverifikasi akun anda <br>
+          <br><br>'.$ver_token;
+            $mail_recipient = $data['email'];
+            \App\Helper\Mailer::send($mail_subject,$mail_body,$mail_recipient);
+
+        return array('status'=>'ok');
     }
 
 
