@@ -1,0 +1,22 @@
+
+<div style="background-color: rgba(245, 245, 245, 0.7); padding: 2% 4% 2% 4%; margin: 2% 2% 2% 2%; height: 80%">
+  <ol class="breadcrumb">
+    <li>Daftar</li>
+    <li class="active">Verifikasi Email</li>
+    <li>Tunggu Konfirmasi Admin</li>
+  </ol>
+  <div>
+
+
+<form>
+  <div class="form-group">
+    <label for="token">
+    tempelkan token yang telah anda salin pada email disini</label>
+    <textarea class="form-control" id="token" ng-model="form_verif.token" ></textarea>
+  </div>
+  <button type="submit" ng-click="verifikasi()" class="btn btn-default">Submit</button>
+</form>
+  email belum diterima? <a href="">kirim ulang email</a> <a href="">Ubah email</a>
+
+  </div>
+</div>

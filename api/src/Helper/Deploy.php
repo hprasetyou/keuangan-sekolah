@@ -5,7 +5,7 @@ class Deploy{
   public $dbname;
   function __construct(){
     $this->db= new Connection();
-    $this->blueprint = file_get_contents(__DIR__ . "/../../../asset/table.json");
+    $this->blueprint = file_get_contents(__DIR__ . "/../../database/blue_print.json");
   }
 
   function create_db(){

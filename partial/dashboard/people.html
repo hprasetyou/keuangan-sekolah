@@ -1,0 +1,51 @@
+<div class="col-md-6">
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nama</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="person in people" ng-click="$parent.detail=person; $parent.update=true">
+        <td>{{person.id}}</td>
+        <td>{{person.nama}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Detail</div>
+    <div class="panel-body">
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+
+      <label class="col-sm-3 control-label"
+                for="nm_anggaran">ID </label>
+      <div class="col-sm-9">
+          <input type="text" ng-model="detail.id" required class="form-control" placeholder="ID Akun"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label"
+                for="nm_anggaran">Nama </label>
+      <div class="col-sm-9">
+          <input type="text" ng-model="detail.nama" required class="form-control" placeholder="Nama Akun"/>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+<div class="panel-footer">
+  <button ng-show="update==true" ng-click="detail={}; update=false" class="btn btn-default">Reset</button>
+  <button ng-show="update==true" ng-click="ubah()" class="btn btn-primary">Ubah</button>
+  <button ng-show="update==true" data-toggle="modal" data-target="#hapusAkun" class="btn btn-danger">Hapus</button>
+  <button ng-hide="update==true" ng-click="add()" class="btn btn-success">Tambah</button></div>
+</div>
+</div>

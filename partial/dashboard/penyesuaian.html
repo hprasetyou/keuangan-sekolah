@@ -1,0 +1,114 @@
+<h2>Jurnal Penyesuaian</h2>
+<hr>
+<div class="col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Inputkan Jurnal</div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+
+          <label class="col-sm-3 control-label"
+                    for="nm_anggaran">Uraian </label>
+          <div class="col-sm-9">
+              <input type="text" ng-model="frm_jurnal.uraian" required class="form-control" placeholder="Uraian Jurnal"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label"
+                    for="nm_anggaran">Akun Debet</label>
+          <div class="col-sm-9">
+              <select required class="form-control" ng-model="debet" name="" ng-options="item as item.nama_akun for item in datasaldo">
+              </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"
+                    for="nm_anggaran">Akun Kredit</label>
+          <div class="col-sm-9">
+            <select  required class="form-control" ng-model="kredit" name="" ng-options="item as item.nama_akun for item in datasaldo">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"
+                      for="nm_anggaran">Nominal</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="frm_jurnal.jumlah" required class="form-control" placeholder="Nama Akun"/>
+            </div>
+          </div>
+
+      </form>
+    </div>
+    <div class="panel-footer"><button class="btn btn-primary" ng-click="add_transaksi()">Simpan</button></div>
+
+    </div>
+</div>
+<div ng-show="debet" class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">Detail Akun yang Didebet</div>
+    <div class="panel-body">
+      <input type="hidden" value="{{frm_jurnal.jenis_debet=debet.jenis_akun}}">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3"><H3>{{debet.nama_akun}}</H3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Id Akun</th>
+            <td>:</td>
+            <td>{{frm_jurnal.debet=debet.id_akun}}</td>
+          </tr>
+          <tr>
+            <th>Nama Akun</th>
+            <td>:</td>
+            <td>{{debet.nama_akun}}</td>
+          </tr>
+          <tr>
+            <th>Saldo</th>
+            <td>:</td>
+            <td>{{frm_jurnal.saldo_debet=debet.saldo}}({{debet.posisi}})</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    </div>
+</div>
+
+<div ng-show="kredit" class="col-md-6">
+    <div class="panel panel-warning">
+        <div class="panel-heading">Detail Akun yang Dikredit</div>
+    <div class="panel-body">
+        <input type="hidden" value="{{frm_jurnal.jenis_kredit=kredit.jenis_akun}}">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3"><H3>{{kredit.nama_akun}}</H3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Id Akun</th>
+            <td>:</td>
+            <td>{{frm_jurnal.kredit=kredit.id_akun}}</td>
+          </tr>
+          <tr>
+            <th>Nama Akun</th>
+            <td>:</td>
+            <td>{{kredit.nama_akun}}</td>
+          </tr>
+          <tr>
+            <th>Saldo</th>
+            <td>:</td>
+            <td>{{frm_jurnal.saldo_kredit=kredit.saldo}}({{debet.posisi}})</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    </div>
+</div>

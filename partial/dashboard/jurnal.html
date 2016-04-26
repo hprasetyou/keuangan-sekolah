@@ -1,0 +1,59 @@
+<select class="" name="" ng-model="bulan_pilihan" ng-options="item as item.nama for item in daftar_bulan">
+</select>
+
+<h2 id="judul">Jurnal Keuangan Bulan {{bulan_pilihan.nama}}</h2>
+<div class="table-responsive" style="height:500px">
+  <table class="table table-bordered"  style="font-size:12px">
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Keterangan</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="jurnal in daftar_jurnal | filter:{debet:'0'}:true ">
+      <tr>
+        <td rowspan="3">{{jurnal.tanggal}}</td>
+        <td colspan="3"><b><u><i>({{jurnal.uraian}})</i></u></b></td>
+      </tr>
+      <tr ng-repeat="detjurnal in daftar_jurnal | filter:{id_transaksi:jurnal.id_transaksi}">
+        <td>{{detjurnal.akun}}</td>
+        <td>{{detjurnal.debet}}</td>
+        <td>{{detjurnal.kredit}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<nav>
+<ul class="pagination">
+  <li ng-repeat="page in paging"><a href="" ng-click="$parent.tampil_halaman(page.page)">{{page.page+1}}</a></li>
+</ul>
+</nav>
+<a class="btn btn-default" href="" ng-click="print()">Print</a>
+
+<div id="print_table" ng-show="false" style="height:500px">
+  <table class="table table-bordered"  style="font-size:12px">
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Keterangan</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="jurnal in jurnal_asli | filter:{debet:'0'}:true ">
+      <tr>
+        <td rowspan="3">{{jurnal.tanggal}}</td>
+        <td colspan="3"><b><u><i>({{jurnal.uraian}})</i></u></b></td>
+      </tr>
+      <tr ng-repeat="detjurnal in jurnal_asli | filter:{id_transaksi:jurnal.id_transaksi}">
+        <td>{{detjurnal.akun}}</td>
+        <td>{{detjurnal.debet}}</td>
+        <td>{{detjurnal.kredit}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

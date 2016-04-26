@@ -10,8 +10,8 @@ class Rencana_anggaran{
     public $pencatat;
     public $find=array();
 
-    function __construct($connection){
-        $this->db = $connection;
+    function __construct(){
+        $this->db = new \App\Helper\Connection();
     }
 
     function show(){

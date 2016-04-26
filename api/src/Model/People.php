@@ -9,8 +9,9 @@ public $kelompok;
 public $find='';
 
 
-    public function __construct($connection){
-      $this->db = $connection;
+    public function __construct(){
+
+          $this->db = new \App\Helper\Connection();
     }
 
     public function add()

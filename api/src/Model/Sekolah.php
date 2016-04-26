@@ -13,9 +13,10 @@ class Sekolah{
 
     function show(){
         $condition='';
+        if(isset($this->find)){
         foreach ($this->find as $key => $value) {
           $condition .= $key."='".$value."' AND ";
-        }
+        }}
         $condition .= '1';
         return $this->db->execute("select * from sekolah where ".$condition);
       }
@@ -36,6 +37,7 @@ class Sekolah{
         $this->db->condition="group_id='".$id."'";
         return $this->db->update('sekolah',$data);
     }
+
 
 
     function create(){

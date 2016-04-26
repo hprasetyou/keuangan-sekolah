@@ -12,9 +12,9 @@ class Transaksi{
   public $pencatat;
   public $uraian;
 
-  public function __construct($connection){
-    $this->db = $connection;
-  }
+  public function __construct(){
+    $this->db = new \App\Helper\Connection();
+}
 
   public function add(){
     $this->db->conf['db_name']=$this->dbname;

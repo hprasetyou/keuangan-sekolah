@@ -1,0 +1,65 @@
+<h2>Buku Besar Akun {{pilihan.nama_akun}}</h2>
+<hr>
+<select name="" id="">
+  <option ng-repeat="akun in daftar_akun" ng-click="$parent.pilihan.akun=akun.id_akun;$parent.pilihan.nama_akun=akun.nama_akun;tampil() " value="">{{akun.nama_akun}}</option>
+</select>
+<button ng-click="tampil()">tampil</button>
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{pilihan.nama_akun}}</div>
+  <div  style="font-size:12px" class="panel-body table-responsive" style="height:450px">
+    <div class="col-md-6" >
+      <table class="table">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Uraian</th>
+          <th>Debet</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr ng-repeat="jurnal in daftar_jurnal | filter:{kredit:'0'}:true">
+          <td>{{jurnal.tanggal}}</td>
+          <td>{{jurnal.uraian}}</td>
+          <td>{{jurnal.debet}}</td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>Jumlah Debet</b></td>
+          <td><b>{{saldo.jum_debet}}</b></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Uraian</th>
+            <th>Kredit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="jurnal in daftar_jurnal | filter:{debet:'0'}:true">
+            <td>{{jurnal.tanggal}}</td>
+            <td>{{jurnal.uraian}}</td>
+            <td>{{jurnal.kredit}}</td>
+          </tr>
+          <tr>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><b>Jumlah Kredit</b></td>
+            <td><b>{{saldo.jum_kredit}}</b></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+<div class="panel-footer">
+  <strong>Total: {{saldo.total + ' ('+ saldo.jenis +')'}}</strong>
+</div>
+</div>

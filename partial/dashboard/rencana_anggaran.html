@@ -1,0 +1,323 @@
+
+<div ng-show="ra_pilih==undefined">
+  <h3>Silahkan pilih rencana anggaran</h3>
+</div>
+<div>Pilih Rencana anggaran:
+  <select name="" id="" ng-model="ra_pilih" ng-options="item as item.nm_anggaran for item in ra">
+
+  </select>
+  atau <a data-toggle="modal" data-target="#tambahAnggaran" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Baru</a>
+</div>
+<div ng-show="ra_pilih" >
+  <div id="judul">
+      <h3>  {{ra_pilih.nm_anggaran}}</h3>
+  </div>
+  <br>
+  <div ng-show="cek_aktif()" class="ra_menu" >
+    <a class="btn btn-default" data-toggle="modal" data-target="#tambahTransaksiMasuk" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Pemasukan</a>
+    <a class="btn btn-default" data-toggle="modal" data-target="#tambahTransaksiKeluar" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Pengeluaran</a>
+    <a class="btn btn-default" data-toggle="modal" data-target="#tetapkan" href=""> Tetapkan</a>
+  </div>
+  <div id="tabel_ra">
+  <table style="font-size:12px" class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="5">Pemasukan</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="pendapatan in detail_ra.jenis_trans_masuk track by $index">
+      <tr>
+        <th scope="row"></th>
+        <th scope="row" colspan="4">{{$index+1}}. {{pendapatan.nm_jenis_trans}}</td>
+
+      </tr>
+      <tr ng-repeat="sub in pendapatan.sub">
+        <td></td>
+        <td></td>
+        <td>{{sub.nm_jenis_trans}}</td>
+        <td>{{sub.keterangan}}</td>
+        <td style="text-align:right">Rp. {{sub.nominal}}</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <th colspan="4">Total Rencana Pendapatan</td>
+        <th class="numerik">Rp. {{detail_ra.jum_masuk}}</td>
+      </tr>
+    </tbody>
+    <thead>
+        <tr>
+          <th colspan="5">Pengeluaran</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="pengeluaran in detail_ra.jenis_trans_keluar track by $index">
+      <tr>
+        <th></th>
+        <th colspan="4" scope="row">{{$index+1}}. {{pengeluaran.nm_jenis_trans}}</th>
+
+
+      </tr>
+      <tr ng-repeat="sub in pengeluaran.sub">
+        <td></td>
+        <td></td>
+        <td>{{sub.nm_jenis_trans}}</td>
+        <td>{{sub.keterangan}}</td>
+        <td style="text-align:right">{{'Rp.' +sub.nominal}}</td>
+      </tr>
+
+    </tbody>
+    <tbody>
+      <tr>
+        <th colspan="4">Total Rencana Pengeluaran</td>
+        <th class="numerik">Rp. {{detail_ra.jum_keluar}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  <a href="" class="btn btn-default" ng-click="print()">Print</a>
+
+</div>
+
+
+
+
+  <!--Add Anggaran -->
+      <div class="modal fade" id="tambahAnggaran" tabindex="-1" role="dialog"
+           aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                      <button type="button" class="close"
+                         data-dismiss="modal">
+                             <span aria-hidden="true">&times;</span>
+                             <span class="sr-only">Close</span>
+                      </button>
+                      <h4 class="modal-title" id="myModalLabel">
+                          Tambah Rencana Anggaran
+                      </h4>
+                  </div>
+
+                  <!-- Modal Body -->
+                  <div class="modal-body">
+
+                      <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label"
+                                    for="nm_anggaran">Nama Anggaran</label>
+                          <div class="col-sm-8">
+                              <input type="text" ng-model="nm_anggaran" required class="form-control" placeholder="Nama Anggaran"/>
+                          </div>
+                        </div>
+                      </form>
+                  </div>
+
+                  <!-- Modal Footer -->
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default"
+                              data-dismiss="modal">
+                                  Close
+                      </button>
+                      <button type="button" ng-click="add_ra()" class="btn btn-primary" data-dismiss="modal">
+                          Tambahkan
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+        <!--Add Jenis transaksi masuk -->
+            <div class="modal fade" id="tambahTransaksiMasuk" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                               data-dismiss="modal">
+                                   <span aria-hidden="true">&times;</span>
+                                   <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Tambah Pendapatan{{data}}
+                            </h4>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+
+                            <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Jenis Pendapatan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" ng-model="ra_trans.nm_jenis_trans" required class="form-control" placeholder="Nama Anggaran"/>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Uraian</label>
+                                <div class="col-sm-9">
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="form-group" style="border-bottom:1px solid #ddd; padding-bottom: 5px" ng-repeat=" uraian in subjenis">
+                                <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon  glyphicon-remove"></span> singkirkan</a>
+                                </label>
+                                <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Pendapatan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" ng-model="uraian.nm_jenis_trans" required class="form-control" placeholder="Nama Pendapatan"/>
+                                </div>
+                                  <label class="col-sm-3 control-label"
+                                            for="nm_anggaran">Akun Debet</label>
+                                  <div class="col-sm-9">
+                                    <select ng-model="uraian.debet" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+                                      </select>
+                                  </div>
+                                  <label class="col-sm-3 control-label"
+                                            for="nm_anggaran">Akun Kredit</label>
+                                  <div class="col-sm-9">
+                                    <select ng-model="uraian.kredit" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+                                      </select>
+                                    </div>
+                                <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Nominal</label>
+                                <div class="col-sm-9">
+                                    <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
+                                </div>
+                                <label class="col-sm-3 cotrol-label"
+                                          for="nm_anggaran">Keterangan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" ng-model="uraian.keterangan" required class="form-control" value="0" placeholder="Keterangan"/>
+                                </div>
+
+                              </div>
+
+                              {{subjenis}}
+                              <a href="" class="btn btn-default" ng-click="tambah_uraian()">Tambah Uraian</a>
+                            </form>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                        Close
+                            </button>
+                            <button type="button" ng-click="add_jenis_trans('m')" class="btn btn-primary" data-dismiss="modal">
+                                Tambahkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!--Add Jenis transaksi masuk -->
+              <div class="modal fade" id="tambahTransaksiKeluar" tabindex="-1" role="dialog"
+                   aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                              <button type="button" class="close"
+                                 data-dismiss="modal">
+                                 <span aria-hidden="true">&times;</span>
+                                 <span class="sr-only">Close</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel">
+                                  Tambah Pengeluaran
+                              </h4>
+                          </div>
+                                <!-- Modal Body -->
+                      <div class="modal-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"
+                                                for="nm_anggaran">Jenis Pengeluaran</label>
+                                    <div class="col-sm-9">
+                                          <input type="text" ng-model="ra_trans.nm_jenis_trans" required class="form-control" placeholder="Nama Anggaran"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Uraian</label>
+                                    <div class="col-sm-9">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group" style="border-bottom:1px solid #ddd; padding-bottom: 5px" ng-repeat=" uraian in subjenis track by $index">
+                                    <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon  glyphicon-remove"></span> singkirkan</a>
+                                    </label>
+                                    <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Pengeluaran</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" ng-model="uraian.nm_jenis_trans" required class="form-control" placeholder="Nama Pengeluaran"/>
+                                    </div>
+                                    <label class="col-sm-3 control-label"
+                                              for="nm_anggaran">Akun Debet</label>
+                                    <div class="col-sm-9">
+                                        <select ng-model="uraian.debet" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+                                    </select>
+                                    </div>
+                                    <label class="col-sm-3 control-label"
+                                    for="nm_anggaran">Akun Kredit</label>
+                                    <div class="col-sm-9">
+                                          <select ng-model="uraian.kredit" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+                                    </select>
+                                    </div>
+                                    <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Nominal</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
+                                    </div>
+
+                                    <label class="col-sm-3 control-label"
+                                          for="nm_anggaran">Keterangan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" ng-model="uraian.keterangan" required class="form-control" placeholder="Keterangan"/>
+                                    </div>
+                                      </div>
+                                      <a href="" class="btn btn-default" ng-click="tambah_uraian()">Tambah Uraian</a>
+                                    </form>
+                                </div>
+
+                                    <!-- Modal Footer -->
+                              <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">
+                                                Close
+                                    </button>
+                                    <button type="button" ng-click="add_jenis_trans('k')" class="btn btn-primary" data-dismiss="modal">
+                                        Tambahkan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="tetapkan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Konfirmasi</h4>
+                          </div>
+                          <div class="modal-body">
+                            Tetapkan Rencana Anggaran?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" ng-click="tetapkan()" data-dismiss="modal">Ya</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

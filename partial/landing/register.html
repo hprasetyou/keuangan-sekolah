@@ -1,0 +1,125 @@
+
+<div style="background-color: rgba(245, 245, 245, 0.85); padding: 2% 4% 2% 4%; margin: 2% 2% 2% 2%; height: 90%">
+
+  <ol class="breadcrumb">
+    <li class="active">Daftar</li>
+    <li>Verifikasi Email</li>
+    <li>Tunggu Konfirmasi Admin</li>
+  </ol>
+  <div class="col-md-6" style="border-right: 2px #fff solid">
+    <h1>Daftarkan Sekolah Anda</h1>
+    <br>
+    <form name="form_daftar" class="form-horizontal" role="form">
+
+    <div class="form-group " ng-class="{'has-error':nip_status=='has-error'}">
+        <label class="col-sm-4 control-label" for="txt_nip">
+                NIP Anda
+          </label>
+          <div class="col-sm-7">
+              <input type="text" ng-blur="cek_nip()" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
+              <span ng-show="nip_status=='has-error'" id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
+
+          </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_daftar.email.$invalid && !form_daftar.email.$pristine || email_status=='has-error'}">
+          <label class="col-sm-4 control-label" for="txt_email">
+                Email
+          </label>
+          <div class="col-sm-7">
+              <input type="email" ng-blur="cek_email()" name="email" ng-model="form_register.email" id="txt_email" required class="form-control" placeholder="Email"/>
+              <span ng-show="email_status=='has-error'" id="helpBlock2" class="help-block">Email sudah digunakan</span>
+              <span ng-show="form_daftar.email.$invalid && !form_daftar.email.$pristine" id="helpBlock2" class="help-block">Email tidak valid</span>
+
+          </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_daftar.password.$error.minlength}">
+          <label class="col-sm-4 control-label" for="txt_password">
+                Password
+          </label>
+          <div class="col-sm-7">
+              <input type="password" name="password" ng-model="form_register.password" ng-minlength="8" id="txt_password" required class="form-control" placeholder="Password"/>
+              <p ng-show="form_daftar.password.$error.minlength" class="help-block">Password terlalu pendek</p>
+
+          </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_register.repassword != form_register.password}">
+          <label class="col-sm-4 control-label" for="txt_password">
+                Ulangi Password
+          </label>
+          <div class="col-sm-7">
+              <input type="password"  ng-model="form_register.repassword" ng-minlength="8" id="txt_password" required class="form-control" placeholder="Password"/>
+              <p ng-show="form_register.repassword != form_register.password" class="help-block">Password tidak cocok</p>
+          </div>
+    </div>
+    <div class="form-group">
+          <label class="col-sm-4 control-label" for="txt_noinduk">
+                No.Induk Sekolah
+          </label>
+          <div class="col-sm-7">
+              <input type="text" ng-model="form_register.user_group" id="txt_noinduk" required class="form-control" placeholder="No.Induk Sekolah"/>
+          </div>
+    </div>
+    <div class="form-group">
+          <label class="col-sm-4 control-label" for="txt_nmsekolah">
+                Nama Sekolah
+          </label>
+          <div class="col-sm-7">
+              <input type="text" ng-model="form_register.group_name" id="txt_nmsekolah" required class="form-control" placeholder="Nama Sekolah"/>
+          </div>
+    </div>
+    <div class="form-group">
+          <label class="col-sm-4 control-label" for="txt_noinduk">
+
+          </label>
+          <div class="col-sm-7">
+                <a href=""  ng-disabled="form_daftar.$invalid || nip_status=='has-error'|| email_status=='has-error' ||form_register.repassword != form_register.password" ng-click="daftar()" class="btn btn-success" data-toggle="modal" data-target="#ModalDaftar">Daftar</a>
+          </div>
+    </div>
+  </form>
+
+  </div>
+
+  <div class="col-md-6" style="padding:2% 2% 2% 2% ">
+        <p>
+{{form_register}}
+          Silahkan isi form untuk mulai mendaftarkan sekolah anda, setelah mendaftar, anda harus memverifikasi email dan menunggu proses persetujuan pendaftaran oleh admin
+        </p>
+        <a href="#/daftar/verifikasi-email" class="btn btn-default btn-lg" ng-show="daftar_klik==true">Lanjutkan</a>
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div style=" width: 200px;
+    height: 200px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;" class="modal fade" id="ModalDaftar" tabindex="-1" role="dialog" >
+
+        <img src="img/gear.gif">
+
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="ModalSuccess" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Pendaftaran Berhasil</h4>
+      </div>
+      <div class="modal-body">
+        <p>Email telah dikimkan ke {{txt_email}} silahkan verifikasi email anda untuk melanjutkan</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="next_step()" data-dismiss="modal">Lanjutkan</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

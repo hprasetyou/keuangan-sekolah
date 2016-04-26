@@ -87,6 +87,31 @@ class User{
       return $output;
     }
 
+
+    function verifikasi($args)
+        {
+          try{
+            $token_data= \App\Helper\Jwt::decode($args['token']);
+
+            if ((time())<=$token_data->val_time){
+                  $this->usermodel->update($token_data->user_id,array('status'=>'1'));
+                  $output=array('msg'=>'success');
+              }
+              else{
+                  $output=array('msg'=>'token_expired');
+              }
+              return $output;
+          }
+          catch(Exception $e){
+            return array('error'=>'invalid token');
+          }
+      }
+
+
+
+
+
+
     function add($args,$data){
 
       $this->sekolahmodel->find = array('group_id' => $data['user_group']);
@@ -119,7 +144,7 @@ class User{
             //setup validation token
             $ver_token=\App\Helper\Jwt::encode(array(
               'user_id'    => $data['user_id'],
-              'val_time'    => time()+1800
+              'val_time'    => time()+3600
             ));
             $mail_subject='Halo '.$data['email'];
             $mail_body='Silahkan verifikasi email anda, salin dan tempel token dibawah ini untuk memverifikasi akun anda <br>

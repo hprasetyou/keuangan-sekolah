@@ -1,0 +1,49 @@
+
+<div style="padding:2%" id="neraca">
+  <center>
+    <h1>Neraca Saldo</h1>
+    <h3>{{tanggal}}</h3>
+
+  </center>
+  <div class="panel panel-default col-md-12">
+    <div class="panel-body col-md-6">
+      <table style="font-size:12px" class="table">
+        <thead>
+          <tr>
+            <th colspan="3">Aset</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="saldo in daftar_saldo | filter: {jenis_akun:'a'} ">
+            <td>{{saldo.nama_akun}}</td>
+            <td class="numerik">Rp. {{saldo.debet}},00-</td>
+            <td class="numerik">Rp. {{saldo.kredit}},00-</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-body col-md-6">
+      <table ng-repeat="jenis in not_aset" style="font-size:12px" class="table">
+        <thead>
+          <tr>
+            <th colspan="3">{{jenis.nama}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="saldo in daftar_saldo  | filter:{jenis_akun:jenis.id}">
+            <td>{{saldo.nama_akun}}</td>
+            <td class="numerik">Rp. {{saldo.debet}},00-</td>
+            <td class="numerik">Rp. {{saldo.kredit}},00-</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <p class="col-sm-6">total <b>{{saldo_aset}}</b></p>
+      <p class="col-sm-6">total <b>{{saldo_not_aset}}</b></p>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-default" ng-click="print()" name="button">Cetak</button>

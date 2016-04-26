@@ -1,0 +1,158 @@
+<div class="page-header">
+
+    <h3>Pencatatan Dana Masuk/Keluar</h3>
+  </div>
+</div>
+<div style="padding:0" class="col-md-3" >
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Daftar Jenis Dana Masuk</div>
+    <div class="panel-body">
+
+    </div>
+
+    <!-- List group -->
+    <div class="list-group">
+      <div ng-repeat="data_trans in daftar_trans_masuk track by $index">
+        <a href="" data-toggle="collapse" data-target=".coba{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
+        <div>
+          <div ng-repeat="sub in data_trans.sub"  class="collapse coba{{$parent.$index}}" ng-click="pilih(sub)"><a href=""  class="list-group-item">{{sub.nm_jenis_trans}}</a></div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Daftar Jenis Dana Keluar</div>
+    <div class="panel-body">
+
+    </div>
+
+    <!-- List group -->
+    <div class="list-group">
+      <div ng-repeat="data_trans in daftar_trans_keluar track by $index">
+        <a href="" data-toggle="collapse" data-target=".keluar{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
+        <div>
+          <div ng-repeat="sub in data_trans.sub"  class="collapse keluar{{$parent.$index}}" ng-click="pilih(sub)"><a href=""  class="list-group-item">{{sub.nm_jenis_trans}}</a></div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="col-md-9">
+  <div ng-show="jenis_trans_pilih.nm_jenis_trans" class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Detail Jenis Transaksi</div>
+    <div class="panel-body">
+        <div class="col-sm-12">
+          <label class="col-sm-6 control-label">Jenis Transaksi</label>
+          <div class="col-sm-6">
+              {{jenis_trans_pilih.nm_jenis_trans}}
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <label class="col-sm-6 control-label">Jumlah Dana Dianggarkan</label>
+          <div class="col-sm-6">
+              {{jenis_trans_pilih.nominal}}
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <label class="col-sm-6 control-label">Keterangan</label>
+          <div class="col-sm-6">
+              {{jenis_trans_pilih.keterangan}}
+          </div>
+        </div>
+    </div>
+
+
+
+  </div>
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Inputkan Dana </div>
+    <div class="panel-body">
+
+      <form name="form" class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-sm-4 control-label"
+                    for="nominal">Uraian</label>
+          <div class="col-sm-8">
+              <input type="text" ng-model="formtrans.uraian" required class="form-control" value="" placeholder="Uraian"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label"
+                    for="debet">Akun yang didebet</label>
+          <div class="col-sm-8">
+              <select ng-model="formtrans.debet" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+                </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label"
+                    for="kredit">Akun yang dikredit</label>
+          <div class="col-sm-8">
+            <select ng-model="formtrans.kredit" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+              </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label"
+                    for="nominal">Nominal</label>
+          <div class="col-sm-8">
+              <input type="text" name="nominal" ng-model="formtrans.nominal" required class="form-control" placeholder="Nominal"/>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="form.$invalid" type="button" class="btn btn-primary" ng-click="add_transaksi()" name="button">Simpan</button>
+    </div>
+
+  </div>
+  <div class="panel panel-success">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Daftar Transaksi</div>
+    <div class="panel-body table-responsive">
+
+
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Uraian</th>
+            <th>Pencatat</th>
+            <th>Akun</th>
+            <th>Debet</th>
+            <th>Kredit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="transaksi in daftar_transaksi">
+            <td>{{$index+1}}</td>
+            <td>{{transaksi.tanggal}}</td>
+            <td>{{transaksi.uraian}}</td>
+            <td>{{transaksi.pencatat}}</td>
+            <td>{{transaksi.akun}}</td>
+            <td>{{transaksi.debet}}</td>
+            <td>{{transaksi.kredit}}</td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+
+
+</div>

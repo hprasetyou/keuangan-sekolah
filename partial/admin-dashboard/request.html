@@ -1,0 +1,79 @@
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Permintaan Persetujuan Pendaftaran</div>
+    <div class="panel-body">
+    </div>
+
+    <!-- List group -->
+    <ul class="list-group">
+      <li ng-repeat="lstsekolah in sekolah_belum_verifikasi" class="list-group-item"><span class="col-sm-8">{{lstsekolah.group_name}} </span><span class="col-cm-4">
+        <a href="" class="btn btn-success" ng-click="$parent.sekolah=lstsekolah">Detail</a></span></li>
+    </ul>
+  </div>
+
+</div>
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Detail</div>
+    <div class="panel-body">
+      <div class="col-sm-12">
+        <div class="col-sm-5">
+          <label>Nomor Induk</label>
+        </div>
+        <div class="col-sm-7">
+          {{sekolah.group_id}}
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-5">
+          <label>Nama Sekolah</label>
+        </div>
+        <div class="col-sm-7">
+          {{sekolah.group_name}}
+        </div>
+
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-5">
+        <label>Tanggal Pendaftaran</label>
+      </div>
+      <div class="col-sm-7">
+        {{sekolah.createat}}
+      </div>
+      </div>
+
+
+    </div>
+    <div class="panel panel-footer">
+        <a href="" class="btn btn-primary"  data-toggle="modal" data-target="#ModalDetail"  ng-click="verifikasi()">Verifikasi</a>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="ModalDetail" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Detail</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress.value}}%;">
+              <span class="sr-only">60% Complete</span>
+            </div>
+        </div>
+        <ul>
+          <li ng-repeat="detail in progress.detail">{{detail.task}} <span class="glyphicon glyphicon-ok"></span></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="sekolah_belum_verifikasi=[]" ng-disabled="progress.value != 100" data-dismiss="modal">Lanjutkan</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

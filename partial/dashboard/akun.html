@@ -1,0 +1,86 @@
+<h2>Kelola Akun</h2>
+<hr>
+<div class="col-md-6">
+  <select class="" name="">
+    <option value="" ng-click="$parent.jenis_akun_terpilih=''">--select--</option>
+    <option ng-repeat="jenis in jenis_akun" ng-click="$parent.jenis_akun_terpilih=jenis.id" value="{{jenis.id}}">{{jenis.nama}}</option>
+  </select>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nama</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="akun in data_akun | filter:{jenis_akun:jenis_akun_terpilih}" ng-click="$parent.form_akun=akun;$parent.form_akun.id=akun.id_akun; $parent.position=$index; $parent.update=true">
+        <td>{{akun.id_akun}}</td>
+        <td>{{akun.nama_akun}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="col-md-6">
+  <a href="" class="btn btn-success" ng-click="form_akun={}; update=false">Tambah Baru</a>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Detail Jenis Transaksi</div>
+    <div class="panel-body">
+  <form  name="myForm" class="form-horizontal" role="form">
+    <div class="form-group">
+
+      <label class="col-sm-3 control-label"
+                for="nm_anggaran">ID Akun</label>
+      <div class="col-sm-9">
+          <input type="text" ng-model="form_akun.id_akun" required class="form-control" placeholder="ID Akun"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label"
+                for="nm_anggaran">Nama Akun</label>
+      <div class="col-sm-9">
+          <input type="text" ng-model="form_akun.nama_akun" required class="form-control" placeholder="Nama Akun"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"
+                for="nm_anggaran">Jenis Akun</label>
+      <div class="col-sm-9">
+        <select class="" name="" ng-model="form_akun.jenis_akun">
+          <option value="">--select--</option>
+          <option ng-repeat="jenis in jenis_akun" value="{{jenis.id}}">{{jenis.nama}}</option>
+        </select>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="panel-footer">
+  <button ng-show="update==true" ng-click="ubah()" class="btn btn-primary">Ubah</button>
+  <button ng-show="update==true" data-toggle="modal" data-target="#hapusAkun" class="btn btn-danger">Hapus</button>
+  <button ng-hide="update==true" ng-disabled="myForm.$invalid" ng-click="add()" class="btn btn-success">Tambah</button></div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="hapusAkun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi</h4>
+      </div>
+      <div class="modal-body">
+        Hapus Akun?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" ng-click="delete()" data-dismiss="modal">Ya</button>
+      </div>
+    </div>
+  </div>
+</div>

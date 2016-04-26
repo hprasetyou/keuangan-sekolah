@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Semua User</div>
+  <div class="panel-body">
+    <input type="text" ng-model="txtcari" class="form-control" id="txtcari" placeholder="Cari">
+
+
+    <div class="table-responsive" style="height:250px" >
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>NIP</th>
+                    <th>Email</th>
+                    <th>ID Sekolah</th>
+                    <th>Create At</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in alluser | filter:txtcari">
+                    <td>{{user.user_id}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.user_group}}</td>
+                    <td>{{user.create_at}}</td>
+                    <td>{{user.status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+  </div>
+  </div>
+</div>

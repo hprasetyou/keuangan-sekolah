@@ -10,9 +10,9 @@ public $akun_debet;
 public $akun_kredit;
 public $nominal;
 
-   public function __construct($connection){
-      $this->db= $connection;
-   }
+   public function __construct(){
+     $this->db = new \App\Helper\Connection();
+ }
 
    public function post(){
      $this->db->conf['db_name']=$this->dbname;
@@ -49,7 +49,7 @@ public $nominal;
 
     public function sum(){
       $this->db->conf['db_name']=$this->dbname;
-      $condition= "akun ='".$this->find['akun']."' AND tanggal between '".$this->find['tanggal_mulai']."' AND '".$this->find['tanggal_akhir']."'" ;
+      $condition= "akun ='".$this->find['akun']."' AND date_format(waktu,'%Y-%m-%d') between '".$this->find['tanggal_mulai']."' AND '".$this->find['tanggal_akhir']."'" ;
       return $this->db->execute("SELECT (sum(debet)-sum(kredit)) as saldo FROM jurnal where ".$condition);
 
     }
