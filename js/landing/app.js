@@ -135,8 +135,6 @@ $scope.form_register={}
 
 			}]);
 
-
-
 			app.factory("User", ['$http', function($http) {
 			   return {
 			     Daftar: function($params){
