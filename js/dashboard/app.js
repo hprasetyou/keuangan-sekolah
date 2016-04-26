@@ -5,7 +5,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 		$routeProvider
 
 		    // route for the home page
-      .when('/token=:token', {
+      .when('/', {
                 templateUrl : 'partial/dashboard/home.html',
                 controller  : 'home'
       })
