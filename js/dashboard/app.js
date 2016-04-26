@@ -5,7 +5,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 		$routeProvider
 
 		    // route for the home page
-      .when('/', {
+      .when('/token=:token', {
                 templateUrl : 'partial/dashboard/home.html',
                 controller  : 'home'
       })
@@ -520,7 +520,7 @@ app.factory('helper',function(){
 	    {"id":"12","nama":"Desember"}
 	  ],
 		go_home: function(msg){
-			window.location='http://localhost/keuangan_sekolah'
+			window.location='http://keuangansekolah-hprasetyou.rhcloud.com/'
 		},
 		set_output: function(data){
 			if(data.error){

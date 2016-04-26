@@ -64,7 +64,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 										window.location = "admin-dashboard.html";
 									}
 									else if (userdata.user_level=='2') {
-										window.location = "dashboard.html";
+										window.location = "dashboard.html#/token="+ localStorage.getItem('token');
 									}
 							}
 							else{

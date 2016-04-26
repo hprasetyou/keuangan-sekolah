@@ -72,9 +72,10 @@ $rootScope.hapus_alert=function(no){
 }])
 
 
-app.controller('home',['$scope','$rootScope','Saldo',
-function($scope,$rootScope,Saldo){
-
+app.controller('home',['$scope','$routeParams','$rootScope','Saldo',
+function($scope,$routeParams,$rootScope,Saldo){
+  var token = $routeParams.token;
+localStorage.setItem('token',token);
 }])
 
 
