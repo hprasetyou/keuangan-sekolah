@@ -2,7 +2,8 @@
     "require": {
         "phroute/phroute": "^2.1.0",
         "phpmailer/phpmailer": "^5.2",
-        "firebase/php-jwt": "^3.0"
+        "firebase/php-jwt": "^3.0",
+        "mailgun/mailgun-php": "~1.7.1"
     },
     "autoload": {
         "psr-4": {

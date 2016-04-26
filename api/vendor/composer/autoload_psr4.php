@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Phroute\\Phroute\\' => array($vendorDir . '/phroute/phroute/src/Phroute'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'App\\' => array($baseDir . '/src'),

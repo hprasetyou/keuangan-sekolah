@@ -3,7 +3,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); ini_set('display_erro
 require 'vendor/autoload.php';
 
 use Phroute\Phroute\RouteCollector;
-
+  use Mailgun\Mailgun;
 $setting = \App\Helper\Setting::get();
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -40,8 +40,20 @@ $router->filter('auth', function(){
 });
 
 
-$router->get($path.'/',function(){
-    return  $_SERVER['HTTP_TOKEN'];
+$router->post($path.'/',function(){
+
+
+# Instantiate the client.
+$mgClient = new Mailgun('key-2021d35a6fd5c937a7b33dc970ecf7cb');
+$domain = "sandboxe4c8cecc01a3496a9b9689dce398aa4b.mailgun.org";
+
+# Make the call to the client.
+$result = $mgClient->sendMessage("$domain",
+                array('from'    => 'Mailgun Sandbox <postmaster@sandboxe4c8cecc01a3496a9b9689dce398aa4b.mailgun.org>',
+                      'to'      => 'heru prasetyo utomo <hprasetyou@gmail.com>',
+                      'subject' => 'Hello heru prasetyo utomo',
+                      'text'    => 'Congratulations heru prasetyo utomo, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.'));
+
 });
 //==============================================================================
 //================================_USER_ROUTE_==================================
