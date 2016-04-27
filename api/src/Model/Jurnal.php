@@ -12,10 +12,11 @@ public $nominal;
 
    public function __construct(){
      $this->db = new \App\Helper\Connection();
+     $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
  }
 
    public function post(){
-     $this->db->conf['db_name']=$this->dbname;
+
 
      //posting kredit;
      $this->db->insert('jurnal',array(
@@ -36,7 +37,7 @@ public $nominal;
    }
 
    public function show(){
-       $this->db->conf['db_name']=$this->dbname;
+
        $condition = '';
        if(isset($this->find['akun'])){
           $condition .= " akun ='".$this->find['akun']."' AND ";
@@ -47,14 +48,26 @@ public $nominal;
        join tb_transaksi on jurnal.id_transaksi=tb_transaksi.id join akun on jurnal.akun=akun.id_akun where ".$condition."  ORDER BY waktu DESC ".$this->limit);
    }
 
-    public function sum(){
-      $this->db->conf['db_name']=$this->dbname;
-      $condition= "akun ='".$this->find['akun']."' AND date_format(waktu,'%Y-%m-%d') between '".$this->find['tanggal_mulai']."' AND '".$this->find['tanggal_akhir']."'" ;
-      return $this->db->execute("SELECT (sum(debet)-sum(kredit)) as saldo FROM jurnal where ".$condition);
+    public function sum($id,$jenis){
+      $cond = "";
+      if($jenis=='saldo'){
+          $cond=" and not uraian like '%penyesuaian%' ";
+      }else if($jenis=='penyesuaian'){
+        $cond=" and uraian like '%penyesuaian%' ";
+      }else if($jenis=='rl'){
+        $cond=" and jenis_akun in('p','b') ";
+      }else if($jenis=='neraca'){
+        $cond=" and jenis_akun not in('p','b') ";
+      }
+      return $this->db->execute("SELECT case when sum(kredit)-sum(debet) > 0 then sum(kredit)-sum(debet) else 0 end as kredit,
+      case when sum(debet) - sum(kredit) > 0 then sum(debet) - sum(kredit) else 0 end as debet
+
+       FROM `jurnal`  join tb_transaksi on jurnal.id_transaksi= tb_transaksi.id join akun on akun.id_akun = jurnal.akun
+       where akun ='".$id."' ".$cond);
 
     }
     public function sum_per_jenis(){
-      $this->db->conf['db_name']=$this->dbname;
+
       $condition= "jenis_akun ='".$this->find['jenis']."' AND tanggal between '".$this->find['tanggal_mulai']."' AND '".$this->find['tanggal_akhir']."'" ;
       return $this->db->execute("SELECT id_akun,nama_akun,jenis_akun, sum(kredit) as kredit,sum(debet) as debet,
       case
@@ -64,7 +77,6 @@ public $nominal;
         'debet'
         end
         as 'posisi'
-
        FROM `jurnal` JOIN akun on jurnal.akun= akun.id_akun GROUP BY akun");
     }
 

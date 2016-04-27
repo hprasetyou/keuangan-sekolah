@@ -11,7 +11,8 @@ public $find='';
 
     public function __construct(){
 
-          $this->db = new \App\Helper\Connection();
+      $this->db = new \App\Helper\Connection();
+      $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
     }
 
     public function add()
@@ -19,7 +20,7 @@ public $find='';
       date_default_timezone_set('Asia/Jakarta');
       $date = date('Y-m-d H:i:s', time());
 
-      $this->db->conf['db_name']=$this->dbname;
+
       $q=$this->db->insert('people',
       array(
           'id'        =>$this->id,
@@ -31,7 +32,7 @@ public $find='';
     }
 
     public function show(){
-      $this->db->conf['db_name']=$this->dbname;
+
       $condition='';
       $find=$this->find;
       if($this->find=='')

@@ -9,22 +9,17 @@ $setting = \App\Helper\Setting::get();
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-//call action
-$useraction = new \App\Action\User();
-$sekolahaction = new \App\Action\Sekolah();
-$rencana_anggaranaction = new \App\Action\Rencana_anggaran();
-$jenis_transaksiaction = new \App\Action\Jenis_transaksi();
-$transaksiaction = new \App\Action\Transaksi();
-$peopleaction = new \App\Action\People();
-$buku_besaraction = new \App\Action\Buku_besar();
-$akunaction = new \App\Action\Akun();
 
+
+//call action
 
 //deploy!!!!!
 $deploy= new \App\Helper\Deploy();
 
 
 
+  $useraction = new \App\Action\User();
+  $sekolahaction = new \App\Action\Sekolah();
 
 $path= $setting['path'];
 
@@ -33,6 +28,9 @@ $router = new RouteCollector();
 $router->filter('auth', function(){
   $userdata= \App\Helper\Auth::user_data();
   if($userdata->auth==1){
+
+    $akunaction = new \App\Action\Akun();
+
 
   }
   else{
@@ -137,7 +135,8 @@ $router->post($path.'/sekolah/{id}/create_tables', function($id) use($deploy){
 //==============================================================================
 //==========================_RENCANA-ANGGARAN_ROUTE_============================
 //==============================================================================
-$router->get($path.'/rencana_anggaran', function() use($rencana_anggaranaction){
+$router->get($path.'/rencana_anggaran', function(){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
     return  array(
@@ -146,7 +145,8 @@ $router->get($path.'/rencana_anggaran', function() use($rencana_anggaranaction){
     );
 },['before' => 'auth']);
 
-$router->get($path.'/rencana_anggaran/{id}/detail', function($id) use($rencana_anggaranaction){
+$router->get($path.'/rencana_anggaran/{id}/detail', function($id){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -155,7 +155,8 @@ $router->get($path.'/rencana_anggaran/{id}/detail', function($id) use($rencana_a
   );
 },['before' => 'auth']);
 
-$router->get($path.'/rencana_anggaran/tapel={tapel}&jenis={jenis}', function($tapel,$jenis) use($rencana_anggaranaction){
+$router->get($path.'/rencana_anggaran/tapel={tapel}&jenis={jenis}', function($tapel,$jenis){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -164,7 +165,8 @@ $router->get($path.'/rencana_anggaran/tapel={tapel}&jenis={jenis}', function($ta
   );
 },['before' => 'auth']);
 
-$router->post($path.'/rencana_anggaran', function() use($rencana_anggaranaction,$data){
+$router->post($path.'/rencana_anggaran', function() use($data){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -174,7 +176,8 @@ $router->post($path.'/rencana_anggaran', function() use($rencana_anggaranaction,
 },['before' => 'auth']);
 
 
-$router->post($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($jenis_transaksiaction,$data){
+$router->post($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($data){
+    $jenis_transaksiaction = new \App\Action\Jenis_transaksi();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -184,7 +187,8 @@ $router->post($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) us
 },['before' => 'auth']);
 
 
-$router->put($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($rencana_anggaranaction,$data){
+$router->put($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($data){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -194,7 +198,8 @@ $router->put($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use
 },['before' => 'auth']);
 
 
-$router->delete($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($rencana_anggaranaction,$data){
+$router->delete($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) use($data){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -204,8 +209,9 @@ $router->delete($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) 
 },['before' => 'auth']);
 
 
-$router->delete($path.'/rencana_anggaran/{id_anggaran}/{id_jenis}', function($id_anggaran,$id_jenis) use($jenis_transaksiaction,$data){
+$router->delete($path.'/rencana_anggaran/{id_anggaran}/{id_jenis}', function($id_anggaran,$id_jenis) use($data){
     $userdata= \App\Helper\Auth::user_data();
+      $jenis_transaksiaction = new \App\Action\Jenis_transaksi();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
     'response'=>$jenis_transaksiaction->delete(array('id_anggaran'=>$id_anggaran,'id_jenis'=>$id_jenis),$data,$userdata),
@@ -221,7 +227,8 @@ $router->delete($path.'/rencana_anggaran/{id_anggaran}/{id_jenis}', function($id
 //==============================_TRANSAKSI_ROUTE_===============================
 //==============================================================================
 
-$router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transaksi) use($transaksiaction,$data){
+$router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transaksi) use($data){
+  $transaksiaction = new \App\Action\Transaksi();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -238,7 +245,8 @@ $router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transa
 //================================_PEOPLE_ROUTE_================================
 //==============================================================================
 
-$router->post($path.'/people', function() use($peopleaction,$data){
+$router->post($path.'/people', function() use($data){
+  $peopleaction = new \App\Action\People();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -248,7 +256,8 @@ $router->post($path.'/people', function() use($peopleaction,$data){
 },['before' => 'auth']);
 
 
-$router->get($path.'/people', function() use($peopleaction,$data){
+$router->get($path.'/people', function() use($data){
+  $peopleaction = new \App\Action\People();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -258,7 +267,8 @@ $router->get($path.'/people', function() use($peopleaction,$data){
 },['before' => 'auth']);
 
 
-$router->get($path.'/people/{cond}/filter', function($cond) use($peopleaction,$data){
+$router->get($path.'/people/{cond}/filter', function($cond) use($data){
+  $peopleaction = new \App\Action\People();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
@@ -276,7 +286,8 @@ $router->get($path.'/people/{cond}/filter', function($cond) use($peopleaction,$d
 //==============================================================================
 
 $router->get($path.'/buku_besar/jurnal/{akun}/{tanggal_mulai}/{tanggal_akhir}', function($akun,$tanggal_mulai,$tanggal_akhir)
-use($buku_besaraction,$data){
+use($data){
+  $buku_besaraction = new \App\Action\Buku_besar();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
     $args = array('akun'=>$akun,'tanggal_mulai'=>$tanggal_mulai,'tanggal_akhir'=>$tanggal_akhir);
@@ -289,7 +300,8 @@ use($buku_besaraction,$data){
 
 $router->get($path.'/buku_besar/jurnal/{akun}/{tanggal_mulai}/{tanggal_akhir}/{start}-{length}',
 function($akun,$tanggal_mulai,$tanggal_akhir,$start,$length)
-use($buku_besaraction,$data){
+use($data){
+  $buku_besaraction = new \App\Action\Buku_besar();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
     $args =
@@ -307,7 +319,8 @@ use($buku_besaraction,$data){
 
 $router->get($path.'/buku_besar/saldo_per_jenis/{jenis}',
 function($jenis)
-use($buku_besaraction,$data){
+use($data){
+  $buku_besaraction = new \App\Action\Buku_besar();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
     $args =
@@ -324,8 +337,8 @@ use($buku_besaraction,$data){
 //=================================_AKUN_ROUTE_=================================
 //==============================================================================
 $router->get($path.'/akun', function()
-use($akunaction,$data){
-
+use($data){
+$akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
     return array(
@@ -336,8 +349,8 @@ use($akunaction,$data){
 
 
 $router->get($path.'/akun/{cond}', function($cond)
-use($akunaction,$data){
-
+use($data){
+$akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
     return array(
@@ -350,8 +363,8 @@ use($akunaction,$data){
 
 
 $router->post($path.'/akun', function()
-use($akunaction,$data){
-
+use($data){
+$akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
     return array(
@@ -362,8 +375,8 @@ use($akunaction,$data){
 
 
 $router->put($path.'/akun/{id_akun}', function($id_akun)
-use($akunaction,$data){
-
+use($data){
+$akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
     return array(
@@ -373,9 +386,10 @@ use($akunaction,$data){
 },['before' => 'auth']);
 
 
-$router->delete($path.'/akun/{id_akun}', function($id_akun)
-use($akunaction,$data){
 
+$router->delete($path.'/akun/{id_akun}', function($id_akun)
+use($data){
+$akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
     return array(
@@ -385,6 +399,16 @@ use($akunaction,$data){
 },['before' => 'auth']);
 
 
+
+//
+//==============================================================================
+//==============================================================================
+
+
+$router->get($path.'/neraca_lajur', function() use($data){
+  $buku_besaraction = new \App\Action\Buku_besar();
+    return $buku_besaraction->get_neraca_lajur('','','');
+},['before' => 'auth']);
 
 
 //

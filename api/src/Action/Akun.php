@@ -13,7 +13,7 @@ class Akun{
   {
     //get user data
     //get user group
-    $this->akunmodel->dbname= 'KSAAS_'.$userdata->user_group;
+    
     if (array_key_exists('cond',$args)){
       $all_cond=explode('&',$args['cond']);
       $newcondition= array();
@@ -30,7 +30,7 @@ class Akun{
   function update($args,$data,$userdata){
     //get user data
     //get user group
-    $this->akunmodel->dbname= 'KSAAS_'.$userdata->user_group;
+
 
     //retreive information from request
     $request=$data;
@@ -48,7 +48,7 @@ class Akun{
 
   function add($args,$data,$userdata){
     //get user group
-    $this->akunmodel->dbname= 'KSAAS_'.$userdata->user_group;
+
 
     //retreive information from request
     $request=$data;
@@ -63,7 +63,7 @@ class Akun{
 
   function delete($args,$data,$userdata){
     //get user group
-    $this->akunmodel->dbname= 'KSAAS_'.$userdata->user_group;
+
 
     $this->akunmodel->find=array('id_akun'=>$args['id_akun']);
     $this->akunmodel->delete();

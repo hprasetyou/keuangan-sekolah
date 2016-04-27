@@ -9,13 +9,12 @@ class Rencana_anggaran{
   }
 
   public function tampil($args,$data,$userdata){
-          $this->rencana_anggaranmodel->dbname = 'KSAAS_'.$userdata->user_group;
           return $this->rencana_anggaranmodel->show()->data;
   }
 
 
   function detail($args,$data,$userdata){
-          $this->rencana_anggaranmodel->dbname = 'KSAAS_'.$userdata->user_group;
+          
           $this->jenis_transaksimodel->dbname = 'KSAAS_'.$userdata->user_group;
 
           //get rencana anggaran where id defined = params
@@ -58,7 +57,7 @@ class Rencana_anggaran{
   }
 
   function cari($args,$data,$userdata){
-          $this->rencana_anggaranmodel->dbname = 'KSAAS_'.$userdata->user_group;
+
           $this->jenis_transaksimodel->dbname = 'KSAAS_'.$userdata->user_group;
 
     //get rencana anggaran where id defined = params
@@ -113,7 +112,7 @@ class Rencana_anggaran{
   }
 
   function update($args,$data,$userdata){
-        $this->rencana_anggaranmodel->dbname = 'KSAAS_'.$userdata->user_group;
+
 
         $this->rencana_anggaranmodel->find = array(
             'id' => $args['id_anggaran']
@@ -124,7 +123,7 @@ class Rencana_anggaran{
   }
 
   function delete($args,$data,$userdata){
-    $this->rencana_anggaranmodel->dbname = 'KSAAS_'.$userdata->user_group;
+
 
     $this->rencana_anggaranmodel->id= $args['id_anggaran'];
 

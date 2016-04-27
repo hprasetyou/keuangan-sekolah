@@ -14,11 +14,12 @@ public $db;
 
   public function __construct(){
     $this->db = new \App\Helper\Connection();
+    $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
   }
 
   public function show()
   {
-      $this->db->conf['db_name']=$this->dbname;
+
       $condition='';
       if (is_array($this->find)){
         foreach ($this->find as $key => $value) {
@@ -31,7 +32,7 @@ public $db;
   }
   public function update($data)
   {
-    $this->db->conf['db_name']=$this->dbname;
+
     $condition='';
     if (is_array($this->find)){
       foreach ($this->find as $key => $value) {
@@ -52,7 +53,7 @@ public $db;
     $this->db->execute($sql." where ".$condition);
   }
   function add(){
-    $this->db->conf['db_name']=$this->dbname;
+
     $this->db->insert('akun',array(
         'id_akun'     =>$this->id_akun,
         'nama_akun'   =>$this->nama_akun,
@@ -61,7 +62,7 @@ public $db;
     );
   }
   function delete(){
-      $this->db->conf['db_name']=$this->dbname;
+
       $condition='';
       if (is_array($this->find)){
         foreach ($this->find as $key => $value) {

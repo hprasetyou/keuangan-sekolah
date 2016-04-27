@@ -14,10 +14,11 @@ class Transaksi{
 
   public function __construct(){
     $this->db = new \App\Helper\Connection();
+    $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
 }
 
   public function add(){
-    $this->db->conf['db_name']=$this->dbname;
+    
     date_default_timezone_set('Asia/Jakarta');
     $date = date('Y-m-d H:i:s', time());
     $this->db->insert('tb_transaksi',array(

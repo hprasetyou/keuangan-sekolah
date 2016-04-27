@@ -12,20 +12,20 @@ class Jenis_transaksi{
         $id='J-'.substr(md5(uniqid()),0,5);
         $id_jenis=$id;
 
-        $request=$data;
         $this->jenis_transaksimodel->id                =  $id_jenis;
-        $this->jenis_transaksimodel->nm_jenis_trans    =  $request['nm_jenis_trans'];
+        $this->jenis_transaksimodel->nm_jenis_trans    =  $data['nm_jenis_trans'];
         $this->jenis_transaksimodel->rencana_anggaran  =  $args['id_anggaran'];
         $this->jenis_transaksimodel->sumber_dana       =  '';
         $this->jenis_transaksimodel->parent            =  'root';
         $this->jenis_transaksimodel->nominal           =  '0';
         $this->jenis_transaksimodel->extra             = '';
+        $this->jenis_transaksimodel->jenis_trans       = $data['jenis_trans'];
         $this->jenis_transaksimodel->add();
 
-        if(is_array($request['sub'])){
+        if(is_array($data['sub'])){
 
                   $i=0;
-                  foreach ($request['sub'] as $subjenis) {
+                  foreach ($data['sub'] as $subjenis) {
                      $this->jenis_transaksimodel->id                =  $id_jenis.'-'.$i;
                      $this->jenis_transaksimodel->nm_jenis_trans    =  $subjenis['nm_jenis_trans'];
                      $this->jenis_transaksimodel->rencana_anggaran  =  $args['id_anggaran'];
@@ -34,13 +34,14 @@ class Jenis_transaksi{
                      $this->jenis_transaksimodel->nominal           =  $subjenis['nominal'];
                      $this->jenis_transaksimodel->extra             = '{"debet":"'.$subjenis['debet'].'","kredit":"'.$subjenis['kredit'].'"}';
                      $this->jenis_transaksimodel->keterangan        =  $subjenis['keterangan'];
+                     $this->jenis_transaksimodel->jenis_trans       = $data['jenis_trans'];
                      $this->jenis_transaksimodel->add();
                      $i++;
                   }
 
         }
 
-        return array('status'=>'ok','jenis'=>$request['jenis_trans']);
+        return array('status'=>'ok','jenis'=>$data['jenis_trans']);
 
   }
 

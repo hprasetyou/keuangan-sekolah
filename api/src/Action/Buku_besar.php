@@ -6,6 +6,7 @@ class Buku_besar{
       function __construct()
       {
         $this->jurnalmodel= new \App\Model\Jurnal();
+        $this->akunmodel = new \App\Model\Akun();
       }
 
 
@@ -18,7 +19,7 @@ class Buku_besar{
 
 
     //get user group
-    $this->jurnalmodel->dbname= 'KSAAS_'.$userdata->user_group;
+
 
     $this->jurnalmodel->find= array(
       'tanggal_mulai' => $args['tanggal_mulai'],
@@ -44,25 +45,11 @@ class Buku_besar{
 
     }
 
-    function saldo($args,$data,$userdata){
-
-      //get user group
-      $this->jurnalmodel->dbname= 'KSAAS_'.$userdata->user_group;
-      $this->jurnalmodel->find= array(
-              'akun'          => $args['akun'],
-              'tanggal_mulai' => '2014-01-01',
-              'tanggal_akhir' => date('Y-m-d')
-            );
-
-      return $this->jurnalmodel->sum()->data;
-
-
-    }
 
     function saldo_per_jenis($args,$data,$userdata){
 
       //get user group
-      $this->jurnalmodel->dbname= 'KSAAS_'.$userdata->user_group;
+
 
       $this->jurnalmodel->find= array(
         'jenis'          => $args['jenis'],
@@ -72,5 +59,22 @@ class Buku_besar{
 
       return $this->jurnalmodel->sum_per_jenis()->data;
 
+    }
+
+    function get_neraca_lajur($args,$data,$userdata){
+      //get user group
+      $output= array();
+      $i=0;
+        foreach ($this->akunmodel->show()->data as $dataakun) {
+          # code...
+          $output[$i]['id_akun']=$dataakun->id_akun;
+          $output[$i]['nama_akun']=$dataakun->nama_akun;
+          $output[$i]['saldo']=$this->jurnalmodel->sum($dataakun->id_akun,'saldo')->data[0];
+          $output[$i]['penyesuaian']=$this->jurnalmodel->sum($dataakun->id_akun,'penyesuaian')->data[0];
+          $output[$i]['rl']=$this->jurnalmodel->sum($dataakun->id_akun,'rl')->data[0];
+          $output[$i]['neraca']=$this->jurnalmodel->sum($dataakun->id_akun,'neraca')->data[0];
+          $i++;
+        }
+        return $output;
     }
 }

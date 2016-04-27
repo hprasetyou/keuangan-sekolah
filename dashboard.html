@@ -92,7 +92,7 @@
             <li ng-show="userdata.privilege[1]=='1'"><a href=""data-toggle="collapse" data-target=".dana" ><span class="glyphicon glyphicon-piggy-bank"></span> Kelola Dana</a>
                 <ul class="collapse nav nav-sidebar dana">
                   <li ng-class="menu[3]" class="col-sm-offset-1"><a ng-click="menu='';menu[3]='active'" href="#/transaksi"><span class="glyphicon glyphicon-arrow-right"></span> Input Dana Masuk / Keluar</a></li>
-                  <li ng-class="menu[4]" class="col-sm-offset-1"><a ng-click="menu='';menu[4]='active'" href="#/jurnal_penyesuaian"><span class="glyphicon glyphicon-saved"></span> Jurnal Penyesuaian</a></li>
+                  <li ng-class="menu[4]" class="col-sm-offset-1"><a ng-click="menu='';menu[4]='active'" href="#/jurnal_penyesuaian"><span class="glyphicon glyphicon-saved"></span> Entri Jurnal</a></li>
                   <li ng-class="menu[5]" class="col-sm-offset-1"><a ng-click="menu='';menu[5]='active'" href="#/depresiasi"><span class=" glyphicon glyphicon-ice-lolly-tasted"></span> Depresiasi</a></li>
                 </ul>
             </li>
@@ -111,39 +111,11 @@
           </ul>
         </div>
         <div class="col-md-10 col-md-offset-2 " style="margin-top:10px;padding:0">
-          <div style="margin-bottom:10%; margin-top:1%" ng-controller="home" class="col-md-9" style="padding:0">
+
+          <div style="margin-bottom:10%; margin-top:1%" ng-controller="home"  class="col-md-12" style="padding:0">
             <div ng-view></div>
           </div>
 
-          <div class="col-md-3">
-            {{Dt.d +'-' + Dt.m +'-'+ Dt.y }}
-
-              <div class="panel panel-default">
-                <!-- Default panel contents -->
-              <div class="panel-heading">Saldo</div>
-
-                  <table class="table table-striped">
-                      <thead>
-                          <tr>
-                              <th>Nama Akun</th>
-                              <th>Saldo</th>
-                          </tr>
-                      </thead>
-                    <tbody ng-repeat="jenis in Jenis_akun">
-                          <tr>
-                            <td colspan="2"><h5>{{jenis.nama}}</h5></td>
-                          </tr>
-                          <tr style="font-size:12px" ng-repeat="lstsaldo in datasaldo | filter :{jenis_akun:jenis.id}">
-                              <td>{{lstsaldo.nama_akun}}</td>
-                              <td style="text-align:right">Rp. {{lstsaldo.saldo}},00-</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-
-
-
-          </div>
           </div>
 
     </div>

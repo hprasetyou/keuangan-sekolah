@@ -19,10 +19,11 @@ class Jenis_transaksi{
 
     public function __construct(){
       $this->db = new \App\Helper\Connection();
+      $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
   }
 
     public function add(){
-        $this->db->conf['db_name']=$this->dbname;
+
         $q=$this->db->insert('jenis_transaksi',
         array(
           'id'                => $this->id,
@@ -37,7 +38,7 @@ class Jenis_transaksi{
 
     }
     public function show(){
-        $this->db->conf['db_name']=$this->dbname;
+
         $condition='';
         foreach ($this->find as $key => $value) {
           $condition .= $key."='".$value."' AND ";
@@ -47,7 +48,7 @@ class Jenis_transaksi{
 
     }
     public function sum(){
-      $this->db->conf['db_name']=$this->dbname;
+
       $condition='';
       foreach ($this->find as $key => $value) {
         $condition .= $key."='".$value."' AND ";
@@ -58,7 +59,7 @@ class Jenis_transaksi{
     }
 
     public function delete(){
-        $this->db->conf['db_name']=$this->dbname;
+
         $condition='';
         foreach ($this->find as $key => $value) {
           $condition .= $key."='".$value."' AND ";

@@ -542,6 +542,7 @@ function($scope,jurnal,helper,akun){
 app.controller('neraca',['$scope','Saldo','helper','$rootScope',
 function($scope,Saldo,helper,$rootScope){
   $scope.tanggal= (new Date).toLocaleFormat("%A, %e %B, %Y");
+  $rootScope.full =true;
     Saldo.Show().then(function(output){
       $scope.daftar_saldo=output
 

@@ -12,10 +12,11 @@ class Rencana_anggaran{
 
     function __construct(){
         $this->db = new \App\Helper\Connection();
+        $this->db->conf['db_name']="KSAAS_". \App\Helper\Auth::user_data()->user_group;
     }
 
     function show(){
-        $this->db->conf['db_name']=$this->dbname;
+
         $condition='';
         foreach ($this->find as $key => $value) {
           $condition .= $key."='".$value."' AND ";
@@ -25,7 +26,6 @@ class Rencana_anggaran{
     }
 
     function update($data){
-      $this->db->conf['db_name']=$this->dbname;
       $condition='';
       foreach ($this->find as $key => $value) {
         $condition .= $key."='".$value."' AND ";
@@ -35,7 +35,6 @@ class Rencana_anggaran{
       return $this->db->update('rencana_anggaran',$data);
     }
     function add(){
-      $this->db->conf['db_name']=$this->dbname;
       $data=array(
         'id'            =>$this->id,
         'nm_anggaran'   =>$this->nm_anggaran,
@@ -47,7 +46,6 @@ class Rencana_anggaran{
 
     function delete(){
 
-        $this->db->conf['db_name']=$this->dbname;
         $this->db->condition="id='".$this->id."'";
         return $this->db->delete('rencana_anggaran');
     }

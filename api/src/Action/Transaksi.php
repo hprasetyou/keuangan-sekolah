@@ -11,10 +11,10 @@ class Transaksi{
 
   function add($args,$data,$userdata)
   {
-      $this->transaksimodel->dbname= 'KSAAS_'.$userdata->user_group;
-      $this->jurnalmodel->dbname= 'KSAAS_'.$userdata->user_group;
+      
 
-    
+
+
       $new_id = uniqid();
       //set properties for new transaksi
       $this->transaksimodel->id_transaksi       = $new_id;
