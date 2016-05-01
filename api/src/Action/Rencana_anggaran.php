@@ -14,7 +14,7 @@ class Rencana_anggaran{
 
 
   function detail($args,$data,$userdata){
-          
+
           $this->jenis_transaksimodel->dbname = 'KSAAS_'.$userdata->user_group;
 
           //get rencana anggaran where id defined = params
@@ -30,6 +30,7 @@ class Rencana_anggaran{
           //filter kolom
           $this->jenis_transaksimodel->filter='id,nm_jenis_trans';
           //get member of selected rencana anggaran
+          //jenis transaksi kategori root
           $this->jenis_transaksimodel->find=array(
             'rencana_anggaran'  => $args['id'],
             'parent'            => 'root',
@@ -39,13 +40,25 @@ class Rencana_anggaran{
           $jenis_transaksi=$this->jenis_transaksimodel->show()->data;
           $data->$value=$jenis_transaksi;
           $i=0;
+          //cari member jenis transaksi
           foreach ($jenis_transaksi as $transaksi) {
-            $this->jenis_transaksimodel->filter='id,nm_jenis_trans,nominal,keterangan';
+            $this->jenis_transaksimodel->filter='id,nm_jenis_trans,nominal,keterangan,extra';
 
               $this->jenis_transaksimodel->find=array(
                 'parent'            => $transaksi->id
               );
-            $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
+              //memanggil array member transaksi
+              $j=0;
+              foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
+                # code...
+                $extra = $data_member->extra;
+                $data->$value[$i]->sub[$j]=$data_member;
+                $data->$value[$i]->sub[$j]->debet=json_decode($extra)->debet;
+                $data->$value[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+                $j++;
+              }
+          //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
+
             $data->$value[$i]->jml=$this->jenis_transaksimodel->sum();
 
             $i++;

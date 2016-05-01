@@ -52,6 +52,15 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 								controller	:	'penyesuaian'
 			})
 
+			.when('/neraca_lajur',{
+								templateUrl	:	'partial/dashboard/neraca_lajur.html',
+								controller	:	'neraca_lajur'
+			})
+
+			.when('/setting',{
+								templateUrl	:	'partial/dashboard/setting.html',
+								controller	:	'setting'
+			})
 
 
 	}]);
@@ -72,6 +81,23 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
           },
          method:	'GET',
          url:'api/index.php/buku_besar/saldo_per_jenis/a'
+       }).then(function(response){
+				 if(response.data.error){
+ 						helper.go_home()
+ 					}
+					else{
+						return helper.set_output(response.data)
+			 		}
+       })
+     },
+		 Neraca_lajur: function(){
+       return $http({
+         headers: {
+          'token':  localStorage.getItem('token'),
+					'Content-Type':'application/json'
+          },
+         method:	'GET',
+         url:'api/index.php/neraca_lajur'
        }).then(function(response){
 				 if(response.data.error){
  						helper.go_home()
@@ -104,6 +130,31 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
 
 
 	    }]);
+
+
+			app.factory("User", ['$http', function($http) {
+			   return {
+			     Detail: function($params){
+			       return $http({
+				         method:	'GET',
+			         url:'api/index.php/user/'+$params.id,
+			         header:{'Content-Type':'application/json'}
+			       }).then(function(response){
+			         return response.data;
+			       })
+					 },
+						Update: function($params){
+				       return $http({
+					         method:	'PUT',
+				         url:'api/index.php/user/'+$params.user_id,
+				         header:{'Content-Type':'application/json'},
+				         data: $params
+				       }).then(function(response){
+				         return response.data;
+				       })
+			     }
+		    }
+			}]);
    //======================================================================//
    //_____________________TAPEL_-_FACTORY__________________________________//
    //======================================================================//
@@ -179,6 +230,17 @@ app.factory('ra',['$http','helper',function($http,helper){
 				 },
 				method:	'GET',
 				url:'api/index.php/rencana_anggaran/'+ id +'/detail'
+			}).then(function(response){
+				return helper.set_output(response.data)
+			})
+		},
+		Delete: function($params){
+			return $http({
+				headers: {
+				 token:  localStorage.getItem('token')
+				 },
+				method:	'DELETE',
+				url:'api/index.php/rencana_anggaran/'+ $params.id +'/'+$params.id_jenis
 			}).then(function(response){
 				return helper.set_output(response.data)
 			})

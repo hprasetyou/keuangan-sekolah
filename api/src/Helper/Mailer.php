@@ -27,7 +27,32 @@ function __construct(){
 
           $mail->Subject = $subject;
 
-          $mail->Body    = $body;
+          $mail->Body  = '
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+            <title>Document</title>
+          </head>
+          <body>
+          <div class="container">
+            <div class="page-header">
+                <h1>'.$body['msgtitle'].'</h1>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    '.$body['msgbody'].'
+                </div>
+            </div>
+            <hr>
+            <small>Sistem Pengelolaan Keuangan Sekolah</small>
+          </div>
+          </body>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+          </html>
+
+          ';
 
           $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
@@ -39,5 +64,6 @@ function __construct(){
 
           return $output;
     }
+
 
 }

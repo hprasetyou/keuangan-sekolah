@@ -406,8 +406,12 @@ $akunaction = new \App\Action\Akun();
 
 
 $router->get($path.'/neraca_lajur', function() use($data){
+      $newtoken = \App\Helper\Auth::reset_timeout();
   $buku_besaraction = new \App\Action\Buku_besar();
-    return $buku_besaraction->get_neraca_lajur('','','');
+    return array(
+    'response'=> $buku_besaraction->get_neraca_lajur('','',''),
+    'token'=>$newtoken
+  );
 },['before' => 'auth']);
 
 

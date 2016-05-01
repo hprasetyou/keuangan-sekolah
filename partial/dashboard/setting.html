@@ -1,0 +1,61 @@
+<div class="page-header">
+  <h2>Pengaturan</h2>
+</div>
+
+<!-- Tampilan -->
+<div class="panel panel-primary">
+  <div class="panel-heading">Pengaturan Tampilan</div>
+  <div class="panel-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">Tema</div>
+      <div class="panel-body">
+        <div class="col-sm-3">  <label class=" control-label" for="" >Pilih Tema</label></div>
+        <div class="col-sm-9"><select  class="form-control"  name="" ng-model="theme"  ng-options="item for item in lsttheme">  </select></div>
+
+
+      </div>
+      <div class="panel-footer"><button ng-click="pilih_tema()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
+    </div>
+  </div>
+
+</div>
+<!-- Pengaturan User -->
+<div class="panel panel-primary">
+  <div class="panel-heading">Pengaturan User</div>
+  <div class="panel-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">Ubah Password</div>
+      <div class="panel-body">
+        <div class="col-sm-3"><label class=" control-label" for="" >Password Lama</label></div>
+        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+        <div class="col-sm-3"><label class=" control-label" for="" >Password Baru</label></div>
+        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+        <div class="col-sm-3"><label class=" control-label" for="" >Ulangi Password</label></div>
+        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+
+
+
+      </div>
+      <div class="panel-footer"><button ng-click="pilih_tema()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Email</div>
+      <div class="panel-body">
+        <div class="col-sm-3"><label class=" control-label" for="" >Password Lama</label></div>
+        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+
+      </div>
+      <div class="panel-footer"><button ng-click="pilih_tema()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Hapus User</div>
+      <div class="panel-body">
+        <div class="col-sm-3"><label class=" control-label" for="" >Password Lama</label></div>
+        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+
+      </div>
+      <div class="panel-footer"><button ng-click="pilih_tema()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
+    </div>
+  </div>
+
+</div>

@@ -13,6 +13,7 @@
 
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/theme/{{theme}}/theme.min.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
 <style media="screen">
 
@@ -27,9 +28,6 @@
   margin-top: 75px;
   z-index: 9999;
   text-align: center;
-}
-.panel, .form-control, .btn {
-  border-radius: 0px;
 }
 .numerik{
   text-align:right
@@ -93,7 +91,7 @@
                 <ul class="collapse nav nav-sidebar dana">
                   <li ng-class="menu[3]" class="col-sm-offset-1"><a ng-click="menu='';menu[3]='active'" href="#/transaksi"><span class="glyphicon glyphicon-arrow-right"></span> Input Dana Masuk / Keluar</a></li>
                   <li ng-class="menu[4]" class="col-sm-offset-1"><a ng-click="menu='';menu[4]='active'" href="#/jurnal_penyesuaian"><span class="glyphicon glyphicon-saved"></span> Entri Jurnal</a></li>
-                  <li ng-class="menu[5]" class="col-sm-offset-1"><a ng-click="menu='';menu[5]='active'" href="#/depresiasi"><span class=" glyphicon glyphicon-ice-lolly-tasted"></span> Depresiasi</a></li>
+                  <li ng-class="menu[6]" class="col-sm-offset-1"><a ng-click="menu='';menu[6]='active'" href="#/tutup_buku"><span class="glyphicon glyphicon-file"></span> Tutup Buku</a></li>
                 </ul>
             </li>
             <li>
@@ -102,11 +100,13 @@
                 <li ng-class="menu[9]" class="col-sm-offset-1"><a ng-click="menu='';menu[9]='active'" href="#/jurnal"><span class="glyphicon glyphicon-book"></span> Jurnal</a></li>
                 <li ng-class="menu[10]" class="col-sm-offset-1"><a ng-click="menu='';menu[10]='active'" href="#/buku-besar"><span class="glyphicon glyphicon-book"></span> Buku Besar</a></li>
                 <li ng-class="menu[11]" class="col-sm-offset-1"><a ng-click="menu='';menu[11]='active'" href="#/neraca"><span class="glyphicon glyphicon-book"></span> Neraca</a></li>
+                <li ng-class="menu[12]" class="col-sm-offset-1"><a ng-click="menu='';menu[12]='active'" href="#/neraca_lajur"><span class="glyphicon glyphicon-book"></span> Neraca Lajur</a></li>
               </ul>
           </li>
 
           <li ng-class="menu[7]" ng-show="userdata.privilege[2]=='1'"><a ng-click="menu='';menu[7]='active'" href="#/kelola-akun"><span class="glyphicon glyphicon-usd"></span> Kelola Akun/Pos</a></li>
           <li ng-class="menu[8]" ng-show="userdata.privilege[3]=='1'"><a ng-click="menu='';menu[8]='active'" href="#/lst_user"><span class="glyphicon glyphicon-user"></span> Kelola Pengguna</a></li>
+          <li ng-class="menu[13]" ng-show="userdata.privilege[3]=='1'"><a ng-click="menu='';menu[13]='active'" href="#/setting"><span class="glyphicon glyphicon-cog"></span> Pengaturan</a></li>
 
           </ul>
         </div>

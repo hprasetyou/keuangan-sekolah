@@ -23,7 +23,7 @@ class User{
         $condition .= $key."='".$value."' AND ";
       }}
       $condition .= '1';
-      $q=$this->db->execute("select `user_id`, `email`,  `user_group`, `create_at`, `user_level`, `privilege`, `status` from user where ".$condition);
+      $q=$this->db->execute("select `user_id`, `email`,  display_name,phone,bio, `user_group`, `create_at`, `user_level`, `privilege`, `status` from user where ".$condition);
       return $q;
     }
     public function detail(){

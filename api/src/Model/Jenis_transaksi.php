@@ -65,7 +65,7 @@ class Jenis_transaksi{
           $condition .= $key."='".$value."' AND ";
         }
         $condition .= '1';
-        return $this->db->execute('delete from jenis_transaksi where '.$condition);
+        return $this->db->execute("delete from jenis_transaksi where ".$condition." or parent = '".$this->find['id']."'");
 
     }
 

@@ -1,9 +1,10 @@
 
 
-app.run(['$rootScope','Saldo','userdata','people','User_group','akun',
-function($rootScope,Saldo,userdata,people,User_group,akun){
+app.run(['$rootScope','Saldo','userdata','User','User_group','akun',
+function($rootScope,Saldo,userdata,User,User_group,akun){
 userdata.cekAuth()
 console.log(userdata.token);
+$rootScope.theme = localStorage.getItem('theme');
 
     $rootScope.Jenis_akun=akun.Jenis
     $rootScope.tampil_saldo= function(){
@@ -19,7 +20,6 @@ console.log(userdata.token);
       }
       })
     }
-    $rootScope.tampil_saldo()
 
       var today = new Date();
       var dd = today.getDate();
@@ -43,8 +43,10 @@ console.log(userdata.token);
   userdata.Get().then(function(response){
   $rootScope.userdata=response
   $rootScope.userdata.privilege=$rootScope.userdata.user_privilege.split("");
-  people.Detail({'id':response.user_id}).then(function(res){
-    $rootScope.userdata.nama = res.data[0].nama
+  User.Detail({'id':response.user_id}).then(function(res){
+    $rootScope.userdata.display_name = res.display_name
+    $rootScope.userdata.phone = res.phone
+    console.log(res);
     })
 
   User_group.Detail(response).then(function(group_res){
@@ -133,6 +135,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 
       //tambah jenis transaksi
         $scope.add_jenis_trans= function(mk){
+          $scope.hapus_jenis_anggaran();
           var data = {
             nm_jenis_trans: $scope.ra_trans.nm_jenis_trans,
             sumber_dana: $scope.ra_trans.sumber_dana,
@@ -218,6 +221,22 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
       akun.Get().then(function(response){
         $scope.data_akun= response.data
       })
+
+
+
+      $scope.hapus_jenis_anggaran = function(){
+        ra.Delete({id:$scope.ra_pilih.id,id_jenis:$scope.idhapus}).then(function(response){
+          $rootScope.addalert('success','Data terhapus');
+          if($scope.jenishapus=='m'){
+            $scope.detail_ra.jenis_trans_masuk.splice($scope.indexhapus,1);
+          }else{
+            $scope.detail_ra.jenis_trans_keluar.splice($scope.indexhapus,1);
+          }
+        })
+      }
+
+
+
 }])
 
 
@@ -235,8 +254,8 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 //===========_____=======____===================================================================
 //==============================================================================================
 
-app.controller('transaksi',['$scope','$rootScope','ra','$routeParams','akun','userdata','tapelService','people','jurnal',
-function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,people,jurnal){
+app.controller('transaksi',['$scope','$rootScope','ra','$routeParams','akun','userdata','tapelService','jurnal',
+function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
     $scope.jenis_input_trans=$routeParams.jenis
 
     jurnal.Get_per_page({
@@ -273,9 +292,6 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,people,jur
 
     }
 
-    people.Get().then(function(response){
-      $scope.people=response.data;
-    })
 
     akun.Get().then(function(response){
       $scope.data_akun= response.data
@@ -354,23 +370,7 @@ app.controller('akun',['$scope','akun','$rootScope',
 //===========================================================
 //===========================================================
 
-app.controller('people',['$scope','people','$rootScope',
-function($scope,people,$rootScope){
 
-    people.Get().then(function(response){
-        $scope.people = response.data;
-    })
-
-    $scope.add = function(){
-      people.Add($scope.detail).then(function(response){
-        $rootScope.addalert('success','Data Ditambahkan');
-        $scope.people.push($scope.detail)
-        $scope.detail={}
-      })
-
-    }
-
-}])
 
 
 
@@ -385,23 +385,18 @@ function($scope,people,$rootScope){
 //===========================================================
 //===========================================================
 
-app.controller('profil',['$scope','people','$rootScope',
-function($scope,people,$rootScope){
+app.controller('profil',['$scope','User','$rootScope',
+function($scope,User,$rootScope){
   $scope.form_userdata= $rootScope.userdata;
   $scope.form_userdata.id = $rootScope.userdata.user_id;
 
   $scope.save= function(){
-    people.Detail({'id':$scope.form_userdata.user_id}).then(function(res){
-      if(res.num_rows>0){
-      }
-      else{
-        people.Add($scope.form_userdata).then(function(response){
-          $rootScope.addalert('success','Profil disimpan');
-
-        })
-      }
-
-    })
+      User.Update({user_id:$scope.form_userdata.id,
+        display_name: $scope.form_userdata.display_name,
+         phone: $scope.form_userdata.phone}).then(function(response){
+        $rootScope.addalert('success','Data Diubah');
+        console.log(response);
+      })
   }
 }])
 
@@ -580,6 +575,17 @@ function($scope,Saldo,helper,$rootScope){
 }])
 
 
+//============================================================================
+//============================================================================
+//============================================================================
+//============================================================================
+
+app.controller('neraca_lajur',['$scope','Saldo','helper','$rootScope',
+function($scope,Saldo,helper,$rootScope){
+  Saldo.Neraca_lajur().then(function(response){
+    $scope.data_neraca_lajur = response;
+  })
+}])
 
 //============================================================================
 //============================================================================
@@ -672,4 +678,21 @@ function($rootScope,$scope,akun,jurnal){
   }
 
 
+}])
+
+
+//============================================================================
+//============================================================================
+//============================================================================
+//============================================================================
+
+app.controller('setting',['$scope','$rootScope',
+function($scope,$rootScope){
+//  localStorage.setItem('theme')
+  $scope.theme=localStorage.getItem('theme');
+  $scope.pilih_tema = function(){
+    localStorage.setItem('theme',$scope.theme);
+    $rootScope.theme=$scope.theme;
+  }
+  $scope.lsttheme = ['brave','calm','darkly','metro','simplex','sweet','unity','yeti'];
 }])
