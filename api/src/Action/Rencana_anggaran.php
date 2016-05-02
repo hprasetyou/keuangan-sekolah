@@ -66,7 +66,7 @@ class Rencana_anggaran{
 
         }
 
-            return $this->rencana_anggaranmodel->show()->data;
+            return $data_anggaran;
   }
 
   function cari($args,$data,$userdata){
