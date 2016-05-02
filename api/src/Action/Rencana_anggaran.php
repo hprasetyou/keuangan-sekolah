@@ -9,7 +9,7 @@ class Rencana_anggaran{
   }
 
   public function tampil($args,$data,$userdata){
-          return $this->rencana_anggaranmodel->show()->data;
+          return $this->rencana_anggaranmodel->show()->data[0];
   }
 
 
