@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); ini_set('display_errors','On');
-//error_reporting(0);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); ini_set('display_errors','On');
+error_reporting(0);
 require 'vendor/autoload.php';
 
 use Phroute\Phroute\RouteCollector;
@@ -452,6 +452,7 @@ $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
 
 $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-//header('Content-Type: application/json');
+header('Content-Type: application/json');
 // Print out the value returned from the dispatched function
-print_r($response);
+
+echo json_encode($response);
