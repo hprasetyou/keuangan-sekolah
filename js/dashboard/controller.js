@@ -582,8 +582,60 @@ function($scope,Saldo,helper,$rootScope){
 
 app.controller('neraca_lajur',['$scope','Saldo','helper','$rootScope',
 function($scope,Saldo,helper,$rootScope){
+    $scope.jumlah={
+      saldo:{
+        debet:0,
+        kredit:0},
+      penyesuaian:{
+        debet:0,
+        kredit:0},
+      rl:{
+        debet:0,
+        kredit:0},
+      neraca:{
+        debet:0,
+        kredit:0}
+    };
   Saldo.Neraca_lajur().then(function(response){
     $scope.data_neraca_lajur = response;
+    for(var i = 0 ; i < response.length; i++){
+      $scope.jumlah.saldo.debet += $scope.data_neraca_lajur[i].saldo.debet*1;
+      $scope.jumlah.saldo.kredit += $scope.data_neraca_lajur[i].saldo.kredit*1;
+      $scope.jumlah.penyesuaian.debet += $scope.data_neraca_lajur[i].penyesuaian.debet*1;
+      $scope.jumlah.penyesuaian.kredit += $scope.data_neraca_lajur[i].penyesuaian.kredit*1;
+      $scope.jumlah.rl.debet += $scope.data_neraca_lajur[i].rl.debet*1;
+      $scope.jumlah.rl.kredit += $scope.data_neraca_lajur[i].rl.kredit*1;
+      $scope.jumlah.neraca.debet += $scope.data_neraca_lajur[i].neraca.debet*1;
+      $scope.jumlah.neraca.kredit += $scope.data_neraca_lajur[i].neraca.kredit*1;
+    }
+    $scope.rl={}
+    $scope.rlneraca={}
+    if($scope.jumlah.rl.debet-$scope.jumlah.rl.kredit > 0){
+        $scope.rl.debet = $scope.jumlah.rl.debet-$scope.jumlah.rl.kredit;
+    }else{
+      $scope.rl.debet = 0;
+    }
+    if($scope.jumlah.rl.kredit-$scope.jumlah.rl.debet > 0){
+    $scope.rl.kredit = $scope.jumlah.rl.kredit-$scope.jumlah.rl.debet;
+    }
+    else{
+      $scope.rl.kredit =0;
+    }
+
+    if($scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit > 0){
+        $scope.rlneraca.debet = $scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit;
+    }else{
+      $scope.rlneraca.debet = 0;
+    }
+    if($scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet > 0){
+    $scope.rlneraca.kredit = $scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet;
+    }
+    else{
+      $scope.rlneraca.kredit =0;
+    }
+
+
+
   })
 }])
 

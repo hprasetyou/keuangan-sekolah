@@ -452,8 +452,6 @@ $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
 
 $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 // Print out the value returned from the dispatched function
-//echo json_encode($response);
-
-echo json_encode($response);
+print_r($response);

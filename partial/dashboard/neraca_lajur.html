@@ -31,5 +31,39 @@
       <td><p ng-hide="lajur.neraca.debet=='0'">{{lajur.neraca.debet}}</p></td>
       <td><p ng-hide="lajur.neraca.kredit=='0'">{{lajur.neraca.kredit}}</p></td>
     </tr>
+    <tr>
+      <td></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.debet}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.kredit}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.debet}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.kredit}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000">{{jumlah.rl.debet}}</b></td>
+      <td><b style="border-bottom:1px solid #000">{{jumlah.rl.kredit}}</b></td>
+      <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.debet}}</b></td>
+      <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.kredit}}</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><b>{{rl.kredit}}</b></td>
+      <td><b>{{rl.debet}}</b></td>
+      <td><b>{{rlneraca.kredit}}</b></td>
+      <td><b>{{rlneraca.debet}}</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.debet+rl.kredit}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.kredit+rl.debet}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.debet+rlneraca.kredit}}</u></b></td>
+      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.kredit+rlneraca.debet}}</u></b></td>
+    </tr>
   </tbody>
+
 </table>
