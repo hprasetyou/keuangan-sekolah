@@ -9,7 +9,7 @@ class Rencana_anggaran{
   }
 
   public function tampil($args,$data,$userdata){
-          return $this->rencana_anggaranmodel->show()->data[0];
+          return $this->rencana_anggaranmodel->show()->data;
   }
 
 
@@ -66,7 +66,7 @@ class Rencana_anggaran{
 
         }
 
-            return $data_anggaran;
+            return $this->rencana_anggaranmodel->show()->data;
   }
 
   function cari($args,$data,$userdata){
