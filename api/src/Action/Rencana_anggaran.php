@@ -24,47 +24,89 @@ class Rencana_anggaran{
           $data_anggaran = $this->rencana_anggaranmodel->show()->data[0];
 
           $jenis_trans= array('m'=>'jenis_trans_masuk','k'=>'jenis_trans_keluar');
-          foreach ($jenis_trans as $key => $value) {
+        //jenis_trans_masuk
+        //================================================
 
 
-          //filter kolom
-          $this->jenis_transaksimodel->filter='id,nm_jenis_trans';
-          //get member of selected rencana anggaran
-          //jenis transaksi kategori root
-          $this->jenis_transaksimodel->find=array(
-            'rencana_anggaran'  => $args['id'],
-            'parent'            => 'root',
-            'jenis_trans'       =>  $key
-          );
+                  //filter kolom
+                  $this->jenis_transaksimodel->filter='id,nm_jenis_trans';
+                  //get member of selected rencana anggaran
+                  //jenis transaksi kategori root
+                  $this->jenis_transaksimodel->find=array(
+                    'rencana_anggaran'  => $args['id'],
+                    'parent'            => 'root',
+                    'jenis_trans'       =>  'm'
+                  );
 
-          $jenis_transaksi=$this->jenis_transaksimodel->show()->data;
-          $data_anggaran->$value=$jenis_transaksi;
-          $i=0;
-          //cari member jenis transaksi
-          foreach ($jenis_transaksi as $transaksi) {
-            $this->jenis_transaksimodel->filter='id,nm_jenis_trans,nominal,keterangan,extra';
+                  $jenis_transaksi=$this->jenis_transaksimodel->show()->data;
+                  $data_anggaran->jenis_trans_masuk=$jenis_transaksi;
+                  $i=0;
+                  //cari member jenis transaksi
+                  foreach ($jenis_transaksi as $transaksi) {
+                    $this->jenis_transaksimodel->filter='id,nm_jenis_trans,nominal,keterangan,extra';
 
-              $this->jenis_transaksimodel->find=array(
-                'parent'            => $transaksi->id
-              );
-              //memanggil array member transaksi
-              $j=0;
-              foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
-                # code...
-                $extra = $data_member->extra;
-                $data_anggaran->$value[$i]->sub[$j]=$data_member;
-                $data_anggaran->$value[$i]->sub[$j]->debet=json_decode($extra)->debet;
-                $data_anggaran->$value[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
-                $j++;
-              }
-          //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
+                      $this->jenis_transaksimodel->find=array(
+                        'parent'            => $transaksi->id
+                      );
+                      //memanggil array member transaksi
+                      $j=0;
+                      foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
+                        # code...
+                        $extra = $data_member->extra;
+                        $data_anggaran->jenis_trans_masuk[$i]->sub[$j]=$data_member;
+                        $data_anggaran->jenis_trans_masuk[$i]->sub[$j]->debet=json_decode($extra)->debet;
+                        $data_anggaran->jenis_trans_masuk[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+                        $j++;
+                      }
+                  //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
 
-            $data_anggaran->$value[$i]->jml=$this->jenis_transaksimodel->sum();
+                    $data_anggaran->jenis_trans_masuk[$i]->jml=$this->jenis_transaksimodel->sum();
 
-            $i++;
-          }
+                    $i++;
+                  }
+                  //====================
 
-        }
+                  //jenis_trans_keluar
+                  //================================================
+
+
+                            //filter kolom
+                            $this->jenis_transaksimodel->filter='id,nm_jenis_trans';
+                            //get member of selected rencana anggaran
+                            //jenis transaksi kategori root
+                            $this->jenis_transaksimodel->find=array(
+                              'rencana_anggaran'  => $args['id'],
+                              'parent'            => 'root',
+                              'jenis_trans'       =>  'k'
+                            );
+
+                            $jenis_transaksi=$this->jenis_transaksimodel->show()->data;
+                            $data_anggaran->jenis_trans_keluar=$jenis_transaksi;
+                            $i=0;
+                            //cari member jenis transaksi
+                            foreach ($jenis_transaksi as $transaksi) {
+                              $this->jenis_transaksimodel->filter='id,nm_jenis_trans,nominal,keterangan,extra';
+
+                                $this->jenis_transaksimodel->find=array(
+                                  'parent'            => $transaksi->id
+                                );
+                                //memanggil array member transaksi
+                                $j=0;
+                                foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
+                                  # code...
+                                  $extra = $data_member->extra;
+                                  $data_anggaran->jenis_trans_keluar[$i]->sub[$j]=$data_member;
+                                  $data_anggaran->jenis_trans_keluar[$i]->sub[$j]->debet=json_decode($extra)->debet;
+                                  $data_anggaran->jenis_trans_keluar[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+                                  $j++;
+                                }
+                            //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
+
+                              $data_anggaran->jenis_trans_keluar[$i]->jml=$this->jenis_transaksimodel->sum();
+
+                              $i++;
+                            }
+                            //====================
 
             return $data_anggaran;
   }
