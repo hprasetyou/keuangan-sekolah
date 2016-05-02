@@ -21,7 +21,7 @@ class Rencana_anggaran{
           $this->rencana_anggaranmodel->find = array(
               'id' => $args['id']
           );
-          $data= $this->rencana_anggaranmodel->show()->data[0];
+          $data_anggaran = $this->rencana_anggaranmodel->show()->data[0];
 
           $jenis_trans= array('m'=>'jenis_trans_masuk','k'=>'jenis_trans_keluar');
           foreach ($jenis_trans as $key => $value) {
@@ -38,7 +38,7 @@ class Rencana_anggaran{
           );
 
           $jenis_transaksi=$this->jenis_transaksimodel->show()->data;
-          $data->$value=$jenis_transaksi;
+          $data_anggaran->$value=$jenis_transaksi;
           $i=0;
           //cari member jenis transaksi
           foreach ($jenis_transaksi as $transaksi) {
@@ -52,21 +52,21 @@ class Rencana_anggaran{
               foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
                 # code...
                 $extra = $data_member->extra;
-                $data->$value[$i]->sub[$j]=$data_member;
-                $data->$value[$i]->sub[$j]->debet=json_decode($extra)->debet;
-                $data->$value[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+                $data_anggaran->$value[$i]->sub[$j]=$data_member;
+                $data_anggaran->$value[$i]->sub[$j]->debet=json_decode($extra)->debet;
+                $data_anggaran->$value[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
                 $j++;
               }
           //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
 
-            $data->$value[$i]->jml=$this->jenis_transaksimodel->sum();
+            $data_anggaran->$value[$i]->jml=$this->jenis_transaksimodel->sum();
 
             $i++;
           }
 
         }
 
-            return $data;
+            return $data_anggaran;
   }
 
   function cari($args,$data,$userdata){
