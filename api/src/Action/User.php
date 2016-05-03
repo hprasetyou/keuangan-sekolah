@@ -147,8 +147,8 @@ class User{
               'val_time'    => time()+3600
             ));
             $mail_subject='Halo '.$data['email'];
-            $mail_body['msgtitle'];
-            $mail_body['msgbody']='Silahkan verifikasi email anda, salin dan tempel token dibawah ini untuk memverifikasi akun anda <br>
+
+            $mail_body ='Silahkan verifikasi email anda, salin dan tempel token dibawah ini untuk memverifikasi akun anda <br>
           <br><br>'.$ver_token;
             $mail_recipient = $data['email'];
             \App\Helper\Mailer::send($mail_subject,$mail_body,$mail_recipient);
