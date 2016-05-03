@@ -35,6 +35,16 @@ public $nominal;
 
 
    }
+   public function saldo(){
+     $sql="SELECT akun.nama_akun, akun.id_akun,akun.jenis_akun, case when sum(debet)-sum(kredit) > 0 then sum(debet)-sum(kredit)
+      when sum(debet)-sum(kredit) is null then 0 else 0 end as debet,
+       case when sum(kredit)-sum(debet) > 0 then sum(kredit)-sum(debet)
+        when sum(kredit)-sum(debet) is null then 0 else 0 end as kredit
+        FROM `jurnal` join akun on akun.id_akun= jurnal.akun
+        WHERE akun='".$this->find['akun']."' ";
+        return $this->db->execute($sql);
+
+   }
 
    public function show(){
 

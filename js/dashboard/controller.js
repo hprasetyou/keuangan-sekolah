@@ -225,8 +225,13 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 
 
       $scope.hapus_jenis_anggaran = function(){
+        if($scope.idhapus=='-'){
+
+        }else{
         ra.Delete({id:$scope.ra_pilih.id,id_jenis:$scope.idhapus}).then(function(response){
-          $rootScope.addalert('success','Data terhapus');
+
+            $rootScope.addalert('success','Data terhapus');
+
           if($scope.jenishapus=='m'){
             $scope.detail_ra.jenis_trans_masuk.splice($scope.indexhapus,1);
           }else{
@@ -235,7 +240,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
         })
       }
 
-
+    }
 
 }])
 
@@ -702,14 +707,17 @@ app.controller('user',['$scope','userdata','$rootScope',
 app.controller('penyesuaian',['$scope','$rootScope','akun','jurnal',
 function($rootScope,$scope,akun,jurnal){
 
-  akun.Get().then(function(response){
-    $scope.data_akun= response.data
+  akun.Saldo().then(function(response){
+    $scope.data_akun= response
   })
+
+
+
   $scope.frm_jurnal={}
   $scope.add_transaksi= function(){
     console.log($scope.frm_jurnal.jenis_kredit);
     if($scope.frm_jurnal.jenis_kredit=='a' || $scope.frm_jurnal.jenis_kredit=='b'){
-      if($scope.frm_jurnal.saldo_kredit < $scope.frm_jurnal.jumlah ){
+      if($scope.kredit.kredit < $scope.frm_jurnal.jumlah ){
           $rootScope.addalert('danger','Saldo tidak cukup!');
         }
       else {
@@ -719,7 +727,7 @@ function($rootScope,$scope,akun,jurnal){
       console.log('haha');
     }
     else if($scope.frm_jurnal.jenis_debet=='m' || $scope.frm_jurnal.jenis_debet=='p' || $scope.frm_jurnal.jenis_debet=='k'){
-      if($scope.frm_jurnal.saldo_debet < $scope.frm_jurnal.jumlah ){
+      if($scope.debet.debet < $scope.frm_jurnal.jumlah ){
           $rootScope.addalert('danger','Saldo tidak cukup!');
         }
       else {

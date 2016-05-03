@@ -90,6 +90,7 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
 			 		}
        })
      },
+
 		 Neraca_lajur: function(){
        return $http({
          headers: {
@@ -326,6 +327,23 @@ app.factory('akun', ['$http','helper', function($http,helper) {
          url:'api/index.php/akun'
        }).then(function(response){
  				return helper.set_output(response.data)
+       })
+     },
+		 Saldo: function(){
+       return $http({
+         headers: {
+          'token':  localStorage.getItem('token'),
+					'Content-Type':'application/json'
+          },
+         method:	'GET',
+         url:'api/index.php/saldo'
+       }).then(function(response){
+				 if(response.data.error){
+ 						helper.go_home()
+ 					}
+					else{
+						return helper.set_output(response.data)
+			 		}
        })
      },
 		 Update: function($params){

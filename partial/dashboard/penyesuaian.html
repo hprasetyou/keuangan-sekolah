@@ -18,7 +18,7 @@
           <label class="col-sm-3 control-label"
                     for="nm_anggaran">Akun Debet</label>
           <div class="col-sm-9">
-              <select required class="form-control" ng-model="debet" name="" ng-options="item as item.nama_akun for item in datasaldo">
+              <select required class="form-control" ng-model="debet" ng-change="pilihdebet()" name="" ng-options="item as item.nama_akun for item in data_akun">
               </select>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <label class="col-sm-3 control-label"
                     for="nm_anggaran">Akun Kredit</label>
           <div class="col-sm-9">
-            <select  required class="form-control" ng-model="kredit" name="" ng-options="item as item.nama_akun for item in datasaldo">
+            <select  required class="form-control" ng-model="kredit" name="" ng-options="item as item.nama_akun for item in data_akun">
             </select>
           </div>
         </div>
@@ -67,9 +67,16 @@
             <td>{{debet.nama_akun}}</td>
           </tr>
           <tr>
-            <th>Saldo</th>
+            <th>Saldo Debet</th>
             <td>:</td>
-            <td>{{frm_jurnal.saldo_debet=debet.saldo}}({{debet.posisi}})</td>
+            <td>{{debet.debet}}</td>
+
+          </tr>
+
+          <tr>
+            <th>Saldo Kredit</th>
+            <td>:</td>
+            <td>{{debet.kredit}}</td>
 
           </tr>
         </tbody>
@@ -102,10 +109,16 @@
             <td>{{kredit.nama_akun}}</td>
           </tr>
           <tr>
-            <th>Saldo</th>
+            <th>Saldo Debet</th>
             <td>:</td>
-            <td>{{frm_jurnal.saldo_kredit=kredit.saldo}}({{debet.posisi}})</td>
+            <td>{{kredit.debet}}</td>
           </tr>
+          <tr>
+            <th>Saldo Kredit</th>
+            <td>:</td>
+            <td>{{kredit.kredit}}</td>
+          </tr>
+
         </tbody>
       </table>
     </div>

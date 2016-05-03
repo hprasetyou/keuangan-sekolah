@@ -45,6 +45,20 @@ class Buku_besar{
 
     }
 
+    function saldo_per_akun($args,$data,$userdata){
+
+      $i=0;
+      $output=[];
+        foreach ($this->akunmodel->show()->data as $dataakun) {
+          $this->jurnalmodel->find=array(
+            'akun'=>$dataakun->id_akun
+          );
+          $output[$i] = $this->jurnalmodel->saldo()->data[0];
+            $i++;
+        }
+        return $output;
+    }
+
 
     function saldo_per_jenis($args,$data,$userdata){
 

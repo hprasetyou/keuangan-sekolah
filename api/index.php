@@ -415,6 +415,15 @@ $router->get($path.'/neraca_lajur', function() use($data){
 },['before' => 'auth']);
 
 
+$router->get($path.'/saldo', function() use($data){
+  $newtoken = \App\Helper\Auth::reset_timeout();
+  $buku_besaraction = new \App\Action\Buku_besar();
+  return array(
+    'response'=> $buku_besaraction->saldo_per_akun('','',''),
+    'token'=>$newtoken
+  );
+},['before' => 'auth']);
+
 //
 //==============================================================================
 //==============================================================================
@@ -454,5 +463,6 @@ $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER
 
 header('Content-Type: application/json');
 // Print out the value returned from the dispatched function
+//echo json_encode($response);
 
 echo json_encode($response);
