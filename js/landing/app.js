@@ -13,15 +13,15 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
               templateUrl : 'partial/landing/register.html',
               controller  : 'daftar'
       })
-			.when('/daftar/verifikasi-email',{
-              templateUrl : 'partial/landing/register-step2.html',
-              controller  : 'verifikasi'
-      })
+
 			.when('/daftar/last-step',{
               templateUrl : 'partial/landing/tunggu.html',
               controller  : 'tunggu'
       })
-
+			.when('/verifikasi&token=:token',{
+							templateUrl : 'partial/landing/verifikasi.html',
+							controller  : 'verifikasi'
+			})
 
 
 	}]);
@@ -77,7 +77,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
       }]);
   app.controller('daftar',['$scope','$http','$location','User',
   function($scope,$http,$location,User){
-$scope.form_register={}
+		$scope.form_register={}
 
 					$scope.daftar = function(){
 						var data = JSON.stringify($scope.form_register)
@@ -117,19 +117,27 @@ $scope.form_register={}
 
 
 					$scope.next_step =function(){
-
-						$("#ModalSuccess").modal('hide');
-						$scope.daftar_klik=true
-
+						window.location='.'
 					}
 
       }]);
-			app.controller('verifikasi',['$scope','User','$location',function($scope,User,$location){
-					$scope.verifikasi= function(){
-						User.Verifikasi($scope.form_verif).then(function(response){
-							$location.path("daftar/last-step");
-						})
-					}
+			app.controller('verifikasi',['$scope','User','$location','$routeParams',function($scope,User,$location,$routeParams){
+			setTimeout(function(){
+
+				},1000)
+				$scope.token = $routeParams.token;
+				$scope.$watch('token',function(){
+						console.log($scope.token);
+						User.Verifikasi({token:$scope.token}).then(function(response){
+									console.log(response);
+									$scope.verif= response;
+								})
+				})
+			//			User.Verifikasi($routeParams.token).then(function(response){
+				//			console.log(response);
+					//		$scope.verif= response;
+						//})
+
 			}]);
 			app.controller('tunggu',['$scope',function($scope){
 
@@ -161,7 +169,7 @@ $scope.form_register={}
 					Verifikasi: function($params){
 						return $http({
 							method:	'GET',
-							url:'api/index.php/user_verif/' + $params.token,
+							url:'api/index.php/user/verif/' + $params.token,
 							header:{'Content-Type':'application/json'}
 						}).then(function(response){
 							return response.data;

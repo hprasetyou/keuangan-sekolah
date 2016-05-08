@@ -1,0 +1,15 @@
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Aktifitas pengelolaan keuangan sekolah {{userdata.sekolah}}</div>
+  <div class="panel-body">
+
+  </div>
+  <!-- List group -->
+  <ul class="list-group">
+    <li ng-repeat="aktifitas in log" class="list-group-item">
+      <small><i>{{aktifitas.waktu}}</i></small><br><br>
+      {{aktifitas.display_name}} {{aktifitas.aktifitas}}</li>
+  <li class="list-group-item"><a href="" ng-click="more()" >Tampilkan aktifitas yang lebih lama   <span class="glyphicon glyphicon-chevron-down"></span> </a></li>
+  </ul>
+</div>

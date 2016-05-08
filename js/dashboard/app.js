@@ -65,6 +65,32 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 
 	}]);
 
+//====================================================================//
+//_________________________________LOG________________________________/
+//====================================================================//
+app.factory("Log",['$http','helper',function($http,helper){
+	return {
+		Show: function(page){
+			return $http({
+				headers: {
+				 'token':  localStorage.getItem('token'),
+				 'Content-Type':'application/json'
+				 },
+				method:	'GET',
+				url:'api/index.php/log/'+ page
+			}).then(function(response){
+
+					 return response.data
+
+			})
+		}
+	}
+
+
+}]);
+
+
+
 
 
 //====================================================================//
@@ -427,6 +453,17 @@ app.factory('userdata',['$http','helper', function($http,helper){
 	var Token = localStorage.getItem('token');
 
 	return {
+		Check_pwd: function($params){
+			return $http({
+			 method:	'POST',
+			 url:'api/index.php/_session',
+			 header:{'Content-Type':'application/json'},
+			 data: $params
+		 }).then(function(response){
+			 return response.data;
+
+		 })
+	 },
 		 Get: function(){
 			return $http({
 				headers: {
@@ -485,7 +522,7 @@ app.factory('userdata',['$http','helper', function($http,helper){
 				method:	'PUT',
 				url:'api/index.php/user/'+$params.user_id,
 				header:{'Content-Type':'application/json'},
-				data: JSON.stringify($params.priv)
+				data: JSON.stringify($params)
 			}).then(function(response){
 				return response.data;
 			})
@@ -600,12 +637,14 @@ app.factory('helper',function(){
 	    {"id":"12","nama":"Desember"}
 	  ],
 		go_home: function(msg){
-			window.location='http://keuangansekolah-hprasetyou.rhcloud.com/'
+			window.location='.'
 		},
 		set_output: function(data){
 			if(data.error){
 				alert(msg)
-				this.go_home(data.error)
+				setTimeout(function(){
+					this.go_home(data.error)
+				},1000)
 			}
 			else
 			{

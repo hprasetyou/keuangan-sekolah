@@ -22,7 +22,7 @@ function __construct(){
           $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
           $mail->Port = 465;                                    // TCP port to connect to
 
-          $mail->setFrom('hprasetyou@gmail.com', 'NO REPLY');
+          $mail->setFrom('hprasetyou@gmail.com', 'Aplikasi Pengelolaan Keuangan Sekolah');
           $mail->addAddress($recipient);     // Add a recipient
 
           $mail->Subject = $subject;
@@ -32,12 +32,11 @@ function __construct(){
           <html lang="en">
           <head>
             <meta charset="UTF-8">
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-            <title>Document</title>
+          <title>Document</title>
           </head>
           <body>
-          <div class="container">
-            <div class="page-header">
+          <div style="border:1px solid #ddd; padding:20px">
+            <div>
                 <h1>'.$body['msgtitle'].'</h1>
             </div>
             <div class="panel panel-primary">

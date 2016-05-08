@@ -9,8 +9,8 @@ app.config(['$routeProvider',function($routeProvider){
   $routeProvider
 
     .when('/',{
-        templateUrl : 'partial/admin-dashboard/home.html',
-        controller  : 'home'
+        templateUrl : 'partial/admin-dashboard/request.html',
+        controller  : 'request'
     })
     .when('/user',{
         templateUrl : 'partial/admin-dashboard/user.html',
@@ -46,17 +46,20 @@ app.controller('request',['$scope','Sekolah',
       $scope.verifikasi= function(){
         Sekolah.Verifikasi($scope.sekolah).then(function(response){
           $scope.progress.detail.push({"task":"ubah status"})
-          $scope.progress.value='30'
-        })
-        Sekolah.Create_db($scope.sekolah).then(function(response){
-          $scope.progress.detail.push({"task":"buat database"})
-          $scope.progress.value='60'
+          $scope.progress.value='30';
 
+          Sekolah.Create_db($scope.sekolah).then(function(response){
+            $scope.progress.detail.push({"task":"buat database"})
+            $scope.progress.value='60'
+
+            Sekolah.Create_table($scope.sekolah).then(function(response){
+              $scope.progress.detail.push({"task":"selesai"})
+              $scope.progress.value='100'
+            })
+          })
         })
-        Sekolah.Create_table($scope.sekolah).then(function(response){
-          $scope.progress.detail.push({"task":"selesai"})
-          $scope.progress.value='100'
-        })
+
+
 
       }
     }]);

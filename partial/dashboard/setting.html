@@ -26,17 +26,24 @@
     <div class="panel panel-default">
       <div class="panel-heading">Ubah Password</div>
       <div class="panel-body">
+        <form name="frm_pwd" action="">
         <div class="col-sm-3"><label class=" control-label" for="" >Password Lama</label></div>
-        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+        <div class="col-sm-9"><input class="form-control" ng-model="resetpwd.passwordlama" ng-blur="cek_password()" type="password"  placeholder="Password lama">  <span ng-show="password_status=='salah'" id="helpBlock2" class="help-block">Password salah</span></div>
         <div class="col-sm-3"><label class=" control-label" for="" >Password Baru</label></div>
-        <div class="col-sm-9"><input class="form-control"  type="password"></div>
-        <div class="col-sm-3"><label class=" control-label" for="" >Ulangi Password</label></div>
-        <div class="col-sm-9"><input class="form-control"  type="password"></div>
+        <div class="col-sm-9"><input type="password" name="passwordbaru" ng-model="resetpwd.password" ng-minlength="8" id="txt_password" required class="form-control" placeholder="Password baru"/>
+        <p ng-show="frm_pwd.passwordbaru.$error.minlength" class="help-block">Password terlalu pendek</p>
+</div>
+        <div class="col-sm-3"><label class=" control-label" for="" >Ulangi Password</label>
+        </div>
+        <div class="col-sm-9"><input class="form-control" ng-model="resetpwd.confirmpwd" type="password" placeholder="Ulangi password baru">
+
+          <p ng-show="resetpwd.password != resetpwd.confirmpwd" class="help-block">Password tidak cocok</p>
+        </div>
 
 
-
+</form>
       </div>
-      <div class="panel-footer"><button ng-click="pilih_tema()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
+      <div class="panel-footer"><button  ng-disabled="frm_pwd.$invalid || password_status=='salah'" ng-click="ubah_password()" class="btn btn-default col-sm-offset-11">Simpan</button></div>
     </div>
     <div class="panel panel-info">
       <div class="panel-heading">Email</div>

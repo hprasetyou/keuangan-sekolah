@@ -27,12 +27,12 @@ class User{
 
           foreach ($data as $key => $value) {
             if($key=='password'){
-              $value =   $pass= hash('ripemd160', $value);
+              $newvalue = hash('ripemd160', $value);
             }
             else{
-
+              $newvalue = $value;
             }
-              $newdata[$key]= $value;
+              $newdata[$key]= $newvalue;
           }
           $this->usermodel->update($args['user_id'],$newdata);
 
@@ -61,29 +61,35 @@ class User{
       }
       else {
         $data_user=$cek_in->data[0];
-        $this->sekolahmodel->find=array('group_id'=>$data_user->user_group);
+        $this->sekolahmodel->find=array('group_id'=>$data_user->user_group,'status'=>'1');
         $data_sekolah=$this->sekolahmodel->detail();
-        $data_output['user_id']=$data_user->user_id;
-        $data_output['user_email']=$data_user->email;
-        $data_output['user_group']=$data_user->user_group;
-        $data_output['user_level']=$data_user->user_level;
-        $data_output['user_privilege']=$data_user->privilege;
+        if($data_sekolah->num_rows<1){
+          $output=array('auth'=>0,
+                        'msg'=>'Pendaftaran sekolah belum disetujui'
+                      );
+        }else{
+            $data_output['user_id']=$data_user->user_id;
+            $data_output['user_email']=$data_user->email;
+            $data_output['user_group']=$data_user->user_group;
+            $data_output['user_level']=$data_user->user_level;
+            $data_output['user_privilege']=$data_user->privilege;
 
-        $pass= hash('ripemd160', $data['password']);
-        //check password
-        if ($pass == $data_user->password)
-              {
-                $output=array('auth'=>1,
-                              'token'=> \App\Helper\Auth::set_token($data_output)
-                            );
-              }
-        else
-              {
-                $output=array('auth'=>0,
-                              'msg'=>'Password Salah'
-                            );
-              }
-      }
+            $pass= hash('ripemd160', $data['password']);
+            //check password
+            if ($pass == $data_user->password)
+                  {
+                    $output=array('auth'=>1,
+                                  'token'=> \App\Helper\Auth::set_token($data_output)
+                                );
+                  }
+            else
+                  {
+                    $output=array('auth'=>0,
+                                  'msg'=>'Password Salah'
+                                );
+                  }
+          }
+        }
       return $output;
     }
 
@@ -94,8 +100,8 @@ class User{
             $token_data= \App\Helper\Jwt::decode($args['token']);
 
             if ((time())<=$token_data->val_time){
-                  $this->usermodel->update($token_data->user_id,array('status'=>'1'));
-                  $output=array('msg'=>'success');
+                  $this->usermodel->update($token_data->user_id,array('status'=>'1','email'=>$token_data->email));
+                  $output=array('msg'=>'success','act'=>$token_data->act);
               }
               else{
                   $output=array('msg'=>'token_expired');
@@ -129,7 +135,7 @@ class User{
 
         }
 
-            $password="kosong";
+            $password= hash('ripemd160', $data['password']);
 
             $this->usermodel->user_group   = $data['user_group'];
 
@@ -143,13 +149,17 @@ class User{
 
             //setup validation token
             $ver_token=\App\Helper\Jwt::encode(array(
+              'act'=> 'newcomer',
               'user_id'    => $data['user_id'],
+              'email'       => $data['email'],
               'val_time'    => time()+3600
             ));
+            $setting = \App\Helper\Setting::get();
             $mail_subject='Halo '.$data['email'];
-            $mail_body['msgtitle'];
-            $mail_body['msgbody']='Silahkan verifikasi email anda, salin dan tempel token dibawah ini untuk memverifikasi akun anda <br>
-          <br><br>'.$ver_token;
+            $mail_body = array();
+            $mail_body['msgtitle'] = 'Halo ';
+            $mail_body['msgbody']='Silahkan verifikasi email anda dengan mengklik link dibawah ini <br>
+          <br><br><a href="'.$setting['root'].'/#/verifikasi&token='.$ver_token.'" >verifikasi email ini </a>';
             $mail_recipient = $data['email'];
             \App\Helper\Mailer::send($mail_subject,$mail_body,$mail_recipient);
 

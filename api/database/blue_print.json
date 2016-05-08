@@ -40,10 +40,12 @@
       {"id_akun":"400","nama_akun":"Utang Usaha","jenis_akun":"k"},
       {"id_akun":"450","nama_akun":"Utang Pajak","jenis_akun":"k"},
       {"id_akun":"600","nama_akun":"Modal","jenis_akun":"m"},
+      {"id_akun":"601","nama_akun":"Rugi Laba","jenis_akun":"m"},
       {"id_akun":"700","nama_akun":"Pendapatan","jenis_akun":"p"},
       {"id_akun":"800","nama_akun":"Beban Gaji","jenis_akun":"b"},
       {"id_akun":"802","nama_akun":"Beban Listrik","jenis_akun":"b"},
       {"id_akun":"803","nama_akun":"Beban Telepon","jenis_akun":"b"}
+
     ]
   },
   {
@@ -65,17 +67,6 @@
       {"field_name":"id_jenis_transaksi","datatype":"varchar(15)"},
       {"field_name":"pencatat","datatype":"varchar(20)"},
       {"field_name":"uraian","datatype":"text"}
-    ],
-    "primary_key":"id"
-  },
-  {
-    "name":"people",
-    "field":[
-      {"field_name":"id","datatype":"varchar(20)"},
-      {"field_name":"nama","datatype":"varchar(30)"},
-      {"field_name":"createat","datatype":"datetime"},
-      {"field_name":"info_lain","datatype":"text"},
-      {"field_name":"kelompok","datatype":"enum('s','g','d','m','o','u')"}
     ],
     "primary_key":"id"
   }

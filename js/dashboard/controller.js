@@ -2,7 +2,7 @@
 
 app.run(['$rootScope','Saldo','userdata','User','User_group','akun',
 function($rootScope,Saldo,userdata,User,User_group,akun){
-userdata.cekAuth()
+//userdata.cekAuth()
 console.log(userdata.token);
 $rootScope.theme = localStorage.getItem('theme');
 
@@ -74,9 +74,21 @@ $rootScope.hapus_alert=function(no){
 }])
 
 
-app.controller('home',['$scope','$routeParams','$rootScope','Saldo',
-function($scope,$routeParams,$rootScope,Saldo){
-
+app.controller('home',['$scope','Log','$rootScope','Saldo',
+function($scope,Log,$rootScope,Saldo){
+  var page = 1;
+  Log.Show(page).then(function(res){
+    $scope.log = res
+  })
+  $scope.more = function(){
+    page = page+1;
+    Log.Show(page).then(function(res){
+      for(var i=0; i< res.length; i++){
+          $scope.log.push(res[i]);
+          console.log(res[i]);
+      }
+    })
+  }
 }])
 
 
@@ -715,26 +727,10 @@ function($rootScope,$scope,akun,jurnal){
 
   $scope.frm_jurnal={}
   $scope.add_transaksi= function(){
-    console.log($scope.frm_jurnal.jenis_kredit);
-    if($scope.frm_jurnal.jenis_kredit=='a' || $scope.frm_jurnal.jenis_kredit=='b'){
-      if($scope.kredit.kredit < $scope.frm_jurnal.jumlah ){
-          $rootScope.addalert('danger','Saldo tidak cukup!');
-        }
-      else {
-        jurnal.Add($scope.frm_jurnal)
-        $rootScope.addalert('success','Transaksi tersimpan');
-      }
-      console.log('haha');
-    }
-    else if($scope.frm_jurnal.jenis_debet=='m' || $scope.frm_jurnal.jenis_debet=='p' || $scope.frm_jurnal.jenis_debet=='k'){
-      if($scope.debet.debet < $scope.frm_jurnal.jumlah ){
-          $rootScope.addalert('danger','Saldo tidak cukup!');
-        }
-      else {
-        jurnal.Add($scope.frm_jurnal)
-        $rootScope.addalert('success','Transaksi tersimpan');
-      }
-    }
+    jurnal.Add($scope.frm_jurnal)
+    $rootScope.addalert('success','Transaksi tersimpan');
+
+      $scope.frm_jurnal={}
   }
 
 
@@ -746,8 +742,8 @@ function($rootScope,$scope,akun,jurnal){
 //============================================================================
 //============================================================================
 
-app.controller('setting',['$scope','$rootScope',
-function($scope,$rootScope){
+app.controller('setting',['$scope','$rootScope','userdata',
+function($scope,$rootScope,userdata){
 //  localStorage.setItem('theme')
   $scope.theme=localStorage.getItem('theme');
   $scope.pilih_tema = function(){
@@ -755,4 +751,30 @@ function($scope,$rootScope){
     $rootScope.theme=$scope.theme;
   }
   $scope.lsttheme = ['brave','calm','darkly','metro','simplex','sweet','unity','yeti'];
+
+  $scope.cek_password= function(){
+    userdata.Check_pwd({'email':$rootScope.userdata.user_email,'password':$scope.resetpwd.passwordlama}).then(
+      function(res){
+        console.log(res);
+        if(res.auth=='0'){
+          $scope.password_status='salah';
+        }
+        else{
+            $scope.password_status='benar';
+
+        }
+      })
+  }
+  $scope.ubah_password= function(){
+
+    userdata.Update({
+      'user_id':$rootScope.userdata.user_id,
+      'password':$scope.resetpwd.password
+    }).then(function(res){
+      if(res.message=='ok'){
+        $rootScope.addalert('success','Password diubah');
+        $scope.resetpwd={}
+      }
+    })
+  }
 }])

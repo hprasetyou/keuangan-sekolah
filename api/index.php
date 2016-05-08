@@ -4,7 +4,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); ini_set('display_erro
 require 'vendor/autoload.php';
 
 use Phroute\Phroute\RouteCollector;
-  use Mailgun\Mailgun;
 $setting = \App\Helper\Setting::get();
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -39,21 +38,7 @@ $router->filter('auth', function(){
 });
 
 
-$router->post($path.'/',function(){
 
-
-# Instantiate the client.
-$mgClient = new Mailgun('key-2021d35a6fd5c937a7b33dc970ecf7cb');
-$domain = "sandboxe4c8cecc01a3496a9b9689dce398aa4b.mailgun.org";
-
-# Make the call to the client.
-$result = $mgClient->sendMessage("$domain",
-                array('from'    => 'Mailgun Sandbox <postmaster@sandboxe4c8cecc01a3496a9b9689dce398aa4b.mailgun.org>',
-                      'to'      => 'heru prasetyo utomo <hprasetyou@gmail.com>',
-                      'subject' => 'Hello heru prasetyo utomo',
-                      'text'    => 'Congratulations heru prasetyo utomo, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.'));
-
-});
 //==============================================================================
 //================================_USER_ROUTE_==================================
 //==============================================================================
@@ -61,6 +46,21 @@ $router->get($path.'/user', function() use($useraction){
     $args= array ();
     return $useraction->tampil($args);
 });
+
+
+$router->post($path.'/cek-email', function() use($useraction,$data){
+    $args= array ('cond'=>'email='.$data['email']);
+    $cek = $useraction->tampil($args)->num_rows;
+    if($cek<1){
+      //login gagal
+      $output=array('status'=>'ok');
+    }
+    else{
+      $output=array('status'=>'error','msg'=>'email sudah digunakan');
+    }
+    return $output;
+});
+
 
 $router->post($path.'/user', function() use($useraction,$data){
     $args= array ();
@@ -169,6 +169,7 @@ $router->post($path.'/rencana_anggaran', function() use($data){
     $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
+    \App\Helper\Log::add($userdata->user_id,'membuat rencana anggaran baru');
   return  array(
     'response'=>$rencana_anggaranaction->add(array(),$data,$userdata),
     'token'=>$newtoken
@@ -180,6 +181,7 @@ $router->post($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) us
     $jenis_transaksiaction = new \App\Action\Jenis_transaksi();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
+    \App\Helper\Log::add($userdata->user_id,'menambahkan rencana kegiatan/anggaran ke rencana anggaran');
   return  array(
     'response'=>$jenis_transaksiaction->add(array('id_anggaran'=>$id_anggaran),$data,$userdata),
     'token'=>$newtoken
@@ -202,6 +204,8 @@ $router->delete($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) 
     $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
+    \App\Helper\Log::add($userdata->user_id,'menghapus rencana anggaran');
+
   return  array(
     'response'=>$rencana_anggaranaction->delete(array('id_anggaran'=>$id_anggaran),$data,$userdata),
     'token'=>$newtoken
@@ -212,6 +216,8 @@ $router->delete($path.'/rencana_anggaran/{id_anggaran}', function($id_anggaran) 
 $router->delete($path.'/rencana_anggaran/{id_anggaran}/{id_jenis}', function($id_anggaran,$id_jenis) use($data){
     $userdata= \App\Helper\Auth::user_data();
       $jenis_transaksiaction = new \App\Action\Jenis_transaksi();
+      \App\Helper\Log::add($userdata->user_id,'menghapus rencana kegiatan/anggaran dari rencana anggaran');
+
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
     'response'=>$jenis_transaksiaction->delete(array('id_anggaran'=>$id_anggaran,'id_jenis'=>$id_jenis),$data,$userdata),
@@ -230,6 +236,8 @@ $router->delete($path.'/rencana_anggaran/{id_anggaran}/{id_jenis}', function($id
 $router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transaksi) use($data){
   $transaksiaction = new \App\Action\Transaksi();
     $userdata= \App\Helper\Auth::user_data();
+    \App\Helper\Log::add($userdata->user_id,'menambahkan transaksi');
+
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
     'response'=>$transaksiaction->add(array('id_jenis_transaksi'=>$id_jenis_transaksi),$data,$userdata),
@@ -238,44 +246,6 @@ $router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transa
 },['before' => 'auth']);
 
 
-
-
-
-//==============================================================================
-//================================_PEOPLE_ROUTE_================================
-//==============================================================================
-
-$router->post($path.'/people', function() use($data){
-  $peopleaction = new \App\Action\People();
-    $userdata= \App\Helper\Auth::user_data();
-    $newtoken = \App\Helper\Auth::reset_timeout();
-  return  array(
-    'response'=>$peopleaction->add(array(),$data,$userdata),
-    'token'=>$newtoken
-  );
-},['before' => 'auth']);
-
-
-$router->get($path.'/people', function() use($data){
-  $peopleaction = new \App\Action\People();
-    $userdata= \App\Helper\Auth::user_data();
-    $newtoken = \App\Helper\Auth::reset_timeout();
-  return  array(
-    'response'=>$peopleaction->show(array(),$data,$userdata),
-    'token'=>$newtoken
-  );
-},['before' => 'auth']);
-
-
-$router->get($path.'/people/{cond}/filter', function($cond) use($data){
-  $peopleaction = new \App\Action\People();
-    $userdata= \App\Helper\Auth::user_data();
-    $newtoken = \App\Helper\Auth::reset_timeout();
-  return  array(
-    'response'=>$peopleaction->show(array('cond'=>$cond),$data,$userdata),
-    'token'=>$newtoken
-  );
-},['before' => 'auth']);
 
 
 
@@ -367,6 +337,7 @@ use($data){
 $akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
+      \App\Helper\Log::add($userdata->user_id,'membuat akun baru');
     return array(
     'response'=>$akunaction->add(array(),$data,$userdata),
     'token'=>$newtoken
@@ -379,6 +350,7 @@ use($data){
 $akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
+      \App\Helper\Log::add($userdata->user_id,'mengubah informasi akun');
     return array(
     'response'=>$akunaction->update(array('id_akun'=>$id_akun),$data,$userdata),
     'token'=>$newtoken
@@ -392,6 +364,7 @@ use($data){
 $akunaction = new \App\Action\Akun();
       $userdata= \App\Helper\Auth::user_data();
       $newtoken = \App\Helper\Auth::reset_timeout();
+      \App\Helper\Log::add($userdata->user_id,'menghapus akun');
     return array(
     'response'=>$akunaction->delete(array('id_akun'=>$id_akun),$data,$userdata),
     'token'=>$newtoken
@@ -451,7 +424,10 @@ $router->post($path.'/_session/update', function(){
   return  $output;
 });
 
-
+$router->get($path.'/log/{page}', function($page){
+    $userdata= \App\Helper\Auth::user_data();
+    return \App\Helper\Log::get($userdata->user_group,$page)->data;
+});
 
 
 //==============================================================
