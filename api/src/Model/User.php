@@ -57,17 +57,23 @@ class User{
   public function create()
   {
     date_default_timezone_set('Asia/Jakarta');
-    $date = date('Y-m-d H:i:s', time());
-    $q=$this->db->insert('user',array(
+    $insertdata=array(
       'user_id'    =>$this->user_id,
       'email'      =>$this->email,
       'password'   =>$this->password,
       'user_group' =>$this->user_group,
       'create_at'  =>$date,
       'status'     =>0,
-      'privilege' =>'11111',
-      'user_level' =>'2')
-    );
+      'display_name'=>$this->display_name,
+      'user_level' =>'2');
+    if(isset($this->privilege)){
+      $insertdata['privilege']=$this->privilege;
+    }else{
+      $insertdata['privilege']='1111';
+    }
+    $date = date('Y-m-d H:i:s', time());
+
+    $q=$this->db->insert('user',$insertdata);
     return $q;
   }
 

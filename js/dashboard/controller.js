@@ -673,7 +673,21 @@ app.controller('user',['$scope','userdata','$rootScope',
         }
         tampil()
         $scope.add_user = function(){
+          var privilege=''
+          for(var i=0;i<$scope.pilihan.lstpriv.length;i++){
+            if($scope.pilihan.lstpriv[i]==true){
+              privilege +='1'+''
+            }
+            else{
+              privilege +='0'+''
+            }
+          }
+          $scope.form_user.privilege= privilege;
+          $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
+           $("#ModalDaftar").modal('hide');
+           $rootScope.addalert('success','User ditambahkan')
+           tampil()
           })
         }
         $scope.pilih= function(data){

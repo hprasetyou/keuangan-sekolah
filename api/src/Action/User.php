@@ -123,16 +123,18 @@ class User{
       $this->sekolahmodel->find = array('group_id' => $data['user_group']);
       $group=$this->sekolahmodel->detail();
 
+
+
       if($group->num_rows<1)
         {
 
           $this->sekolahmodel->group_id  = $data['user_group'];
           $this->sekolahmodel->group_name  = $data['group_name'];
           $this->sekolahmodel->create();
-
+          $act = 'newcomer';
         }
         else{
-
+          $act = 'new_mate';
         }
 
             $password= hash('ripemd160', $data['password']);
@@ -140,8 +142,10 @@ class User{
             $this->usermodel->user_group   = $data['user_group'];
 
 
+            $this->usermodel->privilege        =$data['privilege'];
             $this->usermodel->user_id          =$data['user_id'];
             $this->usermodel->email            =$data['email'];
+            $this->usermodel->display_name     =$data['display_name'];
 
             $this->usermodel->password         =$password;
 
@@ -149,7 +153,7 @@ class User{
 
             //setup validation token
             $ver_token=\App\Helper\Jwt::encode(array(
-              'act'=> 'newcomer',
+              'act'=> $act,
               'user_id'    => $data['user_id'],
               'email'       => $data['email'],
               'val_time'    => time()+3600
