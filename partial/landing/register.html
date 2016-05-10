@@ -12,7 +12,7 @@
                     NIP Anda
               </label>
               <div class="col-sm-7">
-                  <input type="text" ng-blur="cek_nip()" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
+                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="18" ng-minlength="18" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
                   <span ng-show="nip_status=='has-error'" id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
 
               </div>
