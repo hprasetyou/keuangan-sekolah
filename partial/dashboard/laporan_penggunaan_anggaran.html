@@ -1,0 +1,74 @@
+
+  <div class="col-lg-6 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Rencana Anggaran</h4>
+
+      </div>
+      <div class="panel-body">
+
+        <table style="font-size:12px" class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="4">Pemasukan</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="pendapatan in detail_ra.jenis_trans_masuk track by $index">
+            <tr>
+              <th scope="row"></th>
+              <th scope="row" colspan="3">{{$index+1}}. {{pendapatan.nm_jenis_trans}}
+                </th>
+            </tr>
+            <tr ng-repeat="sub in pendapatan.sub">
+              <td></td>
+              <td></td>
+              <td>{{sub.nm_jenis_trans}}</td>
+              <td style="text-align:right">Rp. {{sub.nominal}}</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <th colspan="3">Total Rencana Pendapatan</td>
+              <th class="numerik">Rp. {{detail_ra.jum_masuk}}</td>
+            </tr>
+          </tbody>
+          <thead>
+              <tr>
+                <th colspan="4">Pengeluaran</th>
+              </tr>
+          </thead>
+          <tbody ng-repeat="pengeluaran in detail_ra.jenis_trans_keluar track by $index">
+            <tr>
+              <th></th>
+              <th colspan="3" scope="row">{{$index+1}}. {{pengeluaran.nm_jenis_trans}}
+              </th>
+
+
+            </tr>
+            <tr ng-repeat="sub in pengeluaran.sub">
+              <td></td>
+              <td></td>
+              <td>{{sub.nm_jenis_trans}}</td>
+              <td style="text-align:right">{{'Rp.' +sub.nominal}}</td>
+            </tr>
+
+          </tbody>
+          <tbody>
+            <tr>
+              <th colspan="3">Total Rencana Pengeluaran</td>
+              <th class="numerik">Rp. {{detail_ra.jum_keluar}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Penggunaan dana</h4>
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </div>

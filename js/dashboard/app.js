@@ -42,6 +42,10 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 								templateUrl : 'partial/dashboard/neraca.html',
 								controller  : 'neraca'
 			})
+			.when('/penggunaan-dana',{
+								templateUrl : 'partial/dashboard/laporan_penggunaan_anggaran.html',
+								controller  : 'penggunaan-dana'
+			})
 			.when('/lst_user',{
 								templateUrl : 'partial/dashboard/user.html',
 								controller  : 'user'
@@ -293,6 +297,17 @@ app.factory('ra',['$http','helper',function($http,helper){
 				 },
 				method:	'GET',
 				url:'api/index.php/rencana_anggaran/tapel='+ cond.tapel +'&jenis='+cond.jenis
+			}).then(function(response){
+				return helper.set_output(response.data)
+			})
+		},
+		Tahun: function(cond){
+			return $http({
+				headers: {
+				 token:  localStorage.getItem('token')
+				 },
+				method:	'GET',
+				url:'api/index.php/rencana_anggaran/tahun_anggaran='+ cond.tahun +'/find'
 			}).then(function(response){
 				return helper.set_output(response.data)
 			})

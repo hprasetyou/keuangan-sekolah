@@ -140,7 +140,7 @@ $router->get($path.'/rencana_anggaran', function(){
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
     return  array(
-      'response'=>$rencana_anggaranaction->tampil('','',$userdata),
+      'response'=>$rencana_anggaranaction->tampil(array(),'',$userdata),
       'token'=>$newtoken
     );
 },['before' => 'auth']);
@@ -164,6 +164,18 @@ $router->get($path.'/rencana_anggaran/tapel={tapel}&jenis={jenis}', function($ta
     'token'=>$newtoken
   );
 },['before' => 'auth']);
+
+
+$router->get($path.'/rencana_anggaran/{cond}/find', function($cond){
+    $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
+    $userdata= \App\Helper\Auth::user_data();
+    $newtoken = \App\Helper\Auth::reset_timeout();
+  return  array(
+    'response'=>$rencana_anggaranaction->tampil(array('cond'=>$cond),'',$userdata),
+    'token'=>$newtoken
+  );
+},['before' => 'auth']);
+
 
 $router->post($path.'/rencana_anggaran', function() use($data){
     $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
@@ -244,7 +256,6 @@ $router->post($path.'/transaksi/{id_jenis_transaksi}', function($id_jenis_transa
     'token'=>$newtoken
   );
 },['before' => 'auth']);
-
 
 
 

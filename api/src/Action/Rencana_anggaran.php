@@ -9,6 +9,15 @@ class Rencana_anggaran{
   }
 
   public function tampil($args,$data,$userdata){
+    if (array_key_exists('cond',$args)){
+              $all_cond=explode('&',$args['cond']);
+              $newcondition= array();
+              foreach ($all_cond as $cond) {
+                 $condition=explode('=',$cond);
+                 $newcondition[$condition[0]]=$condition[1];
+              }
+             $this->rencana_anggaranmodel->find = $newcondition;
+            }
           return $this->rencana_anggaranmodel->show()->data;
   }
 

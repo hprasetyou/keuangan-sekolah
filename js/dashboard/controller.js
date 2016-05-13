@@ -34,11 +34,13 @@ $rootScope.theme = localStorage.getItem('theme');
           mm='0'+mm
         }
 
+
         $rootScope.Dt= {
           d:dd,
           m:mm,
           y:yyyy
         }
+
 
   userdata.Get().then(function(response){
   $rootScope.userdata=response
@@ -791,4 +793,45 @@ function($scope,$rootScope,userdata){
       }
     })
   }
+}])
+
+
+
+app.controller('penggunaan-dana',['$scope','$rootScope','userdata','ra','tapelService',
+function($scope,$rootScope,userdata,ra,tapelService){
+
+
+  var tampil_ra= function(){
+    ra.Get().then(function(response){
+      $scope.ra=response;
+    })
+  }
+
+  tampil_ra();
+    ra.Tahun({'tahun':tapelService.tapel_sekarang}).then(function(response){
+      $scope.ra_pilih = response[0];
+
+    })
+    $scope.$watch('ra_pilih', function(){
+      console.log($scope.ra_pilih);
+      ra.Detail($scope.ra_pilih.id).then(function(response){
+        $scope.detail_ra= response
+        $scope.detail_ra.jum_masuk =0
+        $scope.detail_ra.jum_keluar=0
+        for(var i = 0 ; i<response.jenis_trans_masuk.length;i++){
+          $scope.detail_ra.jum_masuk += response.jenis_trans_masuk[i].jml*1
+        }
+        for(var j = 0 ; j<response.jenis_trans_keluar.length;j++){
+          $scope.detail_ra.jum_keluar += response.jenis_trans_keluar[j].jml*1
+        }
+        $scope.cek_aktif= function(){
+          if(response.tahun_anggaran > $scope.tapel_sekarang && response.status=='0'){
+            return true
+          }
+          else{
+            return false
+          }
+        }
+      })
+    })
 }])
