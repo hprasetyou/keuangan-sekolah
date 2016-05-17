@@ -53,7 +53,8 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 					$scope.login = function(){
 						var data = JSON.stringify({
 							email: $scope.username,
-							password: $scope.password
+							password: $scope.password,
+							privilege:'1110'
 					 })
 					 User.Login(data).then(function(response){
 							if(response.auth==1){

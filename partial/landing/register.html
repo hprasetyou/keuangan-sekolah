@@ -12,7 +12,7 @@
                     NIP Anda
               </label>
               <div class="col-sm-7">
-                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="18" ng-minlength="18" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
+                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="19" ng-minlength="17" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
                   <span ng-show="nip_status=='has-error'" id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
 
               </div>
@@ -26,6 +26,14 @@
                   <span ng-show="email_status=='has-error'" id="helpBlock2" class="help-block">Email sudah digunakan</span>
                   <span ng-show="form_daftar.email.$invalid && !form_daftar.email.$pristine" id="helpBlock2" class="help-block">Email tidak valid</span>
 
+              </div>
+        </div>
+        <div class="form-group" >
+              <label class="col-sm-4 control-label" for="txt_email">
+                    Nama
+              </label>
+              <div class="col-sm-7">
+                  <input type="text" name="nama" ng-model="form_register.display_name" id="txt_nama" required class="form-control" placeholder="Nama Pengguna"/>
               </div>
         </div>
         <div class="form-group" ng-class="{'has-error':form_daftar.password.$error.minlength}">
