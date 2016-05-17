@@ -119,7 +119,7 @@ class User{
 
             if ((time())<=$token_data->val_time){
                   $this->usermodel->update($token_data->user_id,array('status'=>'1','email'=>$token_data->email));
-                  $output=array('msg'=>'success','act'=>$token_data->act);
+                  $output=array('msg'=>'success','act'=>$token_data->act,'user_id'=>$token_data->user_id);
               }
               else{
                   $output=array('msg'=>'token_expired');
