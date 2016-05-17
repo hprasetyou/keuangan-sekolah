@@ -10,7 +10,7 @@ class Setting{
       //      "root"=>"http://localhost/web/keuangansekolah",
             "root"=>"http://keuangansekolah-hprasetyou.rhcloud.com",
   //           "path"=>"web/keuangansekolah/api/index.php",
-  /         "path"=>"api/index.php",
+           "path"=>"api/index.php",
              "db"=>array(
                 "username"=>"hprasetyou",
                 "password"=>"Rp.15000", //Rp.15000
