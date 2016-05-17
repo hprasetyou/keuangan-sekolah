@@ -62,7 +62,6 @@ class User{
       'email'      =>$this->email,
       'password'   =>$this->password,
       'user_group' =>$this->user_group,
-      'create_at'  =>$date,
       'status'     =>0,
       'display_name'=>$this->display_name,
       'user_level' =>'2');

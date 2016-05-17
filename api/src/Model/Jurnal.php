@@ -58,7 +58,8 @@ public $nominal;
        join tb_transaksi on jurnal.id_transaksi=tb_transaksi.id join akun on jurnal.akun=akun.id_akun where ".$condition."  ORDER BY waktu DESC ".$this->limit);
    }
 
-    public function sum($id,$jenis){
+    public function sum($id,$jenis,$tapel){
+      $tahun = substr($tapel,2,2);
       $cond = "";
       if($jenis=='saldo'){
           $cond=" and not uraian like '%penyesuaian%' ";
@@ -69,6 +70,7 @@ public $nominal;
       }else if($jenis=='neraca'){
         $cond=" and jenis_akun not in('p','b') ";
       }
+      $cond .= " AND waktu between '2010-03-17 00:00:00' and '20".$tahun."-06-31 23:50:00'";
       return $this->db->execute("SELECT case when sum(kredit)-sum(debet) > 0 then sum(kredit)-sum(debet) else 0 end as kredit,
       case when sum(debet) - sum(kredit) > 0 then sum(debet) - sum(kredit) else 0 end as debet
 

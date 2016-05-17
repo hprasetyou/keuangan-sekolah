@@ -6,6 +6,7 @@ class Rencana_anggaran{
   function __construct(){
         $this->rencana_anggaranmodel= new \App\Model\Rencana_anggaran();
         $this->jenis_transaksimodel= new \App\Model\Jenis_transaksi();
+        $this->transaksimodel= new \App\Model\Transaksi();
   }
 
   public function tampil($args,$data,$userdata){
@@ -23,6 +24,8 @@ class Rencana_anggaran{
 
 
   function detail($args,$data,$userdata){
+    $realisasi = 0;
+    $jml=0;
 
           $this->jenis_transaksimodel->dbname = 'KSAAS_'.$userdata->user_group;
 
@@ -59,20 +62,58 @@ class Rencana_anggaran{
                       );
                       //memanggil array member transaksi
                       $j=0;
+                      $realisasi = 0;
                       foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
                         # code...
                         $extra = $data_member->extra;
                         $data_anggaran->jenis_trans_masuk[$i]->sub[$j]=$data_member;
                         $data_anggaran->jenis_trans_masuk[$i]->sub[$j]->debet=json_decode($extra)->debet;
                         $data_anggaran->jenis_trans_masuk[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+
+                        //realisasi
+                        $this->transaksimodel->find= array('id_jenis_transaksi'=>$data_member->id);
+                        $jml= $this->transaksimodel->sum()->data[0]->jumlah;
+                        $data_anggaran->jenis_trans_masuk[$i]->sub[$j]->realisasi=$jml;
+
+                        $realisasi = $realisasi +$jml;
                         $j++;
                       }
+                      //realisasi
+
+
                   //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
 
                     $data_anggaran->jenis_trans_masuk[$i]->jml=$this->jenis_transaksimodel->sum();
-
+                    $data_anggaran->jenis_trans_masuk[$i]->realisasi= $realisasi;
                     $i++;
                   }
+                  //end foreach loop jenis transaksi
+
+                  //realisasi lain lain
+                  $lain_masuk = new \stdClass;
+                  $lain_masuk->id = "0";
+                  $lain_masuk->nm_jenis_trans= "Lain lain";
+
+                  $lain_masuk->jml=0;
+                  $lain_masuk->realisasi=0;
+                  $this->transaksimodel->find= array(
+                    'mulai'=>'20'.substr($this->rencana_anggaranmodel->show()->data[0]->tahun_anggaran,0,2).'-07-01',
+                    'akhir'=>'20'.substr($this->rencana_anggaranmodel->show()->data[0]->tahun_anggaran,2,2).'-06-31');
+                  $q_lain_masuk =$this->transaksimodel->sum_lain_lain('m');
+                  $lain_masuk->sub = $q_lain_masuk->data;
+                  foreach ($q_lain_masuk->data as $data_lain_masuk) {
+                    $lain_masuk->realisasi+= $data_lain_masuk->realisasi;
+                    # code...
+                  }
+                  //tampilkan jika ada
+                  if($q_lain_masuk->num_rows > 0 and $args['realisasi']=='1'){
+                      $data_anggaran->jenis_trans_masuk[$i]=$lain_masuk;
+                  }
+
+                  //end
+
+
+                  $realisasi = $realisasi +$jml;
                   //====================
 
                   //jenis_trans_keluar
@@ -101,21 +142,51 @@ class Rencana_anggaran{
                                 );
                                 //memanggil array member transaksi
                                 $j=0;
+                                $realisasi = 0;
                                 foreach ($this->jenis_transaksimodel->show()->data as $data_member) {
                                   # code...
                                   $extra = $data_member->extra;
                                   $data_anggaran->jenis_trans_keluar[$i]->sub[$j]=$data_member;
                                   $data_anggaran->jenis_trans_keluar[$i]->sub[$j]->debet=json_decode($extra)->debet;
                                   $data_anggaran->jenis_trans_keluar[$i]->sub[$j]->kredit=json_decode($extra)->kredit;
+
+                                  $this->transaksimodel->find= array('id_jenis_transaksi'=>$data_member->id);
+                                  $jml= $this->transaksimodel->sum()->data[0]->jumlah;
+                                  $data_anggaran->jenis_trans_keluar[$i]->sub[$j]->realisasi=$jml;
+
+
+                                  $realisasi = $realisasi +$jml;
                                   $j++;
                                 }
                             //  $data->$value[$i]->sub=$this->jenis_transaksimodel->show()->data;
 
                               $data_anggaran->jenis_trans_keluar[$i]->jml=$this->jenis_transaksimodel->sum();
-
+                              $data_anggaran->jenis_trans_keluar[$i]->realisasi= $realisasi;
                               $i++;
                             }
                             //====================
+                            //realisasi lain lain
+                            $lain_keluar = new \stdClass;
+                            $lain_keluar->id = "0";
+                            $lain_keluar->nm_jenis_trans= "Lain lain";
+
+                            $lain_keluar->jml=0;
+                            $lain_keluar->realisasi=0;
+                            $this->transaksimodel->find= array(
+                              'mulai'=>'20'.substr($this->rencana_anggaranmodel->show()->data[0]->tahun_anggaran,0,2).'-07-01',
+                              'akhir'=>'20'.substr($this->rencana_anggaranmodel->show()->data[0]->tahun_anggaran,2,2).'-06-31');
+                            $q_lain_keluar =$this->transaksimodel->sum_lain_lain('k');
+                            $lain_keluar->sub = $q_lain_keluar->data;
+                            foreach ($q_lain_keluar->data as $data_lain_keluar) {
+                              $lain_keluar->realisasi+= $data_lain_keluar->realisasi;
+                              # code...
+                            }
+                            //tampilkan jika ada
+                            if($q_lain_keluar->num_rows > 0 and $args['realisasi']=='1'){
+                                $data_anggaran->jenis_trans_keluar[$i]=$lain_keluar;
+                            }
+
+                            //end
 
             return $data_anggaran;
   }

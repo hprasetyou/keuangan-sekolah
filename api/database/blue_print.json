@@ -3,7 +3,7 @@
     "name":"rencana_anggaran",
     "field":[
               {"field_name":"id","datatype":"varchar(5)","prop":"NOT NULL"},
-              {"field_name":"nm_anggaran","datatype":"varchar(30)","prop":"NOT NULL"},
+              {"field_name":"nm_anggaran","datatype":"varchar(90)","prop":"NOT NULL"},
               {"field_name":"tahun_anggaran","datatype":"int(4)","prop":"NOT NULL"},
               {"field_name":"pencatat","datatype":"varchar(10)","prop":"NOT NULL"},
               {"field_name":"status","datatype":"int(1)","prop":"NOT NULL"}

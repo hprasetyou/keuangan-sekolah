@@ -1,69 +1,79 @@
+<label for="">Tahun</label>
+<select name="" ng-model="pilihan_tahun"  id="">
+  <option ng-repeat="ta in daftar_ta" value="{{ta.id}}">{{ta.nama}}</option>
+  <option value="1415">haaaa</option>
+</select>
+{{pilihan_tahun}}
 <h1>Neraca lajur</h1>
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th rowspan="2">Akun</th>
-      <th colspan="2">Neraca Saldo</th>
-      <th colspan="2">Penyesuaian</th>
-      <th colspan="2">Rugi/Laba</th>
-      <th colspan="2">Neraca</th>
-    </tr>
-    <tr>
-      <th>Debet</th>
-      <th>Kredit</th>
-      <th>Debet</th>
-      <th>Kredit</th>
-      <th>Debet</th>
-      <th>Kredit</th>
-      <th>Debet</th>
-      <th>Kredit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="lajur in data_neraca_lajur">
-      <td>{{lajur.nama_akun}}</td>
-      <td><p ng-hide="lajur.saldo.debet=='0'">{{lajur.saldo.debet}}</p></td>
-      <td><p ng-hide="lajur.saldo.kredit=='0'">{{lajur.saldo.kredit}}</p></td>
-      <td><p ng-hide="lajur.penyesuaian.debet=='0'">{{lajur.penyesuaian.debet}}</p></td>
-      <td><p ng-hide="lajur.penyesuaian.kredit=='0'">{{lajur.penyesuaian.kredit}}</p></td>
-      <td><p ng-hide="lajur.rl.debet=='0'">{{lajur.rl.debet}}</p></td>
-      <td><p ng-hide="lajur.rl.kredit=='0'">{{lajur.rl.kredit}}</p></td>
-      <td><p ng-hide="lajur.neraca.debet=='0'">{{lajur.neraca.debet}}</p></td>
-      <td><p ng-hide="lajur.neraca.kredit=='0'">{{lajur.neraca.kredit}}</p></td>
-    </tr>
-    <tr>
-      <td><b>Total</b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.debet}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.kredit}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.debet}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.kredit}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000">{{jumlah.rl.debet}}</b></td>
-      <td><b style="border-bottom:1px solid #000">{{jumlah.rl.kredit}}</b></td>
-      <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.debet}}</b></td>
-      <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.kredit}}</b></td>
-    </tr>
-    <tr>
-      <td><b>Laba/Rugi bersih</b></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><b>{{rl.kredit}}</b></td>
-      <td><b>{{rl.debet}}</b></td>
-      <td><b>{{rlneraca.kredit}}</b></td>
-      <td><b>{{rlneraca.debet}}</b></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.debet+rl.kredit}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.kredit+rl.debet}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.debet+rlneraca.kredit}}</u></b></td>
-      <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.kredit+rlneraca.debet}}</u></b></td>
-    </tr>
-  </tbody>
+<div class="table-responsive">
 
-</table>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2">Akun</th>
+        <th colspan="2">Neraca Saldo</th>
+        <th colspan="2">Penyesuaian</th>
+        <th colspan="2">Rugi/Laba</th>
+        <th colspan="2">Neraca</th>
+      </tr>
+      <tr>
+        <th>Debet</th>
+        <th>Kredit</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="lajur in data_neraca_lajur">
+        <td>{{lajur.nama_akun}}</td>
+        <td><p ng-hide="lajur.saldo.debet=='0'">{{lajur.saldo.debet | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.saldo.kredit=='0'">{{lajur.saldo.kredit | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.penyesuaian.debet=='0'">{{lajur.penyesuaian.debet | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.penyesuaian.kredit=='0'">{{lajur.penyesuaian.kredit | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.rl.debet=='0'">{{lajur.rl.debet | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.rl.kredit=='0'">{{lajur.rl.kredit | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.neraca.debet=='0'">{{lajur.neraca.debet | currency:"Rp."}}</p></td>
+        <td><p ng-hide="lajur.neraca.kredit=='0'">{{lajur.neraca.kredit | currency:"Rp."}}</p></td>
+      </tr>
+      <tr>
+        <td><b>Total</b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.debet | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.saldo.kredit | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.debet | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.penyesuaian.kredit | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000">{{jumlah.rl.debet | currency:"Rp."}}</b></td>
+        <td><b style="border-bottom:1px solid #000">{{jumlah.rl.kredit | currency:"Rp."}}</b></td>
+        <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.debet | currency:"Rp."}}</b></td>
+        <td><b style="border-bottom:1px solid #000">{{jumlah.neraca.kredit | currency:"Rp."}}</b></td>
+      </tr>
+      <tr>
+        <td><b>Laba/Rugi bersih</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>{{rl.kredit | currency:"Rp."}}</b></td>
+        <td><b>{{rl.debet | currency:"Rp."}}</b></td>
+        <td><b>{{rlneraca.kredit | currency:"Rp."}}</b></td>
+        <td><b>{{rlneraca.debet | currency:"Rp."}}</b></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.debet+rl.kredit | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.rl.kredit+rl.debet | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.debet+rlneraca.kredit | currency:"Rp."}}</u></b></td>
+        <td><b style="border-bottom:1px solid #000"><u>{{jumlah.neraca.kredit+rlneraca.debet | currency:"Rp."}}</u></b></td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

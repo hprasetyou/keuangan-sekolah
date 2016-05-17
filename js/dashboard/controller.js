@@ -116,19 +116,23 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
       })
     }
     tampil_ra();
-
+    $scope.nmtapel=[]
+    $scope.adatapel=[]
+    for(var i=0; i<$scope.lsttapel.length; i++){
+      ra.Tahun({tahun:$scope.lsttapel[i]}).then(function(response){
+        $scope.adatapel[i]=response.length
+      })
+      $scope.nmtapel[i]="20"+$scope.lsttapel[i].substr(0,2)+"/20"+$scope.lsttapel[i].substr(2,2)
+    }
 //tambahkan rencana anggaran
     $scope.add_ra= function(){
-      var data = {
-        nm_anggaran: $scope.nm_anggaran,
-        tahun_anggaran: $scope.lsttapel[2],
-        pencatat:$rootScope.userdata.user_id
-      }
-      ra.Add(data).then(function(response){
-        $scope.ra.push(data)
+      $scope.frm_tapel.pencatat=$rootScope.userdata.user_id
+
+      ra.Add($scope.frm_tapel).then(function(response){
+        $scope.ra.push($scope.frm_tapel)
         $rootScope.addalert('success','Rencana Anggaran dibuat');
-        data.id= response.id.substring(0, 5);
-        $scope.ra_pilih=data;
+        $scope.frm_tapel.id= response.id.substring(0, 5);
+        $scope.ra_pilih=scope.frm_tapel;
       })
     }
 
@@ -277,7 +281,8 @@ app.controller('transaksi',['$scope','$rootScope','ra','$routeParams','akun','us
 function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
     $scope.jenis_input_trans=$routeParams.jenis
 
-    jurnal.Get_per_page({
+    var tampil= function(){
+      jurnal.Get_per_page({
       akun:'all',
       mulai:'2000-08-08',
       akhir:$rootScope.Dt.y+'-'+$rootScope.Dt.m+'-'+$rootScope.Dt.d,
@@ -286,6 +291,8 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
     }).then(function(response){
       $scope.daftar_transaksi=response.data
     })
+  }
+  tampil();
 
     $scope.formtrans={}
     $scope.no=0;
@@ -324,10 +331,21 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
         kredit:$scope.formtrans.kredit,
         id_jenis:$scope.jenis_trans_pilih.id
       }
-      jurnal.Add(data_trans);
+      jurnal.Add(data_trans).then(function(response){
+        tampil();
+        jurnal.Get_per_page({
+        akun:'all',
+        mulai:'2000-08-08',
+        akhir:$rootScope.Dt.y+'-'+$rootScope.Dt.m+'-'+$rootScope.Dt.d,
+        index:'0',
+        jumlah_tampil:'10'
+      }).then(function(response){
+        $scope.daftar_transaksi=response.data
+      })
+      });
       $rootScope.addalert('success','transaksi tercatat');
-      $rootScope.tampil_saldo()
       $scope.formtrans={}
+
     }
 
 
@@ -599,63 +617,79 @@ function($scope,Saldo,helper,$rootScope){
 //============================================================================
 //============================================================================
 
-app.controller('neraca_lajur',['$scope','Saldo','helper','$rootScope',
-function($scope,Saldo,helper,$rootScope){
-    $scope.jumlah={
-      saldo:{
-        debet:0,
-        kredit:0},
-      penyesuaian:{
-        debet:0,
-        kredit:0},
-      rl:{
-        debet:0,
-        kredit:0},
-      neraca:{
-        debet:0,
-        kredit:0}
-    };
-  Saldo.Neraca_lajur().then(function(response){
-    $scope.data_neraca_lajur = response;
-    for(var i = 0 ; i < response.length; i++){
-      $scope.jumlah.saldo.debet += $scope.data_neraca_lajur[i].saldo.debet*1;
-      $scope.jumlah.saldo.kredit += $scope.data_neraca_lajur[i].saldo.kredit*1;
-      $scope.jumlah.penyesuaian.debet += $scope.data_neraca_lajur[i].penyesuaian.debet*1;
-      $scope.jumlah.penyesuaian.kredit += $scope.data_neraca_lajur[i].penyesuaian.kredit*1;
-      $scope.jumlah.rl.debet += $scope.data_neraca_lajur[i].rl.debet*1;
-      $scope.jumlah.rl.kredit += $scope.data_neraca_lajur[i].rl.kredit*1;
-      $scope.jumlah.neraca.debet += $scope.data_neraca_lajur[i].neraca.debet*1;
-      $scope.jumlah.neraca.kredit += $scope.data_neraca_lajur[i].neraca.kredit*1;
-    }
-    $scope.rl={}
-    $scope.rlneraca={}
-    if($scope.jumlah.rl.debet-$scope.jumlah.rl.kredit > 0){
-        $scope.rl.debet = $scope.jumlah.rl.debet-$scope.jumlah.rl.kredit;
-    }else{
-      $scope.rl.debet = 0;
-    }
-    if($scope.jumlah.rl.kredit-$scope.jumlah.rl.debet > 0){
-    $scope.rl.kredit = $scope.jumlah.rl.kredit-$scope.jumlah.rl.debet;
-    }
-    else{
-      $scope.rl.kredit =0;
+app.controller('neraca_lajur',['$scope','Saldo','helper','$rootScope','tapelService','ra',
+function($scope,Saldo,helper,$rootScope,tapelService,ra){
+
+    $scope.pilihan_tahun=tapelService.tapel_sekarang
+    $scope.daftar_ta=[]
+    ra.Get().then(function(response){
+      for(var i = 0; i<response.length; i++){
+        $scope.daftar_ta.push({"id":response[i].tahun_anggaran,
+        "nama":"Tahun 20"+response[i].tahun_anggaran.substr(0,2)+"/20"+response[i].tahun_anggaran.substr(2,2)})
+      }
+    })
+    $scope.$watch('pilihan_tahun',function(){
+      $scope.jumlah={
+        saldo:{
+          debet:0,
+          kredit:0},
+        penyesuaian:{
+          debet:0,
+          kredit:0},
+        rl:{
+          debet:0,
+          kredit:0},
+        neraca:{
+          debet:0,
+          kredit:0}
+      };
+      tampil($scope.pilihan_tahun)
+    })
+
+    var tampil = function(tahun){
+
+        Saldo.Neraca_lajur(tahun).then(function(response){
+        $scope.data_neraca_lajur = response;
+        for(var i = 0 ; i < response.length; i++){
+          $scope.jumlah.saldo.debet += $scope.data_neraca_lajur[i].saldo.debet*1;
+          $scope.jumlah.saldo.kredit += $scope.data_neraca_lajur[i].saldo.kredit*1;
+          $scope.jumlah.penyesuaian.debet += $scope.data_neraca_lajur[i].penyesuaian.debet*1;
+          $scope.jumlah.penyesuaian.kredit += $scope.data_neraca_lajur[i].penyesuaian.kredit*1;
+          $scope.jumlah.rl.debet += $scope.data_neraca_lajur[i].rl.debet*1;
+          $scope.jumlah.rl.kredit += $scope.data_neraca_lajur[i].rl.kredit*1;
+          $scope.jumlah.neraca.debet += $scope.data_neraca_lajur[i].neraca.debet*1;
+          $scope.jumlah.neraca.kredit += $scope.data_neraca_lajur[i].neraca.kredit*1;
+        }
+        $scope.rl={}
+        $scope.rlneraca={}
+        if($scope.jumlah.rl.debet-$scope.jumlah.rl.kredit > 0){
+            $scope.rl.debet = $scope.jumlah.rl.debet-$scope.jumlah.rl.kredit;
+        }else{
+          $scope.rl.debet = 0;
+        }
+        if($scope.jumlah.rl.kredit-$scope.jumlah.rl.debet > 0){
+        $scope.rl.kredit = $scope.jumlah.rl.kredit-$scope.jumlah.rl.debet;
+        }
+        else{
+          $scope.rl.kredit =0;
+        }
+
+        if($scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit > 0){
+            $scope.rlneraca.debet = $scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit;
+        }else{
+          $scope.rlneraca.debet = 0;
+        }
+        if($scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet > 0){
+        $scope.rlneraca.kredit = $scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet;
+        }
+        else{
+          $scope.rlneraca.kredit =0;
+        }
+      })
     }
 
-    if($scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit > 0){
-        $scope.rlneraca.debet = $scope.jumlah.neraca.debet-$scope.jumlah.neraca.kredit;
-    }else{
-      $scope.rlneraca.debet = 0;
-    }
-    if($scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet > 0){
-    $scope.rlneraca.kredit = $scope.jumlah.neraca.kredit-$scope.jumlah.neraca.debet;
-    }
-    else{
-      $scope.rlneraca.kredit =0;
-    }
 
 
-
-  })
 }])
 
 //============================================================================
@@ -665,6 +699,8 @@ function($scope,Saldo,helper,$rootScope){
 
 app.controller('user',['$scope','userdata','$rootScope',
     function($scope,userdata,$rootScope){
+      $scope.pilihan={}
+        $scope.pilihan.lstpriv = ["1","1","1","0"]
 
         function tampil(){
           userdata.AllUser($rootScope.userdata).then(function(response){
@@ -677,19 +713,16 @@ app.controller('user',['$scope','userdata','$rootScope',
         $scope.add_user = function(){
           var privilege=''
           for(var i=0;i<$scope.pilihan.lstpriv.length;i++){
-            if($scope.pilihan.lstpriv[i]==true){
-              privilege +='1'+''
-            }
-            else{
-              privilege +='0'+''
-            }
+
+              privilege +=$scope.pilihan.lstpriv[i]
+
           }
           $scope.form_user.privilege= privilege;
           $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
-           $("#ModalDaftar").modal('hide');
-           $rootScope.addalert('success','User ditambahkan')
-           tampil()
+            	 $("#ModalDaftar").modal('hide');
+               $rootScope.addalert('success','user ditambahkan')
+               tampil();
           })
         }
         $scope.pilih= function(data){
@@ -697,12 +730,8 @@ app.controller('user',['$scope','userdata','$rootScope',
           var lstpriv=data.privilege.split("");
           $scope.pilihan.lstpriv=[];
           for(var i=0; i<lstpriv.length; i++){
-            if(lstpriv[i]=='1'){
-              $scope.pilihan.lstpriv[i]=true
-            }
-            else {
-              $scope.pilihan.lstpriv[i]=false
-            }
+              $scope.pilihan.lstpriv[i]=lstpriv[i]
+
           }
         }
         $scope.edit_priv = function(){
@@ -710,15 +739,13 @@ app.controller('user',['$scope','userdata','$rootScope',
           var privilege=''
           data.user_id=$scope.pilihan.user_id
           for(var i=0;i<$scope.pilihan.lstpriv.length;i++){
-            if($scope.pilihan.lstpriv[i]==true){
-              privilege +='1'+''
-            }
-            else{
-              privilege +='0'+''
-            }
+
+              privilege +=$scope.pilihan.lstpriv[i]
+
           }
-          data.priv={}
-          data.priv.privilege=privilege
+
+          data.privilege=privilege
+          console.log(data);
           userdata.Update(data).then(function(response){
             $rootScope.addalert('success','Hak Akses Diubah')
             tampil()
@@ -793,6 +820,29 @@ function($scope,$rootScope,userdata){
       }
     })
   }
+  $scope.ubah_email = function(){
+    userdata.Update({
+      'user_id':$rootScope.userdata.user_id,
+      'email':$scope.chemail
+    }).then(function(res){
+      if(res.message=='ok'){
+        $("#wait").modal('hide');
+        $("#ubahemail").modal('show');
+        $scope.chemail="";
+      }
+    })
+  }
+  $scope.nonaktifkan = function(){
+    userdata.Update({
+      'user_id':$rootScope.userdata.user_id,
+      'status':'2'
+    }).then(function(res){
+      if(res.message=='ok'){
+        $rootScope.addalert('success','Akun dinonaktifkan');
+        window.location = '.'
+      }
+    })
+  }
 }])
 
 
@@ -818,11 +868,38 @@ function($scope,$rootScope,userdata,ra,tapelService){
         $scope.detail_ra= response
         $scope.detail_ra.jum_masuk =0
         $scope.detail_ra.jum_keluar=0
+        $scope.detail_ra.jum_real_masuk=0
+        $scope.detail_ra.jum_real_keluar=0
         for(var i = 0 ; i<response.jenis_trans_masuk.length;i++){
           $scope.detail_ra.jum_masuk += response.jenis_trans_masuk[i].jml*1
+          $scope.detail_ra.jum_real_masuk += response.jenis_trans_masuk[i].realisasi*1
         }
         for(var j = 0 ; j<response.jenis_trans_keluar.length;j++){
           $scope.detail_ra.jum_keluar += response.jenis_trans_keluar[j].jml*1
+          $scope.detail_ra.jum_real_keluar += response.jenis_trans_keluar[j].realisasi*1
+        }
+        $scope.cek_aktif= function(){
+          if(response.tahun_anggaran > $scope.tapel_sekarang && response.status=='0'){
+            return true
+          }
+          else{
+            return false
+          }
+        }
+      })
+      ra.Realisasi($scope.ra_pilih.id).then(function(response){
+        $scope.realisasi_ra= response
+        $scope.realisasi_ra.jum_masuk =0
+        $scope.realisasi_ra.jum_keluar=0
+        $scope.realisasi_ra.jum_real_masuk=0
+        $scope.realisasi_ra.jum_real_keluar=0
+        for(var i = 0 ; i<response.jenis_trans_masuk.length;i++){
+          $scope.realisasi_ra.jum_masuk += response.jenis_trans_masuk[i].jml*1
+          $scope.realisasi_ra.jum_real_masuk += response.jenis_trans_masuk[i].realisasi*1
+        }
+        for(var j = 0 ; j<response.jenis_trans_keluar.length;j++){
+          $scope.realisasi_ra.jum_keluar += response.jenis_trans_keluar[j].jml*1
+          $scope.realisasi_ra.jum_real_keluar += response.jenis_trans_keluar[j].realisasi*1
         }
         $scope.cek_aktif= function(){
           if(response.tahun_anggaran > $scope.tapel_sekarang && response.status=='0'){

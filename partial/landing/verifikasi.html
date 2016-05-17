@@ -8,23 +8,27 @@
     <div ng-show="verif.act=='new_mate'" class="panel panel-default">
       <div class="panel-heading">Set Password</div>
       <div class="panel-body">
-        <form class="form-horizontal">
+        <form  name="frm_pwd" class="form-horizontal" role="form">
             <div class="form-group">
               <label for="inputPassword" class="col-sm-2 control-label">Password baru</label>
               <div class="col-sm-10">
-                <input type="password"  class="form-control" id="inputPassword"  placeholder="Password">
+                <input name="pwd" type="password" ng-model="new_pwd"  ng-minlength="8"  class="form-control" id="pwd"  placeholder="Password">
+                <p ng-show="frm_pwd.pwd.$error.minlength" class="help-block">Password terlalu pendek</p>
+
               </div>
             </div>
             <div class="form-group">
               <label for="rePassword" class="col-sm-2 control-label">Konfirmasi Password</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="rePassword" placeholder="Password">
+                <input name="repwd" type="password" ng-model="conf_pwd" class="form-control" id="repwd" placeholder="Ulangi Password">
+                <p ng-show="new_pwd != conf_pwd" class="help-block">Password tidak cocok</p>
+
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Simpan</button>
+                <button ng-disabled="frm_pwd.$invalid || new_pwd != conf_pwd" ng-click="ubahpassword()" class="btn btn-default">Simpan</button>
               </div>
             </div>
           </form>

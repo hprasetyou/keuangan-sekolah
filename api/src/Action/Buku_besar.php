@@ -78,15 +78,16 @@ class Buku_besar{
     function get_neraca_lajur($args,$data,$userdata){
       //get user group
       $output= array();
+      $tapel=$args['tapel'];
       $i=0;
         foreach ($this->akunmodel->show()->data as $dataakun) {
           # code...
           $output[$i]['id_akun']=$dataakun->id_akun;
           $output[$i]['nama_akun']=$dataakun->nama_akun;
-          $output[$i]['saldo']=$this->jurnalmodel->sum($dataakun->id_akun,'saldo')->data[0];
-          $output[$i]['penyesuaian']=$this->jurnalmodel->sum($dataakun->id_akun,'penyesuaian')->data[0];
-          $output[$i]['rl']=$this->jurnalmodel->sum($dataakun->id_akun,'rl')->data[0];
-          $output[$i]['neraca']=$this->jurnalmodel->sum($dataakun->id_akun,'neraca')->data[0];
+          $output[$i]['saldo']=$this->jurnalmodel->sum($dataakun->id_akun,'saldo',$tapel)->data[0];
+          $output[$i]['penyesuaian']=$this->jurnalmodel->sum($dataakun->id_akun,'penyesuaian',$tapel)->data[0];
+          $output[$i]['rl']=$this->jurnalmodel->sum($dataakun->id_akun,'rl',$tapel)->data[0];
+          $output[$i]['neraca']=$this->jurnalmodel->sum($dataakun->id_akun,'neraca',$tapel)->data[0];
           $i++;
         }
         return $output;

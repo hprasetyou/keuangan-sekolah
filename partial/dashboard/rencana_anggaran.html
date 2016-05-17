@@ -38,13 +38,13 @@
         <td></td>
         <td>{{sub.nm_jenis_trans}}</td>
         <td>{{sub.keterangan}}</td>
-        <td style="text-align:right">Rp. {{sub.nominal}}</td>
+        <td style="text-align:right">{{sub.nominal | currency:"Rp."}}</td>
       </tr>
     </tbody>
     <tbody>
       <tr>
         <th colspan="4">Total Rencana Pendapatan</td>
-        <th class="numerik">Rp. {{detail_ra.jum_masuk}}</td>
+        <th class="numerik">{{detail_ra.jum_masuk | currency:"Rp."}}</td>
       </tr>
     </tbody>
     <thead>
@@ -67,14 +67,14 @@
         <td></td>
         <td>{{sub.nm_jenis_trans}}</td>
         <td>{{sub.keterangan}}</td>
-        <td style="text-align:right">{{'Rp.' +sub.nominal}}</td>
+        <td style="text-align:right">{{sub.nominal | currency:"Rp."}}</td>
       </tr>
 
     </tbody>
     <tbody>
       <tr>
         <th colspan="4">Total Rencana Pengeluaran</td>
-        <th class="numerik">Rp. {{detail_ra.jum_keluar}}</td>
+        <th class="numerik">{{detail_ra.jum_keluar | currency:"Rp."}}</td>
       </tr>
     </tbody>
   </table>
@@ -111,7 +111,18 @@
                           <label class="col-sm-4 control-label"
                                     for="nm_anggaran">Nama Anggaran</label>
                           <div class="col-sm-8">
-                              <input type="text" ng-model="nm_anggaran" required class="form-control" placeholder="Nama Anggaran"/>
+                              <input type="text" ng-model="frm_tapel.nm_anggaran" required class="form-control" placeholder="Nama Anggaran"/>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label"
+                                    for="nm_anggaran">Tahun</label>
+                          <div class="col-sm-8">
+                              <select ng-model="frm_tapel.tahun_anggaran" class="form-control" name="" id="">
+                                <option value="undefined">-PILIH-</option>
+                                <option ng-show="$scope.adatapel[1]==0" value="{{lsttapel[1]}}">{{nmtapel[1]}}</option>
+                                <option ng-show="$scope.adatapel[2]==0" value="{{lsttapel[2]}}">{{nmtapel[2]}}</option>
+                              </select>
                           </div>
                         </div>
                       </form>
@@ -123,7 +134,7 @@
                               data-dismiss="modal">
                                   Close
                       </button>
-                      <button type="button" ng-click="add_ra()" class="btn btn-primary" data-dismiss="modal">
+                      <button type="button" ng-disabled="frm_tapel.tahun_anggaran=='undefined'" ng-click="add_ra()" class="btn btn-primary" data-dismiss="modal">
                           Tambahkan
                       </button>
                   </div>

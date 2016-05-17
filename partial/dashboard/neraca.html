@@ -15,8 +15,8 @@
         <tbody>
           <tr ng-repeat="saldo in daftar_saldo | filter: {jenis_akun:'a'} ">
             <td>{{saldo.nama_akun}}</td>
-            <td class="numerik">Rp. {{saldo.debet}},00-</td>
-            <td class="numerik">Rp. {{saldo.kredit}},00-</td>
+            <td class="numerik">{{saldo.debet | currency:"Rp."}}</td>
+            <td class="numerik">{{saldo.kredit | currency:"Rp."}}</td>
           </tr>
 
         </tbody>
@@ -32,16 +32,16 @@
         <tbody>
           <tr ng-repeat="saldo in daftar_saldo  | filter:{jenis_akun:jenis.id}">
             <td>{{saldo.nama_akun}}</td>
-            <td class="numerik">Rp. {{saldo.debet}},00-</td>
-            <td class="numerik">Rp. {{saldo.kredit}},00-</td>
+            <td class="numerik">{{saldo.debet | currency:"Rp."}}</td>
+            <td class="numerik">{{saldo.kredit | currency:"Rp."}}</td>
           </tr>
 
         </tbody>
       </table>
     </div>
     <div class="col-md-12">
-      <p class="col-sm-6">total <b>{{saldo_aset}}</b></p>
-      <p class="col-sm-6">total <b>{{saldo_not_aset}}</b></p>
+      <p class="col-sm-6">total <b>{{saldo_aset | currency:"Rp."}}</b></p>
+      <p class="col-sm-6">total <b>{{saldo_not_aset | currency:"Rp."}}</b></p>
     </div>
   </div>
 </div>

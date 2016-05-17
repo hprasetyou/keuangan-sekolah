@@ -1,7 +1,11 @@
+<div ng-show="userdata.privilege[1]=='0'" class="panel panel-warning">
+  <div class="panel-heading">Kesalahan</div>
+  <div class="panel-body"><strong>Anda tidak berhak mengkses halaman ini</strong></div>
+</div>
+<div ng-show="userdata.privilege[1]=='1'">
 <div class="page-header">
 
     <h3>Pencatatan Dana Masuk/Keluar</h3>
-  </div>
 </div>
 <div style="padding:0" class="col-md-3" >
   <div class="panel panel-default">
@@ -57,7 +61,7 @@
         <div class="col-sm-12">
           <label class="col-sm-6 control-label">Jumlah Dana Dianggarkan</label>
           <div class="col-sm-6">
-              {{jenis_trans_pilih.nominal}}
+              {{jenis_trans_pilih.nominal | currency:"Rp."}}
           </div>
         </div>
 
@@ -89,7 +93,7 @@
           <label class="col-sm-4 control-label"
                     for="debet">Akun yang didebet</label>
           <div class="col-sm-8">
-              <select ng-model="formtrans.debet" required class="form-control" ng-options="item.id_akun as item.nama_akun for item in data_akun">
+              <select ng-model="formtrans.debet" required class="form-control" ng-options="item.id_akun as item.nama_akun+' ('+item.jenis_akun+')' for item in data_akun">
                 </select>
           </div>
         </div>
@@ -144,15 +148,14 @@
             <td>{{transaksi.uraian}}</td>
             <td>{{transaksi.pencatat}}</td>
             <td>{{transaksi.akun}}</td>
-            <td>{{transaksi.debet}}</td>
-            <td>{{transaksi.kredit}}</td>
+            <td>{{transaksi.debet | currency:"Rp."}}</td>
+            <td>{{transaksi.kredit | currency:"Rp."}}</td>
           </tr>
         </tbody>
     </table>
     </div>
   </div>
 </div>
-<div class="col-md-12">
 
 
 </div>

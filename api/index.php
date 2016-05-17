@@ -145,12 +145,12 @@ $router->get($path.'/rencana_anggaran', function(){
     );
 },['before' => 'auth']);
 
-$router->get($path.'/rencana_anggaran/{id}/detail', function($id){
+$router->get($path.'/rencana_anggaran/{id}/detail/{realisasi}', function($id,$realisasi){
     $rencana_anggaranaction = new \App\Action\Rencana_anggaran();
     $userdata= \App\Helper\Auth::user_data();
     $newtoken = \App\Helper\Auth::reset_timeout();
   return  array(
-    'response'=>$rencana_anggaranaction->detail(array('id'=>$id),'',$userdata),
+    'response'=>$rencana_anggaranaction->detail(array('id'=>$id,'realisasi'=>$realisasi),'',$userdata),
     'token'=>$newtoken
   );
 },['before' => 'auth']);
@@ -389,11 +389,11 @@ $akunaction = new \App\Action\Akun();
 //==============================================================================
 
 
-$router->get($path.'/neraca_lajur', function() use($data){
+$router->get($path.'/neraca_lajur/{tapel}', function($tapel) use($data){
       $newtoken = \App\Helper\Auth::reset_timeout();
   $buku_besaraction = new \App\Action\Buku_besar();
     return array(
-    'response'=> $buku_besaraction->get_neraca_lajur('','',''),
+    'response'=> $buku_besaraction->get_neraca_lajur(array('tapel'=>$tapel),'',''),
     'token'=>$newtoken
   );
 },['before' => 'auth']);

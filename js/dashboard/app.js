@@ -121,14 +121,14 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
        })
      },
 
-		 Neraca_lajur: function(){
+		 Neraca_lajur: function(tapel){
        return $http({
          headers: {
           'token':  localStorage.getItem('token'),
 					'Content-Type':'application/json'
           },
          method:	'GET',
-         url:'api/index.php/neraca_lajur'
+         url:'api/index.php/neraca_lajur/'+tapel
        }).then(function(response){
 				 if(response.data.error){
  						helper.go_home()
@@ -260,7 +260,18 @@ app.factory('ra',['$http','helper',function($http,helper){
 				 token:  localStorage.getItem('token')
 				 },
 				method:	'GET',
-				url:'api/index.php/rencana_anggaran/'+ id +'/detail'
+				url:'api/index.php/rencana_anggaran/'+ id +'/detail/0'
+			}).then(function(response){
+				return helper.set_output(response.data)
+			})
+		},
+		Realisasi: function(id){
+			return $http({
+				headers: {
+				 token:  localStorage.getItem('token')
+				 },
+				method:	'GET',
+				url:'api/index.php/rencana_anggaran/'+ id +'/detail/1'
 			}).then(function(response){
 				return helper.set_output(response.data)
 			})

@@ -21,14 +21,14 @@
         <tr ng-repeat="jurnal in daftar_jurnal | filter:{kredit:'0'}:true">
           <td>{{jurnal.tanggal}}</td>
           <td>{{jurnal.uraian}}</td>
-          <td>{{jurnal.debet}}</td>
+          <td>{{jurnal.debet | currency:"Rp. "}}</td>
         </tr>
         <tr>
           <td colspan="3"></td>
         </tr>
         <tr>
           <td colspan="2"><b>Jumlah Debet</b></td>
-          <td><b>{{saldo.jum_debet}}</b></td>
+          <td><b>{{saldo.jum_debet | currency:"Rp. "}}</b></td>
         </tr>
       </tbody>
     </table></div>
@@ -45,14 +45,14 @@
           <tr ng-repeat="jurnal in daftar_jurnal | filter:{debet:'0'}:true">
             <td>{{jurnal.tanggal}}</td>
             <td>{{jurnal.uraian}}</td>
-            <td>{{jurnal.kredit}}</td>
+            <td>{{jurnal.kredit | currency:"Rp. "}}</td>
           </tr>
           <tr>
             <td colspan="3"></td>
           </tr>
           <tr>
             <td colspan="2"><b>Jumlah Kredit</b></td>
-            <td><b>{{saldo.jum_kredit}}</b></td>
+            <td><b>{{saldo.jum_kredit | currency:"Rp. "}}</b></td>
           </tr>
 
         </tbody>
@@ -60,6 +60,6 @@
     </div>
   </div>
 <div class="panel-footer">
-  <strong>Total: {{saldo.total + ' ('+ saldo.jenis +')'}}</strong>
+  <strong>Total: {{saldo.total | currency:"Rp. "}} ({{ saldo.jenis }})</strong>
 </div>
 </div>

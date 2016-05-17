@@ -108,7 +108,6 @@ class Connection{
           $output->success  =true;
           $output->data     =$data;
           $output->num_rows = count($data);
-          $output->query    =$query;
       } catch(PDOException $e)
       {
           $output->data = $e->getMessage();

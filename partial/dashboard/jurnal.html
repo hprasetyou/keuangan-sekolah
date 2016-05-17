@@ -19,8 +19,8 @@
       </tr>
       <tr ng-repeat="detjurnal in daftar_jurnal | filter:{id_transaksi:jurnal.id_transaksi}">
         <td>{{detjurnal.akun}}</td>
-        <td>{{detjurnal.debet}}</td>
-        <td>{{detjurnal.kredit}}</td>
+        <td ><p ng-hide="detjurnal.debet==0">{{detjurnal.debet | currency:"Rp. "}}</p></td>
+        <td><p ng-hide="detjurnal.kredit==0">{{detjurnal.kredit | currency:"Rp. "}}</p></td>
       </tr>
     </tbody>
   </table>
@@ -51,8 +51,8 @@
       </tr>
       <tr ng-repeat="detjurnal in jurnal_asli | filter:{id_transaksi:jurnal.id_transaksi}">
         <td>{{detjurnal.akun}}</td>
-        <td>{{detjurnal.debet}}</td>
-        <td>{{detjurnal.kredit}}</td>
+        <td ><p ng-hide="detjurnal.debet==0">{{detjurnal.debet | currency:"Rp. "}}</p></td>
+        <td><p ng-hide="detjurnal.kredit==0">{{detjurnal.kredit | currency:"Rp. "}}</p></td>
       </tr>
     </tbody>
   </table>

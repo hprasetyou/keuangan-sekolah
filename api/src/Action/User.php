@@ -34,8 +34,26 @@ class User{
             }
               $newdata[$key]= $newvalue;
           }
-          $this->usermodel->update($args['user_id'],$newdata);
+          if (array_key_exists('email',$data)){
+            $ver_token=\App\Helper\Jwt::encode(array(
+              'act'=> 'change_email',
+              'user_id'    => $data['user_id'],
+              'email'       => $data['email'],
+              'val_time'    => time()+3600
+            ));
+            $setting = \App\Helper\Setting::get();
+            $mail_subject='Halo '.$data['email'];
+            $mail_body = array();
+            $mail_body['msgtitle'] = 'Halo ';
+            $mail_body['msgbody']='Anda memutuskan untuk mengganti alamat email anda dengan alamat email ini, silahkan verifikasi email ini dengan mengklik link <br>
+          <br><br><a href="'.$setting['root'].'/#/verifikasi&token='.$ver_token.'" >verifikasi email ini </a>';
+            $mail_recipient = $data['email'];
+            \App\Helper\Mailer::send($mail_subject,$mail_body,$mail_recipient);
 
+          }
+          else{
+            $this->usermodel->update($args['user_id'],$newdata);
+          }
           return array('message'=>'ok');
       }
 

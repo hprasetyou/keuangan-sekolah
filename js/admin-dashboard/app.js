@@ -20,12 +20,16 @@ app.config(['$routeProvider',function($routeProvider){
         templateUrl : 'partial/admin-dashboard/request.html',
         controller  : 'request'
     })
+    .when('/kelola-admin',{
+        templateUrl : 'partial/admin-dashboard/kelola-admin.html',
+        controller  : 'kelola-admin'
+    })
+    .when('/setting',{
+        templateUrl : 'partial/admin-dashboard/setting.html',
+        controller  : 'setting'
+    })
 }]);
 
-app.controller('home',['$scope',
-    function($scope){
-
-    }]);
 
 app.controller('user',['$scope','User',
     function($scope,User){
@@ -33,6 +37,11 @@ app.controller('user',['$scope','User',
         $scope.alluser=response.data
       })
     }]);
+
+    app.controller('home',['$scope',
+        function($scope){
+
+        }]);
 
 
 app.controller('request',['$scope','Sekolah',
@@ -58,15 +67,29 @@ app.controller('request',['$scope','Sekolah',
             })
           })
         })
-
-
-
       }
     }]);
 
 
-//====__________===_________==============================//
-//___/         /__/
+    app.controller('kelola-admin',['$scope','User',
+        function($scope,User){
+          User.All_admin().then(function(response){
+            $scope.admins = response.data;
+          })
+        }]);
+
+
+//==========================================================================================
+//=====__________=====______===========__________======_________________===//
+//=====__________====_________=======_____=====___=====____==______==___===___===//
+//=====_____========____===____======____====================_____========//
+//=====__________==____=====____=====____====================_____========================//
+//=====_____=======_____________=====____====================_____=========================//
+//=====_____=======____=====____======____=====___===========_____=========================//
+//=====_____=======____=====____========_________============_____===============//
+//===========================================================================================
+
+
 
     app.factory("User", ['$http', function($http) {
        return {
@@ -74,6 +97,14 @@ app.controller('request',['$scope','Sekolah',
            return $http({
              method:	'GET',
              url:'api/index.php/user'
+           }).then(function(response){
+             return response.data;
+           })
+         },
+         All_admin: function(){
+           return $http({
+             method:	'GET',
+             url:'api/index.php/user/user_level=1/filter'
            }).then(function(response){
              return response.data;
            })

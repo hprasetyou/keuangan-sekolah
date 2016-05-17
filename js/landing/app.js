@@ -121,10 +121,9 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 					}
 
       }]);
-			app.controller('verifikasi',['$scope','User','$location','$routeParams',function($scope,User,$location,$routeParams){
-			setTimeout(function(){
+			app.controller('verifikasi',['$scope','$rootScope','JWT','User','$location','$routeParams',
+			function($scope,$rootScope,JWT,User,$location,$routeParams){
 
-				},1000)
 				$scope.token = $routeParams.token;
 				$scope.$watch('token',function(){
 						console.log($scope.token);
@@ -137,6 +136,18 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 				//			console.log(response);
 					//		$scope.verif= response;
 						//})
+						$scope.ubahpassword = function(){
+							var data = JWT.decode($scope.token)
+							var datauser = {}
+							datauser.user_id = data.user_id
+							datauser.password = $scope.new_pwd
+							console.log(datauser);
+							User.Update(datauser).then(function(){
+								$rootScope.addalert('success','password diset')
+								window.location='.';
+							})
+
+						}
 
 			}]);
 			app.controller('tunggu',['$scope',function($scope){
@@ -171,6 +182,16 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 							method:	'GET',
 							url:'api/index.php/user/verif/' + $params.token,
 							header:{'Content-Type':'application/json'}
+						}).then(function(response){
+							return response.data;
+						})
+					},
+					Update: function($params){
+						return $http({
+							method:	'PUT',
+							url:'api/index.php/user/' + $params.user_id,
+							header:{'Content-Type':'application/json'},
+							data: $params
 						}).then(function(response){
 							return response.data;
 						})
