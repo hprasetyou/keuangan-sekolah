@@ -53,9 +53,14 @@ app.controller('request',['$scope','Sekolah',
       $scope.progress.detail=[]
       console.log(localStorage.getItem('token'));
       $scope.verifikasi= function(){
+        $scope.progress.detail.push({"task":"verivikasi"})
+        $scope.progress.value='10';
         Sekolah.Verifikasi($scope.sekolah).then(function(response){
+          Sekolah.Show_belum_verifikasi().then(function(response){
+            $scope.sekolah_belum_verifikasi=response
+          })
           $scope.progress.detail.push({"task":"ubah status"})
-          $scope.progress.value='30';
+          $scope.progress.value='20';
 
           Sekolah.Create_db($scope.sekolah).then(function(response){
             $scope.progress.detail.push({"task":"buat database"})
