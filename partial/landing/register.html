@@ -12,7 +12,7 @@
                     NIP Anda
               </label>
               <div class="col-sm-7">
-                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="19" ng-minlength="17" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
+                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="18" ng-minlength="17" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
                   <span ng-show="nip_status=='has-error'" id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
 
               </div>
@@ -76,7 +76,7 @@
 
               </label>
               <div class="col-sm-7">
-                    <a href=""  ng-disabled="form_daftar.$invalid || nip_status=='has-error'|| email_status=='has-error' ||form_register.repassword != form_register.password" ng-click="daftar()" class="btn btn-success" data-toggle="modal" data-target="#ModalDaftar">Daftar</a>
+                    <a href=""  ng-disabled="form_daftar.$invalid || nip_status=='has-error'|| email_status=='has-error' ||form_register.repassword != form_register.password" ng-click="daftar()" class="btn btn-success" data-toggle="modal" data-target="#loading">Daftar</a>
               </div>
         </div>
       </form>
@@ -92,21 +92,6 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div style=" width: 200px;
-    height: 200px;
-
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;" class="modal fade" id="ModalDaftar" tabindex="-1" role="dialog" >
-
-        <img src="img/gear.gif">
-
-</div>
 
 
 <div class="modal fade" tabindex="-1" id="ModalSuccess" role="dialog">

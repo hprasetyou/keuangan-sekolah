@@ -620,6 +620,11 @@ function($scope,Saldo,helper,$rootScope){
 app.controller('neraca_lajur',['$scope','Saldo','helper','$rootScope','tapelService','ra',
 function($scope,Saldo,helper,$rootScope,tapelService,ra){
 
+
+    $scope.print= function(){
+      var output = document.getElementById("datalajur").innerHTML;
+      helper.print(output)
+    }
     $scope.pilihan_tahun=tapelService.tapel_sekarang
     $scope.daftar_ta=[]
     ra.Get().then(function(response){
@@ -847,9 +852,13 @@ function($scope,$rootScope,userdata){
 
 
 
-app.controller('penggunaan-dana',['$scope','$rootScope','userdata','ra','tapelService',
-function($scope,$rootScope,userdata,ra,tapelService){
+app.controller('penggunaan-dana',['$scope','$rootScope','userdata','ra','tapelService','helper',
+function($scope,$rootScope,userdata,ra,tapelService,helper){
 
+  $scope.print= function(){
+    var output = document.getElementById("data").innerHTML;
+    helper.print(output)
+  }
 
   var tampil_ra= function(){
     ra.Get().then(function(response){

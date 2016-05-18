@@ -37,6 +37,11 @@ $router->filter('auth', function(){
   }
 });
 
+$router->post($path.'/lost-password', function() use($useraction,$data){
+    $args= array ();
+    return $useraction->lost_pwd($args,$data);
+});
+
 
 
 //==============================================================================

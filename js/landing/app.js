@@ -14,13 +14,13 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
               controller  : 'daftar'
       })
 
-			.when('/daftar/last-step',{
-              templateUrl : 'partial/landing/tunggu.html',
-              controller  : 'tunggu'
-      })
 			.when('/verifikasi&token=:token',{
 							templateUrl : 'partial/landing/verifikasi.html',
 							controller  : 'verifikasi'
+			})
+			.when('/lost-password',{
+							templateUrl : 'partial/landing/lost-password.html',
+							controller  : 'lost-password'
 			})
 
 
@@ -84,7 +84,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 						var data = JSON.stringify($scope.form_register)
 						User.Daftar(data).then(function(response){
 							console.log(response);
-            	 $("#ModalDaftar").modal('hide');
+            	 $("#loading").modal('hide');
              	 $("#ModalSuccess").modal('show');
 
 						})
@@ -151,16 +151,38 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 						}
 
 			}]);
-			app.controller('tunggu',['$scope',function($scope){
+			app.controller('lost-password',['$scope','User',
+			function($scope,User){
+					$scope.ubah = function(){
+						console.log($scope.reset);
+						User.Ch_pwd($scope.reset).then(function(response){
+							$("#loading").modal('hide');
+					 	 $("#ModalSuccess").modal('show');
+						})
 
+					}
+
+					$scope.next_step = function(){
+						window.location='.';
+					}
 			}]);
 
 			app.factory("User", ['$http', function($http) {
 			   return {
-			     Daftar: function($params){
+					 Daftar: function($params){
 			       return $http({
 			         method:	'POST',
 			         url:'api/index.php/user',
+			         header:{'Content-Type':'application/json'},
+			         data: $params
+			       }).then(function(response){
+			         return response.data;
+			       })
+			     },
+					 Ch_pwd: function($params){
+			       return $http({
+			         method:	'POST',
+			         url:'api/index.php/lost-password',
 			         header:{'Content-Type':'application/json'},
 			         data: $params
 			       }).then(function(response){

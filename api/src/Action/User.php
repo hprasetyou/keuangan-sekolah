@@ -23,6 +23,26 @@ class User{
           return $this->usermodel->show();
         }
 
+        public function lost_pwd($args,$data){
+          $this->usermodel->find = array('email'=>$data['email']);
+          $userdata= $this->usermodel->show();
+          $ver_token=\App\Helper\Jwt::encode(array(
+            'act'=> 'change_pwd',
+            'user_id'    => $userdata->data[0]->user_id,
+            'email'       => $data['email'],
+            'val_time'    => time()+3600
+          ));
+          $setting = \App\Helper\Setting::get();
+          $mail_subject='Halo '.$data['email'];
+          $mail_body = array();
+          $mail_body['msgtitle'] = 'Ubah password ';
+          $mail_body['msgbody']='Klik link dibawah ini untuk mereset password anda  <br>
+        <br><br><a href="'.$setting['root'].'/#/verifikasi&token='.$ver_token.'" > klik disini </a>';
+          $mail_recipient = $data['email'];
+          \App\Helper\Mailer::send($mail_subject,$mail_body,$mail_recipient);
+          return array('status'=>'ok');
+        }
+
       public function update($args,$data){
 
           foreach ($data as $key => $value) {

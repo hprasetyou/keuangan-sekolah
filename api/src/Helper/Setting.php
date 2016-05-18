@@ -16,7 +16,7 @@ class Setting{
                 "password"=>"Rp.15000", //Rp.15000
                 "dbname"=>"KSAAS_main",
   //             "dbhost"=>"localhost"
-              "dbhost"=>"127.3.136.2" //
+               "dbhost"=>"127.3.136.2" //
              )
          );
      }

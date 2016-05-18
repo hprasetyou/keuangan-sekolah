@@ -1,16 +1,16 @@
-{{admins}}
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>No</th>
       <th>Nama</th>
-      <th>No</th>
-      <th>No</th>
+      <th>Create at</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>
+    <tr ng-repeat="admin in admins track by $index">
+      <td>{{$index}}</td>
+      <td>{{admin.email}}</td>
+      <td>{{admin.create_at}}</td>
     </tr>
   </tbody>
 

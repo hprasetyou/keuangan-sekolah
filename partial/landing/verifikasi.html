@@ -1,11 +1,11 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <div class="alert alert-success" ng-show="!verif.error" role="alert"><strong>Berhasil, </strong>Proses verifikasi berhasil, <p ng-show="verif.act=='newcomer'">Silahkan tunggu
+    <div class="alert alert-success" ng-show="!verif.error && verif.act != 'change_pwd'" role="alert"><strong>Berhasil, </strong>Proses verifikasi berhasil, <p ng-show="verif.act=='newcomer'">Silahkan tunggu
        persetujuan pendaftaran oleh admin provider, kami akan menghubungi anda begitu proses persetujuan telah selesai</p></div>
     <div class="alert alert-danger" ng-show="verif.error" role="alert"><strong>Ups, terjadi kesalahan, </strong>{{verif.msg}}</div>
 
-    <div ng-show="verif.act=='new_mate'" class="panel panel-default">
+    <div ng-show="verif.act=='new_mate' || verif.act=='change_pwd'" class="panel panel-default">
       <div class="panel-heading">Set Password</div>
       <div class="panel-body">
         <form  name="frm_pwd" class="form-horizontal" role="form">

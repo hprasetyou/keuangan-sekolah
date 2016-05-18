@@ -96,7 +96,7 @@ app.controller('request',['$scope','Sekolah',
          Show: function(){
            return $http({
              method:	'GET',
-             url:'api/index.php/user'
+             url:'api/index.php/user/user_level=2/filter'
            }).then(function(response){
              return response.data;
            })
