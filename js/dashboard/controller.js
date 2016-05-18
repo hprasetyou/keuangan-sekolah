@@ -121,6 +121,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
     for(var i=0; i<$scope.lsttapel.length; i++){
       ra.Tahun({tahun:$scope.lsttapel[i]}).then(function(response){
         $scope.adatapel[i]=response.length
+        console.log($scope.adatapel[i]);
       })
       $scope.nmtapel[i]="20"+$scope.lsttapel[i].substr(0,2)+"/20"+$scope.lsttapel[i].substr(2,2)
     }
