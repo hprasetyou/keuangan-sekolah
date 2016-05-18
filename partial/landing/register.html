@@ -12,8 +12,8 @@
                     NIP Anda
               </label>
               <div class="col-sm-7">
-                  <input type="text" ng-blur="cek_nip()"  ng-maxlength="18" ng-minlength="17" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
-                  <span ng-show="nip_status=='has-error'" id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
+                  <input name="nip" type="text" ng-blur="cek_nip()"  ng-maxlength="18" ng-minlength="18" ng-model="form_register.user_id" id="txt_nip" required class="form-control" placeholder="NIP"/>
+                  <span ng-show="form_daftar.nip.$invalid || nip_status=='has-error' " id="helpBlock2" class="help-block">NIP tidak valid atau sudah digunakan</span>
 
               </div>
         </div>
@@ -41,8 +41,8 @@
                     Password
               </label>
               <div class="col-sm-7">
-                  <input type="password" name="password" ng-model="form_register.password" id="txt_password" required class="form-control" placeholder="Password"/>
-                  <p ng-show="form_daftar.password.$error.minlength" class="help-block">Password terlalu pendek</p>
+                  <input type="password" ng-minlength="8" name="password" ng-model="form_register.password" id="txt_password" required class="form-control" placeholder="Password"/>
+                  <p ng-show="form_daftar.password.$error.minlength" class="help-block">Password minimal 8 karakter</p>
 
               </div>
         </div>
