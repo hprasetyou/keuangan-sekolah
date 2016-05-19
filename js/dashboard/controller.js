@@ -890,7 +890,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
           $scope.detail_ra.jum_real_keluar += response.jenis_trans_keluar[j].realisasi*1
         }
         $scope.cek_aktif= function(){
-          if(response.tahun_anggaran > $scope.tapel_sekarang && response.status=='0'){
+          if(response.status=='0'){
             return true
           }
           else{
