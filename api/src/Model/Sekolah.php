@@ -45,7 +45,6 @@ class Sekolah{
             'group_id'    => $this->group_id,
             'group_name'  => $this->group_name,
             'status'      =>  0,
-            'max_user'    =>  '3',
             'createat'    =>'now()'
           )
         );
