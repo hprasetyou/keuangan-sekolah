@@ -115,11 +115,12 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
         $scope.ra_pilih= response[0];
       })
     }
+    tampil_ra();
 //    tampil_ra();
     $scope.nmtapel=[]
     $scope.adatapel=[]
     for(var i=0; i<$scope.lsttapel.length; i++){
-      ra.Tahun({tahun:$scope.lsttapel[i]}).then(function(response){
+      ra.Tahun({tahun:$scope.lsttapel[i]}).t2hen(function(response){
         $scope.adatapel[i]=response.length*1
         console.log($scope.adatapel[i] + ' / '+ $scope.lsttapel.length);
       })
