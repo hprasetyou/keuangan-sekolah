@@ -889,9 +889,11 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
           $scope.detail_ra.jum_keluar += response.jenis_trans_keluar[j].jml*1
           $scope.detail_ra.jum_real_keluar += response.jenis_trans_keluar[j].realisasi*1
         }
+        console.log('response'+response.status)
         $scope.cek_aktif= function(){
           if(response.status=='0'){
             return true
+
           }
           else{
             return false
