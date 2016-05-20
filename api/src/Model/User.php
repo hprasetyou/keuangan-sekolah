@@ -64,7 +64,7 @@ class User{
       'user_group' =>$this->user_group,
       'status'     =>0,
       'display_name'=>$this->display_name,
-      'user_level' =>'2');
+      'user_level' =>$this->user_level);
     if(isset($this->privilege)){
       $insertdata['privilege']=$this->privilege;
     }else{

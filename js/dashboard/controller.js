@@ -725,6 +725,7 @@ app.controller('user',['$scope','userdata','$rootScope',
 
           }
           $scope.form_user.privilege= privilege;
+          $scope.form_user.user_level = '2';
           $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
             	 $("#ModalDaftar").modal('hide');
