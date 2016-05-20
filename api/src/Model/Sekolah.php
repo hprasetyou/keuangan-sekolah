@@ -44,8 +44,7 @@ class Sekolah{
         $this->db->insert('sekolah',array(
             'group_id'    => $this->group_id,
             'group_name'  => $this->group_name,
-            'status'      =>  0,
-            'createat'    =>'now()'
+            'status'      =>  0
           )
         );
     }
