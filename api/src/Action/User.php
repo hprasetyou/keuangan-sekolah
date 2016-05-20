@@ -184,6 +184,7 @@ class User{
             $this->usermodel->user_id          =$data['user_id'];
             $this->usermodel->email            =$data['email'];
             $this->usermodel->display_name     =$data['display_name'];
+            $this->usermodel->user_level       =$data['user_level'];
 
             $this->usermodel->password         =$password;
 

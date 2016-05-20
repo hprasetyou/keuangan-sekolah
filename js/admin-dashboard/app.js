@@ -78,9 +78,19 @@ app.controller('request',['$scope','Sekolah',
 
     app.controller('kelola-admin',['$scope','User',
         function($scope,User){
+
           User.All_admin().then(function(response){
             $scope.admins = response.data;
           })
+
+          $scope.addadmin = function(){
+            $("#loading").modal('show');
+            User.Add($scope.frm_admin).then(function(response){
+              $("#loading").modal('hide');
+              $("#ModalSuccess").modal('show');
+              $scope.admins.push($scope.frm_admin)
+            })
+          }
         }]);
 
 
@@ -102,6 +112,16 @@ app.controller('request',['$scope','Sekolah',
            return $http({
              method:	'GET',
              url:'api/index.php/user/user_level=2/filter'
+           }).then(function(response){
+             return response.data;
+           })
+         },
+         Add: function($params){
+           return $http({
+             method:	'POST',
+             url:'api/index.php/user',
+             header:{'Content-Type':'application/json'},
+             data: $params
            }).then(function(response){
              return response.data;
            })
