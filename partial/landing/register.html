@@ -7,7 +7,7 @@
         <br>
         <form name="form_daftar" class="form-horizontal" role="form">
 
-        <div class="form-group " ng-class="{'has-error':nip_status=='has-error'}">
+        <div class="form-group " ng-class="{'has-error':form_daftar.nip.$invalid || nip_status=='has-error'}">
             <label class="col-sm-4 control-label" for="txt_nip">
                     NIP Anda
               </label>
@@ -56,12 +56,12 @@
                   <p ng-show="form_register.repassword != form_register.password" class="help-block">Password tidak cocok</p>
               </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error':form_register.npsn.$invalid}">
               <label class="col-sm-4 control-label" for="txt_noinduk">
                     NPSN Sekolah
               </label>
               <div class="col-sm-7">
-                  <input type="text" ng-model="form_register.user_group" id="txt_noinduk" required class="form-control" placeholder="No.Induk Sekolah"/>
+                  <input type="text" ng-model="form_register.user_group" ng-minlength="8" ng-maxlength="8" id="txt_noinduk" required class="form-control" name="npsn" placeholder="NPSN Sekolah"/>
               </div>
         </div>
         <div class="form-group">
