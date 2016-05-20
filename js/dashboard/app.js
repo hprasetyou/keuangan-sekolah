@@ -667,10 +667,7 @@ app.factory('helper',function(){
 		},
 		set_output: function(data){
 			if(data.error){
-				alert(msg)
-				setTimeout(function(){
-					this.go_home(data.error)
-				},1000)
+				this.go_home(data.error)
 			}
 			else
 			{
