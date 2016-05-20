@@ -78,13 +78,21 @@ app.controller('request',['$scope','Sekolah',
 
     app.controller('kelola-admin',['$scope','User',
         function($scope,User){
+          $scope.frm_admin = {}
+          $scope.frm_admin.password = "$scope.frm_admin.email"
+          $scope.frm_admin.user_level = "1"
+          $scope.frm_admin.user_group = "admin"
 
           User.All_admin().then(function(response){
             $scope.admins = response.data;
           })
 
           $scope.addadmin = function(){
-            $("#loading").modal('show');
+            $scope.frm_admin.display_name = $scope.frm_admin.email
+            $scope.frm_admin.password = "$scope.frm_admin.email"
+            $scope.frm_admin.user_level = "1"
+            $scope.frm_admin.user_group = "admin"
+
             User.Add($scope.frm_admin).then(function(response){
               $("#loading").modal('hide');
               $("#ModalSuccess").modal('show');
