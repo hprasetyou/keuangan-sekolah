@@ -18,7 +18,7 @@
               {"field_name":"rencana_anggaran","datatype":"varchar(5)","prop":"NOT NULL"},
               {"field_name":"parent","datatype":"varchar(20)","prop":"NOT NULL"},
               {"field_name":"jenis_trans","datatype":"enum('m', 'k')","prop":"NOT NULL"},
-              {"field_name":"nominal","datatype":"int(11)","prop":"NOT NULL"},
+              {"field_name":"nominal","datatype":"int(100)","prop":"NOT NULL"},
               {"field_name":"extra","datatype":"text","prop":"NOT NULL"},
               {"field_name":"keterangan","datatype":"text","prop":"NOT NULL"}
     ],
