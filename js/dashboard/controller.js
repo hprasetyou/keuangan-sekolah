@@ -132,7 +132,6 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 
       ra.Add($scope.frm_tapel).then(function(response){
         $scope.ra.push($scope.frm_tapel)
-
         $rootScope.addalert('success','Rencana Anggaran dibuat');
         $scope.frm_tapel.id= response.id.substring(0, 5);
         $scope.ra_pilih=scope.frm_tapel;
@@ -178,11 +177,6 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
                     sub: $scope.subjenis
                   }
                 )
-                //tambahkan total
-                for(var i = 0; i < $scope.ra_trans.subjenis; i++){
-                  $scope.detail_ra.jum_keluar += ($scope.ra_trans.subjenis[i].nominal*1);
-                  console.log($scope.ra_trans.subjenis[i].nominal*1)
-                }
             }
             else{
                 $scope.detail_ra.jenis_trans_masuk.push({
@@ -193,11 +187,6 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
                   jenis_trans: mk,
                   sub: $scope.subjenis
                 })
-                //tambahkan total
-                for(var i = 0; i < $scope.ra_trans.subjenis; i++){
-                  $scope.detail_ra.jum_masuk += ($scope.ra_trans.subjenis[i].nominal*1);
-                  console.log($scope.ra_trans.subjenis[i].nominal*1)
-                }
             }
             $scope.ra_trans={}
             $scope.subjenis=[{}]
