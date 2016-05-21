@@ -28,7 +28,7 @@
     "name":"akun",
     "field":[
       {"field_name":"id_akun","datatype":"varchar(8)"},
-      {"field_name":"nama_akun","datatype":"varchar(30)"},
+      {"field_name":"nama_akun","datatype":"varchar(90)"},
       {"field_name":"jenis_akun","datatype":"enum('a','k','m','p','b')"},
       {"field_name":"keterangan","datatype":"text"}
     ],
