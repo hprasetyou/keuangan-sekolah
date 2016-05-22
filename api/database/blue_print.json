@@ -18,7 +18,7 @@
               {"field_name":"rencana_anggaran","datatype":"varchar(5)","prop":"NOT NULL"},
               {"field_name":"parent","datatype":"varchar(20)","prop":"NOT NULL"},
               {"field_name":"jenis_trans","datatype":"enum('m', 'k')","prop":"NOT NULL"},
-              {"field_name":"nominal","datatype":"int(100)","prop":"NOT NULL"},
+              {"field_name":"nominal","datatype":"bigint(100)","prop":"NOT NULL"},
               {"field_name":"extra","datatype":"text","prop":"NOT NULL"},
               {"field_name":"keterangan","datatype":"text","prop":"NOT NULL"}
     ],
@@ -54,8 +54,8 @@
       {"field_name":"id","datatype":"int(11)","prop":"AUTO_INCREMENT"},
       {"field_name":"id_transaksi","datatype":"varchar(15)"},
       {"field_name":"akun","datatype":"varchar(10)"},
-      {"field_name":"debet","datatype":"int(11)"},
-      {"field_name":"kredit","datatype":"int(11)"}
+      {"field_name":"debet","datatype":"bigint(100)"},
+      {"field_name":"kredit","datatype":"bigint(100)"}
     ],
     "primary_key":"id"
   },

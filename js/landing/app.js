@@ -79,6 +79,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
   app.controller('daftar',['$scope','$http','$location','User',
   function($scope,$http,$location,User){
 		$scope.form_register={}
+		$scope.form_register.user_level='2'
 
 					$scope.daftar = function(){
 
