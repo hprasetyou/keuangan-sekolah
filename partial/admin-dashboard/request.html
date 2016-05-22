@@ -7,7 +7,7 @@
 
     <!-- List group -->
     <ul class="list-group">
-      <li ng-repeat="lstsekolah in sekolah_belum_verifikasi track by $index" class="list-group-item"><span class="col-sm-8"> {{$index}} {{lstsekolah.group_name}} </span><span class="col-cm-4">
+      <li ng-repeat="lstsekolah in sekolah_belum_verifikasi track by $index" class="list-group-item"><span class="col-sm-8">{{lstsekolah.group_name}} </span><span class="col-cm-4">
         <a href="" class="btn btn-success" ng-click="$parent.sekolah=lstsekolah; $parent.index= $index">Detail</a></span></li>
     </ul>
   </div>
@@ -31,7 +31,7 @@
           <label>Nama Sekolah</label>
         </div>
         <div class="col-sm-7">
-          {{index}}{{sekolah.group_name}}
+          {{sekolah.group_name}}
         </div>
 
       </div>
@@ -72,7 +72,7 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="progress= {}; detail = {}" ng-disabled="progress.value != 100" data-dismiss="modal">Lanjutkan</button>
+        <button type="button" class="btn btn-default" ng-click="sekolah= {}" ng-disabled="progress.value != 100" data-dismiss="modal">Lanjutkan</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
