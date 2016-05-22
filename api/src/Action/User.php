@@ -198,7 +198,7 @@ class User{
               'val_time'    => time()+3600
             ));
             $setting = \App\Helper\Setting::get();
-            $mail_subject='Halo '.$data['email'];
+            $mail_subject='Halo '.$data['display_name'];
             $mail_body = array();
             $mail_body['msgtitle'] = 'Halo ';
             $mail_body['msgbody']='Silahkan verifikasi email anda dengan mengklik link dibawah ini <br>
