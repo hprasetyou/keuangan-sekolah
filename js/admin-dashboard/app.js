@@ -41,8 +41,8 @@ app.controller('user',['$scope','User',
       tampil();
       $scope.nonaktifkan = function(id){
         var data = {
-          user_id = id,
-          status = "2"
+          user_id : id,
+          status : "2"
         }
         User.Update(data).then(function(){
           tampil();
