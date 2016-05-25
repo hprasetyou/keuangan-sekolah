@@ -49,6 +49,7 @@ app.controller('request',['$scope','Sekolah',
       Sekolah.Show_belum_verifikasi().then(function(response){
         $scope.sekolah_belum_verifikasi=response
       })
+      $scope.progress= {}
 
       $scope.progress.detail=[]
       console.log(localStorage.getItem('token'));
