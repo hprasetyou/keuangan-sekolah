@@ -33,9 +33,21 @@ app.config(['$routeProvider',function($routeProvider){
 
 app.controller('user',['$scope','User',
     function($scope,User){
-      User.Show().then(function(response){
-        $scope.alluser=response.data
-      })
+      var tampil = function(){
+        User.Show().then(function(response){
+          $scope.alluser=response.data
+        })
+      }
+      tampil();
+      $scope.nonaktifkan = function(id){
+        var data = {
+          user_id = id,
+          status = "2"
+        }
+        User.Update(data).then(function(){
+          tampil();
+        })
+      }
     }]);
 
     app.controller('home',['$scope',
@@ -123,6 +135,16 @@ app.controller('request',['$scope','Sekolah',
            return $http({
              method:	'GET',
              url:'api/index.php/user/user_level=2/filter'
+           }).then(function(response){
+             return response.data;
+           })
+         },
+         Update: function($params){
+           return $http({
+             method:	'PUT',
+             url:'api/index.php/user/'+ $params.user_id,
+             header:{'Content-Type':'application/json'},
+             data: $params
            }).then(function(response){
              return response.data;
            })
