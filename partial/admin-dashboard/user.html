@@ -15,6 +15,7 @@
                     <th>ID Sekolah</th>
                     <th>Create At</th>
                     <th>Status</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -23,9 +24,10 @@
                     <td>{{user.email}}</td>
                     <td>{{user.user_group}}</td>
                     <td>{{user.create_at}}</td>
-                    <td>{{user.status}} <a href="" ng-disabled="user.status != '1'" ng-click="nonaktifkan(user.user_id)" class="btn btn-default">Nonaktifkan</a>
+                    <td>{{user.status}}   <p ng-show="user.status=='1'">Aktif</p><p ng-show="user.status=='0'">Belum Dikonfirmasi</p><p ng-show="user.status=='2'">Dinonaktifkan oleh admin</p> </td>
+                    <td> <a href="" ng-disabled="user.status != '1'" ng-click="nonaktifkan(user.user_id)" class="btn btn-default">Nonaktifkan</a>
                       <a href="" ng-disabled="user.status != '2'" ng-click="aktifkan(user.user_id)" class="btn btn-success">aktifkan</a>
-                    </td>
+                  </td>
                   </tr>
                 </tbody>
               </table>
