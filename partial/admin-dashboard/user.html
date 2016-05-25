@@ -23,8 +23,8 @@
                     <td>{{user.email}}</td>
                     <td>{{user.user_group}}</td>
                     <td>{{user.create_at}}</td>
-                    <td>{{user.status}}<a href="" ng-disabled="user.status != '1'" ng-click="nonaktifkan()" class="btn btn-default">Nonaktifkan</a>
-
+                    <td>{{user.status}} <a href="" ng-disabled="user.status != '1'" ng-click="nonaktifkan(user.user_id)" class="btn btn-default">Nonaktifkan</a>
+                      <a href="" ng-disabled="user.status != '2'" ng-click="aktifkan(user.user_id)" class="btn btn-success">aktifkan</a>
                     </td>
                   </tr>
                 </tbody>

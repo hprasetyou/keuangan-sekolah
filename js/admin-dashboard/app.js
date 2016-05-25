@@ -48,6 +48,16 @@ app.controller('user',['$scope','User',
           tampil();
         })
       }
+
+      $scope.aktifkan = function(id){
+        var data = {
+          user_id : id,
+          status : "1"
+        }
+        User.Update(data).then(function(){
+          tampil();
+        })
+      }
     }]);
 
     app.controller('home',['$scope',
