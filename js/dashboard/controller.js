@@ -935,7 +935,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
             return false
           }
         }
-        $("#loading").modal('hide');
+
       })
       ra.Realisasi($scope.ra_pilih.id).then(function(response){
         $scope.realisasi_ra= response
@@ -958,6 +958,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
           else{
             return false
           }
+          $("#loading").modal('hide');
         }
       })
     })
