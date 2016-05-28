@@ -3,7 +3,7 @@
     "name":"rencana_anggaran",
     "field":[
               {"field_name":"id","datatype":"varchar(5)","prop":"NOT NULL"},
-              {"field_name":"nm_anggaran","datatype":"varchar(90)","prop":"NOT NULL"},
+              {"field_name":"nm_anggaran","datatype":"varchar(150)","prop":"NOT NULL"},
               {"field_name":"tahun_anggaran","datatype":"int(4)","prop":"NOT NULL"},
               {"field_name":"pencatat","datatype":"varchar(10)","prop":"NOT NULL"},
               {"field_name":"status","datatype":"int(1)","prop":"NOT NULL"}
@@ -13,8 +13,8 @@
   {
     "name":"jenis_transaksi",
     "field":[
-              {"field_name":"id","datatype":"varchar(13)","prop":"NOT NULL"},
-              {"field_name":"nm_jenis_trans","datatype":"varchar(150)","prop":"NOT NULL"},
+              {"field_name":"id","datatype":"varchar(20)","prop":"NOT NULL"},
+              {"field_name":"nm_jenis_trans","datatype":"varchar(200)","prop":"NOT NULL"},
               {"field_name":"rencana_anggaran","datatype":"varchar(5)","prop":"NOT NULL"},
               {"field_name":"parent","datatype":"varchar(20)","prop":"NOT NULL"},
               {"field_name":"jenis_trans","datatype":"enum('m', 'k')","prop":"NOT NULL"},

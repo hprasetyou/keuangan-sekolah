@@ -128,9 +128,11 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
     }
 //tambahkan rencana anggaran
     $scope.add_ra= function(){
+      $("#loading").modal('show');
       $scope.frm_tapel.pencatat=$rootScope.userdata.user_id
 
       ra.Add($scope.frm_tapel).then(function(response){
+        $("#loading").modal('hide');
         $scope.ra.push($scope.frm_tapel)
         $rootScope.addalert('success','Rencana Anggaran dibuat');
         $scope.frm_tapel.id= response.id.substring(0, 5);
@@ -155,6 +157,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 
       //tambah jenis transaksi
         $scope.add_jenis_trans= function(mk){
+          $("#loading").modal('show');
           $scope.hapus_jenis_anggaran();
           var data = {
             nm_jenis_trans: $scope.ra_trans.nm_jenis_trans,
@@ -190,6 +193,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
             }
             $scope.ra_trans={}
             $scope.subjenis=[{}]
+            $("#loading").modal('hide');
             $rootScope.addalert('success','Jenis transaksi ditambahkan');
 
           })
@@ -197,7 +201,9 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
       $scope.detail_ra=''
       //tampil detail ra
         $scope.$watch('ra_pilih', function(){
+          $("#loading").modal('show');
           ra.Detail($scope.ra_pilih.id).then(function(response){
+            $("#loading").modal('hide');
             $scope.detail_ra= response
             $scope.detail_ra.jum_masuk =0
             $scope.detail_ra.jum_keluar=0
@@ -221,7 +227,9 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
         })
 
       $scope.tetapkan = function(){
+        $("#loading").modal('show');
         ra.Tetapkan($scope.ra_pilih.id).then(function(response){
+         $("#loading").modal('hide');
           $rootScope.addalert('success','Rencana Anggaran Ditetapkan');
 
           $scope.cek_aktif= function(){
@@ -728,7 +736,7 @@ app.controller('user',['$scope','userdata','$rootScope',
           $scope.form_user.user_level = '2';
           $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
-            	 $("#ModalDaftar").modal('hide');
+            	 $("#loading").modal('hide');
                $rootScope.addalert('success','user ditambahkan')
                tampil();
           })
@@ -743,6 +751,7 @@ app.controller('user',['$scope','userdata','$rootScope',
           }
         }
         $scope.edit_priv = function(){
+           $("#loading").modal('show');
           var data={}
           var privilege=''
           data.user_id=$scope.pilihan.user_id
@@ -755,6 +764,7 @@ app.controller('user',['$scope','userdata','$rootScope',
           data.privilege=privilege
           console.log(data);
           userdata.Update(data).then(function(response){
+             $("#loading").modal('hide');
             $rootScope.addalert('success','Hak Akses Diubah')
             tampil()
           })
