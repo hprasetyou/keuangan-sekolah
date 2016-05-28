@@ -895,9 +895,9 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
   }
 
   var tampil_ra= function(){
-     $("#loading").modal('show');
+
     ra.Get().then(function(response){
-       $("#loading").modal('hide');
+
       $scope.ra=response;
     })
   }
@@ -908,8 +908,10 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
 
     })
     $scope.$watch('ra_pilih', function(){
+      $("#loading").modal('show');
       console.log($scope.ra_pilih);
       ra.Detail($scope.ra_pilih.id).then(function(response){
+
         $scope.detail_ra= response
         $scope.detail_ra.jum_masuk =0
         $scope.detail_ra.jum_keluar=0
@@ -933,6 +935,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
             return false
           }
         }
+        $("#loading").modal('hide');
       })
       ra.Realisasi($scope.ra_pilih.id).then(function(response){
         $scope.realisasi_ra= response
