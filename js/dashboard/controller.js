@@ -292,6 +292,7 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
     $scope.jenis_input_trans=$routeParams.jenis
 
     var tampil= function(){
+      $("#loading").modal('show');
       jurnal.Get_per_page({
       akun:'all',
       mulai:'2000-08-08',
@@ -299,6 +300,7 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
       index:'0',
       jumlah_tampil:'10'
     }).then(function(response){
+       $("#loading").modal('hide');
       $scope.daftar_transaksi=response.data
     })
   }
@@ -375,27 +377,34 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
 
 app.controller('akun',['$scope','akun','$rootScope',
     function($scope,akun,$rootScope){
-
+    $("#loading").modal('show');
     akun.Get().then(function(response){
+       $("#loading").modal('hide');
         $scope.data_akun = response.data
     })
     $scope.jenis_akun_terpilih=''
     $scope.jenis_akun = akun.Jenis
     $scope.ubah = function(){
+       $("#loading").modal('show');
       akun.Update($scope.form_akun).then(function(response){
+         $("#loading").modal('hide');
         $rootScope.addalert('success','Akun Diubah');
         $scope.form_akun={}
       })
     };
     $scope.add = function(){
+       $("#loading").modal('show');
       akun.Add($scope.form_akun).then(function(response){
+         $("#loading").modal('hide');
         $rootScope.addalert('success','Akun Ditambahkan');
         $scope.data_akun.push($scope.form_akun);
         $scope.form_akun={}
       })
     }
     $scope.delete = function(){
+       $("#loading").modal('show');
       akun.Delete($scope.form_akun).then(function(response){
+         $("#loading").modal('hide');
         $rootScope.addalert('success','Akun Dihapus');
         $scope.data_akun.splice($scope.position,1);
         $scope.form_akun={}
@@ -458,11 +467,13 @@ function($scope,jurnal,helper){
   var jumlah_tampil=5
 
   var tampil_jumlah_data= function(config){
+     $("#loading").modal('show');
     jurnal.Get({
       akun : 'all',
       mulai: config.mulai,
       akhir: config.selesai
     }).then(function(response){
+       $("#loading").modal('hide');
       $scope.jurnal_asli=response.data
       $scope.jumlah_data=response.num_rows
       $scope.paging=[]
@@ -539,13 +550,14 @@ function($scope,jurnal,helper,akun){
   })
 
   var tampil= function(){
+     $("#loading").modal('show');
     var bulan=$scope.pilihan.id
     jurnal.Get({
       akun : $scope.pilihan.akun,
       mulai:'2015-07-01',
       akhir:'2016-06-31'
     }).then(function(response){
-
+     $("#loading").modal('hide');
       $scope.daftar_jurnal=response.data
       $scope.saldo={}
       $scope.saldo.jum_debet=0
@@ -644,6 +656,7 @@ function($scope,Saldo,helper,$rootScope,tapelService,ra){
       }
     })
     $scope.$watch('pilihan_tahun',function(){
+
       $scope.jumlah={
         saldo:{
           debet:0,
@@ -662,8 +675,9 @@ function($scope,Saldo,helper,$rootScope,tapelService,ra){
     })
 
     var tampil = function(tahun){
-
+ $("#loading").modal('show');
         Saldo.Neraca_lajur(tahun).then(function(response){
+           $("#loading").modal('hide');
         $scope.data_neraca_lajur = response;
         for(var i = 0 ; i < response.length; i++){
           $scope.jumlah.saldo.debet += $scope.data_neraca_lajur[i].saldo.debet*1;
@@ -714,11 +728,14 @@ function($scope,Saldo,helper,$rootScope,tapelService,ra){
 
 app.controller('user',['$scope','userdata','$rootScope',
     function($scope,userdata,$rootScope){
+
       $scope.pilihan={}
         $scope.pilihan.lstpriv = ["1","1","1","0"]
 
         function tampil(){
+           $("#loading").modal('show');
           userdata.AllUser($rootScope.userdata).then(function(response){
+            $("#loading").modal('hide');
             $scope.user=response.data
             $scope.form_user={}
             $scope.form_user.user_group=response.data[0].user_group;
@@ -779,8 +796,9 @@ app.controller('user',['$scope','userdata','$rootScope',
 
 app.controller('penyesuaian',['$scope','$rootScope','akun','jurnal',
 function($rootScope,$scope,akun,jurnal){
-
+ $("#loading").modal('show');
   akun.Saldo().then(function(response){
+     $("#loading").modal('hide');
     $scope.data_akun= response
   })
 
@@ -788,7 +806,9 @@ function($rootScope,$scope,akun,jurnal){
 
   $scope.frm_jurnal={}
   $scope.add_transaksi= function(){
+     $("#loading").modal('show');
     jurnal.Add($scope.frm_jurnal)
+     $("#loading").modal('hide');
     $rootScope.addalert('success','Transaksi tersimpan');
 
       $scope.frm_jurnal={}
@@ -874,7 +894,9 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
   }
 
   var tampil_ra= function(){
+     $("#loading").modal('show');
     ra.Get().then(function(response){
+       $("#loading").modal('hide');
       $scope.ra=response;
     })
   }
