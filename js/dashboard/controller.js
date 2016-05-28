@@ -335,6 +335,7 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
       $scope.data_akun= response.data
     })
     $scope.add_transaksi= function(){
+       $("#loading").modal('show');
       var data_trans={
         id_kontak:$scope.formtrans.kontak,
         uraian:$scope.formtrans.uraian,
