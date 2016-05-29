@@ -34,7 +34,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 								templateUrl : 'partial/dashboard/profil.html',
 								controller  : 'showprofil',
 				        resolve: {
-				            SomeData: function( $routeParams ) {
+				            SomeData: function( $route ) {
 				                return $route.current.params.id;
 				            }
 				        }
