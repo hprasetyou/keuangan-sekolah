@@ -35,7 +35,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 								controller  : 'showprofil',
 				        resolve: {
 				            SomeData: function( $routeParams ) {
-				                return return $route.current.params.id;
+				                return $route.current.params.id;
 				            }
 				        }
 			})
