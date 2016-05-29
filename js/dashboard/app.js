@@ -177,7 +177,7 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
 			     Detail: function($params){
 			       return $http({
 				         method:	'GET',
-			         url:'api/index.php/user/'+$params.user_id,
+			         url:'api/index.php/user/'+$params.id,
 			         header:{'Content-Type':'application/json'}
 			       }).then(function(response){
 			         return response.data;

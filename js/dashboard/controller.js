@@ -445,7 +445,7 @@ app.controller('akun',['$scope','akun','$rootScope',
 app.controller('profil',['$scope','User','$rootScope',
 function($scope,User,$rootScope){
   $scope.form_userdata= $rootScope.userdata;
-  User.Detail($rootScope.userdata.user_id).then(function(response){
+  User.Detail({id:$rootScope.userdata.user_id}).then(function(response){
     $scope.form_userdata = response
   })
 
@@ -458,16 +458,16 @@ function($scope,User,$rootScope){
   }
 }])
 
-app.controller('showprofil',['$scope','User','SomeData','$rootScope','$routeParams',
-function($scope,User,SomeData,$rootScope,$routeParams){
+app.controller('showprofil',['$scope','User','$rootScope','$routeParams',
+function($scope,User,$rootScope,$routeParams){
  $scope.aksi='show';
- console.log(SomeData);
+ $scope.$on('$routeChangeSuccess', function() {
     // $routeParams should be populated here
-     $scope.user_id = SomeData;
-     User.Detail({user_id:$scope.user_id}).then(function(response){
+     $scope.user_id = $routeParams.id;
+     User.Detail({id:$scope.user_id}).then(function(response){
          $scope.profil =  response
      });
-
+  });
 
 
 
