@@ -448,7 +448,7 @@ function($scope,User,$rootScope){
   $scope.form_userdata.id = $rootScope.userdata.user_id;
   $scope.aksi='edit'
   $scope.save= function(){
-      User.Update({$scope.form_userdata}).then(function(response){
+      User.Update($scope.form_userdata).then(function(response){
         $rootScope.addalert('success','Data Diubah');
         console.log(response);
       })
