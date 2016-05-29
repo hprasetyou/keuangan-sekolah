@@ -462,12 +462,16 @@ app.controller('showprofil',['$scope','User','$rootScope','$routeParams',
 function($scope,User,$rootScope,$routeParams){
  $scope.aksi='show';
  $scope.user_id = '';
- $scope.user_id = $routeParams.id;
- $scope.$watch('user_id',function(){
-   console.log($scope.user_id);
+ var tampil = function(){
    User.Detail({user_id:$scope.user_id}).then(function(response){
        $scope.profil =  response
    });
+ }
+ $scope.user_id = $routeParams.id;
+ $scope.$watch('user_id',function(){
+   console.log($scope.user_id);
+   tampil()
+
  });
 
 
