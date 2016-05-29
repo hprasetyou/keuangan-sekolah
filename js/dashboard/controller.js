@@ -448,9 +448,7 @@ function($scope,User,$rootScope){
   $scope.form_userdata.id = $rootScope.userdata.user_id;
   $scope.aksi='edit'
   $scope.save= function(){
-      User.Update({user_id:$scope.form_userdata.id,
-        display_name: $scope.form_userdata.display_name,
-         phone: $scope.form_userdata.phone}).then(function(response){
+      User.Update({$scope.form_userdata}).then(function(response){
         $rootScope.addalert('success','Data Diubah');
         console.log(response);
       })
@@ -460,7 +458,7 @@ function($scope,User,$rootScope){
 app.controller('showprofil',['$scope','User','$rootScope','$routeParams',
 function($scope,User,$rootScope,$routeParams){
  $scope.aksi='show';
- User.detail({user_id:$routeParams.id}).then(function(response){
+ User.Detail({user_id:$routeParams.id}).then(function(response){
      $scope.userdata =  response
  });
 
