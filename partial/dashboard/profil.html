@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div ng-show="aksi=='edit'" class="panel panel-default">
   <div class="panel-heading">Informasi User</div>
   <div class="panel-body">
         <form class="form-horizontal" role="form">
@@ -57,4 +57,35 @@
         </form>
   </div>
 <div class="panel-footer"> <div class="col-sm-offset-11"> <button class="btn btn-primary" ng-click="save()">Simpan</button></div></div>
+</div>
+
+<div  ng-show="aksi=='show'" class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="col-md-3">ID</div>
+      <div class="col-md-9">{{userdata.user_id}}</div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">Nama</div>
+      <div class="col-md-9">{{userdata.display_name}}</div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">Email</div>
+      <div class="col-md-9">{{userdata.email}}</div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">No Hp</div>
+      <div class="col-md-9">{{userdata.phone}}</div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">Alamat</div>
+      <div class="col-md-9">{{userdata.address}}</div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">Bio</div>
+      <div class="col-md-9">{{userdata.bio}}</div>
+    </div>
+
+
+  </div>
 </div>

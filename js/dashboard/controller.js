@@ -446,7 +446,7 @@ app.controller('profil',['$scope','User','$rootScope',
 function($scope,User,$rootScope){
   $scope.form_userdata= $rootScope.userdata;
   $scope.form_userdata.id = $rootScope.userdata.user_id;
-
+  $scope.aksi='edit'
   $scope.save= function(){
       User.Update({user_id:$scope.form_userdata.id,
         display_name: $scope.form_userdata.display_name,
@@ -456,6 +456,17 @@ function($scope,User,$rootScope){
       })
   }
 }])
+
+app.controller('showprofil',['$scope','User','$rootScope','$routeParams',
+function($scope,User,$rootScope,$routeParams){
+ $scope.aksi='show';
+ User.detail({user_id:$routeParams.id}).then(function(response){
+     $scope.userdata =  response
+ });
+
+
+}])
+
 
 app.controller('jurnal',['$scope','jurnal','helper',
 function($scope,jurnal,helper){

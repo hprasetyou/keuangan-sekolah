@@ -30,6 +30,10 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 								templateUrl : 'partial/dashboard/profil.html',
 								controller  : 'profil'
 			})
+			.when('/profil/:id',{
+								templateUrl : 'partial/dashboard/profil.html',
+								controller  : 'showprofil'
+			})
 			.when('/jurnal',{
 								templateUrl : 'partial/dashboard/jurnal.html',
 								controller  : 'jurnal'
