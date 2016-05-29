@@ -464,7 +464,7 @@ function($scope,User,SomeData,$rootScope,$routeParams){
  console.log(SomeData);
     // $routeParams should be populated here
      $scope.user_id = SomeData;
-     User.Detail({user_id:'45676'}).then(function(response){
+     User.Detail({user_id:$scope.user_id}).then(function(response){
          $scope.profil =  response
      });
 
