@@ -465,7 +465,7 @@ function($scope,User,$rootScope,$routeParams){
  $scope.user_id = $routeParams.id;
  $scope.$watch('user_id',function(){
    console.log($scope.user_id);
-   User.Detail({user_id:$routeParams.id}).then(function(response){
+   User.Detail({user_id:$scope.user_id}).then(function(response){
        $scope.profil =  response
    });
  });
