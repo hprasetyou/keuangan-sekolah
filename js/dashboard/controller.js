@@ -462,13 +462,12 @@ app.controller('showprofil',['$scope','User','SomeData','$rootScope','$routePara
 function($scope,User,SomeData,$rootScope,$routeParams){
  $scope.aksi='show';
  console.log(SomeData);
- $scope.$on('$viewContentLoaded', function() {
     // $routeParams should be populated here
-     $scope.user_id = $routeParams.id;
-     User.Detail({user_id:$scope.user_id}).then(function(response){
+     $scope.user_id = SomeData;
+     User.Detail({user_id:SomeData}).then(function(response){
          $scope.profil =  response
      });
-  });
+
 
 
 
