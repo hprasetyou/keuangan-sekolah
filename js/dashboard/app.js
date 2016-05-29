@@ -32,7 +32,12 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
 			})
 			.when('/profil/:id',{
 								templateUrl : 'partial/dashboard/profil.html',
-								controller  : 'showprofil'
+								controller  : 'showprofil',
+				        resolve: {
+				            SomeData: function( $routeParams ) {
+				                return return $route.current.params.id;
+				            }
+				        }
 			})
 			.when('/jurnal',{
 								templateUrl : 'partial/dashboard/jurnal.html',
