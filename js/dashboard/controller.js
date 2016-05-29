@@ -461,8 +461,11 @@ function($scope,User,$rootScope){
 app.controller('showprofil',['$scope','User','$rootScope','$routeParams',
 function($scope,User,$rootScope,$routeParams){
  $scope.aksi='show';
- User.Detail({user_id:$routeParams.id}).then(function(response){
-     $scope.userdata =  response
+ $scope.user_id = $routeParams.id;
+ $scope.$watch('user_id',function(){
+   User.Detail({user_id:$routeParams.id}).then(function(response){
+       $scope.profil =  response
+   });
  });
 
 
