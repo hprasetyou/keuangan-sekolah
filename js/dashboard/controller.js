@@ -445,7 +445,7 @@ app.controller('akun',['$scope','akun','$rootScope',
 app.controller('profil',['$scope','User','$rootScope',
 function($scope,User,$rootScope){
   User.Detail({id:$rootScope.userdata.user_id}).then(function(response){
-//    $scope.form_userdata = response
+    $scope.form_userdata = response
   })
 
   $scope.aksi='edit'
