@@ -9,7 +9,7 @@
   <!-- List group -->
   <ul class="list-group">
     <li ng-repeat="aktifitas in log" class="list-group-item">
-      <small><i>{{aktifitas.waktu}} <a href="#/profil{{aktifitas.user_id}}">{{aktifitas.display_name}}</a></i></small><br><br>
+      <small><i>{{aktifitas.waktu}} <a href="#/profil/{{aktifitas.user_id}}">{{aktifitas.display_name}}</a></i></small><br><br>
       {{aktifitas.display_name}} {{aktifitas.aktifitas}}</li>
   <li class="list-group-item"><a href="" ng-click="more()" >Tampilkan aktifitas yang lebih lama   <span class="glyphicon glyphicon-chevron-down"></span> </a></li>
   </ul>
