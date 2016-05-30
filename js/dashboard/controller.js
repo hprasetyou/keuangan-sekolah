@@ -445,12 +445,11 @@ app.controller('akun',['$scope','akun','$rootScope',
 app.controller('profil',['$scope','User','$rootScope',
 function($scope,User,$rootScope){
   User.Detail({id:$rootScope.userdata.user_id}).then(function(response){
-    $scope.form_userdata = response
+//    $scope.form_userdata = response
   })
 
   $scope.aksi='edit'
   $scope.save= function(){
-    console.log($scope.form_userdata.bio);
       User.Update($scope.form_userdata).then(function(response){
         $rootScope.addalert('success','Data Diubah');
         console.log(response);
