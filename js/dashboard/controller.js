@@ -450,7 +450,11 @@ function($scope,User,$rootScope){
 
   $scope.aksi='edit'
   $scope.save= function(){
-      User.Update($scope.form_userdata).then(function(response){
+      User.Update({user_id:$scope.form_userdata.user_id,
+      display_name:$scope.form_userdata.display_name,
+      address:$scope.form_userdata.address,
+      phone:$scope.form_userdata.phone,
+      bio:$scope.form_userdata.bio}).then(function(response){
         $rootScope.addalert('success','Data Diubah');
         console.log(response);
       })
