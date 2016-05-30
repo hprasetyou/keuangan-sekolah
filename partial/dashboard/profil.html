@@ -13,29 +13,29 @@
             <label class="col-sm-2 control-label"
                       for="nominal">Alamat Email</label>
             <div class="col-sm-8 col-sm-offset-2">
-                <input disabled ng-model="form_userdata.email" type="text" class="form-control" placeholder="Search for...">
+                <input disabled ng-model="form_userdata.email" type="text" class="form-control" >
               </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"
                       for="nominal">Nama</label>
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" ng-model="form_userdata.display_name" class="form-control" value="" placeholder="Nama Anggaran"/>
+                <input type="text" ng-model="form_userdata.display_name" class="form-control" />
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label"
-                      for="kredit">No HP</label>
+                      for="kredit">No Telp/Hp</label>
             <div class="col-sm-8 col-sm-offset-2">
-                  <input type="text" ng-model="form_userdata.phone" required class="form-control" placeholder="Nama Anggaran"/>
+                  <input type="text" ng-model="form_userdata.phone" class="form-control" />
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"
                       for="kredit">Alamat</label>
             <div class="col-sm-8 col-sm-offset-2">
-                  <input type="text" ng-model="form_userdata.address" class="form-control" placeholder="Nama Anggaran"/>
+              <textarea  ng-model="form_userdata.address" class="form-control"  rows="8" cols="40"></textarea>
             </div>
           </div>
 
@@ -43,7 +43,7 @@
             <label class="col-sm-2 control-label"
                       for="kredit">Tentang Saya</label>
             <div class="col-sm-8 col-sm-offset-2">
-                  <input type="text" ng-model="form_userdata.bio" class="form-control" placeholder="Nama Anggaran"/>
+              <textarea  ng-model="form_userdata.bio" class="form-control" rows="8" cols="40"></textarea>
             </div>
           </div>
 

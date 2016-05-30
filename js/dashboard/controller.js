@@ -451,6 +451,7 @@ function($scope,User,$rootScope){
 
   $scope.aksi='edit'
   $scope.save= function(){
+    console.log($scope.form_userdata.bio);
       User.Update($scope.form_userdata).then(function(response){
         $rootScope.addalert('success','Data Diubah');
         console.log(response);
