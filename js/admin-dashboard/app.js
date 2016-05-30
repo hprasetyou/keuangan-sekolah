@@ -65,7 +65,12 @@ app.controller('user',['$scope','User',
 
         }]);
 
+    app.controller('setting',['$scope',
+        function($scope){
+          $scope.Ch_pwd = function(){
+          }
 
+        }]);
 app.controller('request',['$scope','Sekolah',
     function($scope,Sekolah){
       Sekolah.Show_belum_verifikasi().then(function(response){
@@ -145,6 +150,14 @@ app.controller('request',['$scope','Sekolah',
            return $http({
              method:	'GET',
              url:'api/index.php/user/user_level=2/filter'
+           }).then(function(response){
+             return response.data;
+           })
+         },
+         Session: function(){
+           return $http({
+             method:	'GET',
+             url:'api/index.php/_session'
            }).then(function(response){
              return response.data;
            })
