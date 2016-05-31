@@ -170,7 +170,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
           }
           jenis_transaksi.Add(data).then(function(response){
             if(mk == "k"){
-              var jmlkeluar = 0
+              var jml_keluar = 0
               for(var i=0;i<$scope.subjenis.length;i++){
                 $scope.detail_ra.jum_keluar += $scope.subjenis[i].nominal*1
                 jml_keluar += $scope.subjenis[i].nominal*1
@@ -183,7 +183,8 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
                     debet: $scope.ra_trans.debet,
                     kredit: $scope.ra_trans.kredit,
                     jenis_trans: mk,
-                    sub: $scope.subjenis
+                    sub: $scope.subjenis,
+                    jml: jml_keluar
                   }
                 )
             }
@@ -274,8 +275,10 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
 
           if($scope.jenishapus=='m'){
             $scope.detail_ra.jenis_trans_masuk.splice($scope.indexhapus,1);
+            $scope.detail_ra.jum_masuk -= $scope.ra_trans.jml
           }else{
             $scope.detail_ra.jenis_trans_keluar.splice($scope.indexhapus,1);
+            $scope.detail_ra.jum_keluar -= $scope.ra_trans.jml
           }
         })
       }
