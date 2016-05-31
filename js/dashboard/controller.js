@@ -171,8 +171,8 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
           jenis_transaksi.Add(data).then(function(response){
             if(mk == "k"){
               for(var i=0;i<$scope.subjenis.length;i++){
-                $scope.detail_ra.jum_keluar += $scope.subjenis[i].nominal
-                console.log($scope.subjenis[i].nominal);
+                $scope.detail_ra.jum_keluar += $scope.subjenis[i].nominal*1
+                console.log($scope.subjenis[i].nominal*1);
                 console.log($scope.detail_ra.jum_keluar);
               }
                 $scope.detail_ra.jenis_trans_keluar.push(
@@ -188,7 +188,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
             }
             else{
               for(var i=0;i<$scope.subjenis.length;i++){
-                $scope.detail_ra.jum_masuk += $scope.subjenis[i].nominal
+                $scope.detail_ra.jum_masuk += $scope.subjenis[i].nominal*1
               }
                 $scope.detail_ra.jenis_trans_masuk.push({
                   nm_jenis_trans: $scope.ra_trans.nm_jenis_trans,
