@@ -10,8 +10,8 @@
 </div>
 <div ng-show="ra_pilih" >
   <div id="judul">
-      <h3 ng-show="edit==false">  {{ra_pilih.nm_anggaran}} <a href="" ng-click="edit=true"><span class="glyphicon sembunyikan glyphicon-pencil"></span></a> </h3>
-      <div ng-show="edit==true" class="panel panel-default">
+      <h3 ng-show="edit_ra==false">  {{ra_pilih.nm_anggaran}} <a href="" ng-click="edit_ra=true"><span class="glyphicon sembunyikan glyphicon-pencil"></span></a> </h3>
+      <div ng-show="edit_ra==true" class="panel panel-default">
         <div class="panel-body">
           <form class="form-horizontal" role="form">
             <div class="form-group">
@@ -24,7 +24,7 @@
           </form>
         </div>
         <div class="panel-footer">
-          <button class="btn btn-success">Simpan</button> <button ng-click="edit=false" class="btn btn-default">Batal</button>
+          <button class="btn btn-success">Simpan</button> <button ng-click="edit_ra=false" class="btn btn-default">Batal</button>
         </div>
       </div>
 

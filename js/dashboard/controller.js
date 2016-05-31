@@ -103,7 +103,7 @@ function($scope,Log,$rootScope,Saldo){
 //=========================================================================
 app.controller('rencana-anggaran',['$scope','tapelService','ra','jenis_transaksi','$rootScope','akun','helper',
 function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
-
+$scope.edit_ra = false;
     $scope.lsttapel=tapelService.tapel_2th
     $scope.tapel_pilih=tapelService.tapel_sekarang
     $scope.tapel_sekarang=tapelService.tapel_sekarang
