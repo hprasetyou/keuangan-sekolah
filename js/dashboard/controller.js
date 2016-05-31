@@ -178,6 +178,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
               }
                 $scope.detail_ra.jenis_trans_keluar.push(
                   {
+                    id: response.id,
                     nm_jenis_trans: $scope.ra_trans.nm_jenis_trans,
                     sumber_dana: $scope.ra_trans.sumber_dana,
                     debet: $scope.ra_trans.debet,
@@ -195,6 +196,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
                 jml_masuk += $scope.subjenis[i].nominal*1
               }
                 $scope.detail_ra.jenis_trans_masuk.push({
+                  id: response.id,
                   nm_jenis_trans: $scope.ra_trans.nm_jenis_trans,
                   sumber_dana: $scope.ra_trans.sumber_dana,
                   debet: $scope.ra_trans.debet,

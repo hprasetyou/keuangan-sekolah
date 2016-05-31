@@ -41,7 +41,7 @@ class Jenis_transaksi{
 
         }
 
-        return array('status'=>'ok','jenis'=>$data['jenis_trans']);
+        return array('status'=>'ok','jenis'=>$data['jenis_trans'],'id'=>$id_jenis);
 
   }
 
