@@ -103,7 +103,7 @@ function($scope,Log,$rootScope,Saldo){
 //=========================================================================
 app.controller('rencana-anggaran',['$scope','tapelService','ra','jenis_transaksi','$rootScope','akun','helper',
 function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
-$scope.edit_ra = false;
+
     $scope.lsttapel=tapelService.tapel_2th
     $scope.tapel_pilih=tapelService.tapel_sekarang
     $scope.tapel_sekarang=tapelService.tapel_sekarang
@@ -113,6 +113,7 @@ $scope.edit_ra = false;
       ra.Get().then(function(response){
         $scope.ra=response;
         $scope.ra_pilih= response[0];
+        $scope.edit_ra = false;
       })
     }
     tampil_ra();
