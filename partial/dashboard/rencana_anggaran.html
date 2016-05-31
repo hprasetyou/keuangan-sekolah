@@ -30,7 +30,7 @@
         <th scope="row"></th>
         <th scope="row" colspan="4">{{$index+1}}. {{pendapatan.nm_jenis_trans}}
           <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiMasuk"  ng-click="$parent.ra_trans= pendapatan; $parent.subjenis = pendapatan.sub;$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index;" ><span class="glyphicon sembunyikan glyphicon-pencil"></span></a>
-          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
+          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.ra_trans= pendapatan;$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
         </th>
       </tr>
       <tr ng-repeat="sub in pendapatan.sub">
@@ -57,7 +57,7 @@
         <th></th>
         <th colspan="4" scope="row">{{$index+1}}. {{pengeluaran.nm_jenis_trans}}
           <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiKeluar"  ng-click="$parent.ra_trans= pengeluaran; $parent.subjenis = pengeluaran.sub;$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-pencil"></span></a>
-          <a href=""  ng-show="cek_aktif()"   data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
+          <a href=""  ng-show="cek_aktif()"   data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.ra_trans= pengeluaran; $parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
         </th>
 
 
