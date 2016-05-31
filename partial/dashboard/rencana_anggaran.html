@@ -202,9 +202,11 @@
                                     </div>
                                 <label class="col-sm-3 control-label"
                                           for="nm_anggaran">Nominal</label>
-                                <div class="col-sm-9">
-                                    <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
-                                </div>
+                                  <div class="input-group col-sm-9">
+                                       <div class="input-group-addon">Rp. </div>
+                                       <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
+                                       <div class="input-group-addon">.00</div>
+                                  </div>
                                 <label class="col-sm-3 cotrol-label"
                                           for="nm_anggaran">Keterangan</label>
                                 <div class="col-sm-9">
@@ -290,8 +292,10 @@
                                     </div>
                                     <label class="col-sm-3 control-label"
                                           for="nm_anggaran">Nominal</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
+                                    <div class="input-group col-sm-9">
+                                         <div class="input-group-addon">Rp. </div>
+                                           <input type="text" ng-model="uraian.nominal" required class="form-control" value="0" placeholder="Nominal"/>
+                                         <div class="input-group-addon">.00</div>
                                     </div>
 
                                     <label class="col-sm-3 control-label"
