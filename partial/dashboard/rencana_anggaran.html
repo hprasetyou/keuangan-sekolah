@@ -10,7 +10,7 @@
 </div>
 <div ng-show="ra_pilih" >
   <div id="judul">
-      <h3 ng-show="edit_ra==false">  {{ra_pilih.nm_anggaran}} <a href="" ng-click="edit_ra=true"><span class="glyphicon sembunyikan glyphicon-pencil"></span></a> </h3>
+      <h3 ng-show="edit_ra==false">  {{ra_pilih.nm_anggaran}} <a ng-show="cek_aktif()" href="" ng-click="edit_ra=true"><span class="glyphicon sembunyikan glyphicon-pencil"></span></a> </h3>
       <div ng-show="edit_ra==true" class="panel panel-default">
         <div class="panel-body">
           <form class="form-horizontal" role="form">
