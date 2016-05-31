@@ -159,7 +159,7 @@ app.controller('request',['$scope','Sekolah',
              method:	'GET',
              url:'api/index.php/_session'
            }).then(function(response){
-             return response.data;
+             return response;
            })
          },
          Update: function($params){

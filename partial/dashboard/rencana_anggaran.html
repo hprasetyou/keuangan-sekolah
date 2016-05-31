@@ -6,7 +6,7 @@
   <select  name="" id="" ng-model="ra_pilih" ng-options="item as item.nm_anggaran for item in ra">
 
   </select>
-  atau <a data-toggle="modal" data-target="#tambahAnggaran" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Baru</a>
+  atau <a data-toggle="modal" data-target="#tambahAnggaran" href=""><span class="glyphicon sembunyikan glyphicon-plus" aria-hidden="true"></span> Tambah Baru</a>
 </div>
 <div ng-show="ra_pilih" >
   <div id="judul">
@@ -14,8 +14,8 @@
   </div>
   <br>
   <div ng-show="cek_aktif()" class="ra_menu" >
-    <a class="btn btn-default"  ng-click="$parent.jenishapus='';$parent.idhapus = '-'; $parent.indexhapus= ''"  data-toggle="modal" data-target="#tambahTransaksiMasuk" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Pemasukan</a>
-    <a class="btn btn-default" ng-click="$parent.jenishapus='';$parent.idhapus = '-'; $parent.indexhapus= ''"  data-toggle="modal" data-target="#tambahTransaksiKeluar" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Pengeluaran</a>
+    <a class="btn btn-default"  ng-click="$parent.jenishapus='';$parent.idhapus = '-'; $parent.indexhapus= ''"  data-toggle="modal" data-target="#tambahTransaksiMasuk" href=""><span class="glyphicon sembunyikan glyphicon-plus" aria-hidden="true"></span> Tambah Pemasukan</a>
+    <a class="btn btn-default" ng-click="$parent.jenishapus='';$parent.idhapus = '-'; $parent.indexhapus= ''"  data-toggle="modal" data-target="#tambahTransaksiKeluar" href=""><span class="glyphicon sembunyikan glyphicon-plus" aria-hidden="true"></span> Tambah Pengeluaran</a>
     <a class="btn btn-default" data-toggle="modal" data-target="#tetapkan" href=""> Tetapkan</a>
   </div>
   <div id="tabel_ra">
@@ -29,8 +29,8 @@
       <tr>
         <th scope="row"></th>
         <th scope="row" colspan="4">{{$index+1}}. {{pendapatan.nm_jenis_trans}}
-          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiMasuk"  ng-click="$parent.ra_trans= pendapatan; $parent.subjenis = pendapatan.sub;$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index;" ><span class="glyphicon glyphicon-pencil"></span></a>
-          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index" ><span class="glyphicon glyphicon-remove"></span></a>
+          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiMasuk"  ng-click="$parent.ra_trans= pendapatan; $parent.subjenis = pendapatan.sub;$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index;" ><span class="glyphicon sembunyikan glyphicon-pencil"></span></a>
+          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='m';$parent.idhapus = pendapatan.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
         </th>
       </tr>
       <tr ng-repeat="sub in pendapatan.sub">
@@ -56,8 +56,8 @@
       <tr>
         <th></th>
         <th colspan="4" scope="row">{{$index+1}}. {{pengeluaran.nm_jenis_trans}}
-          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiKeluar"  ng-click="$parent.ra_trans= pengeluaran; $parent.subjenis = pengeluaran.sub;$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon glyphicon-pencil"></span></a>
-          <a href=""  ng-show="cek_aktif()"   data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon glyphicon-remove"></span></a>
+          <a href=""  ng-show="cek_aktif()"  data-toggle="modal" data-target="#tambahTransaksiKeluar"  ng-click="$parent.ra_trans= pengeluaran; $parent.subjenis = pengeluaran.sub;$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-pencil"></span></a>
+          <a href=""  ng-show="cek_aktif()"   data-toggle="modal" data-target="#konfirhapus" ng-click="$parent.jenishapus='k';$parent.idhapus = pengeluaran.id; $parent.indexhapus= $index" ><span class="glyphicon sembunyikan glyphicon-remove"></span></a>
         </th>
 
 
@@ -181,7 +181,7 @@
                               </div>
                               <hr>
                               <div class="form-group" style="border-bottom:1px solid #ddd; padding-bottom: 5px" ng-repeat=" uraian in subjenis">
-                                <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon  glyphicon-remove"></span> singkirkan</a>
+                                <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon sembunyikan  glyphicon-remove"></span> singkirkan</a>
                                 </label>
                                 <label class="col-sm-3 control-label"
                                           for="nm_anggaran">Pendapatan</label>
@@ -269,7 +269,7 @@
                                 </div>
                                 <hr>
                                 <div class="form-group" style="border-bottom:1px solid #ddd; padding-bottom: 5px" ng-repeat=" uraian in subjenis track by $index">
-                                    <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon  glyphicon-remove"></span> singkirkan</a>
+                                    <label for="" class="col-sm-3 col-sm-offset-9" style="text-align:right"><a href="" class="btn btn-default" ng-click="hapus_uraian($index)"> <span class="glyphicon sembunyikan  glyphicon-remove"></span> singkirkan</a>
                                     </label>
                                     <label class="col-sm-3 control-label"
                                           for="nm_anggaran">Pengeluaran</label>
