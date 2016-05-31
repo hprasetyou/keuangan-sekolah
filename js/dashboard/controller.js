@@ -172,6 +172,8 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
             if(mk == "k"){
               for(var i=0;i<$scope.subjenis;i++){
                 $scope.detail_ra.jum_keluar += $scope.subjenis[i].nominal
+                console.log($scope.subjenis[i].nominal);
+                console.log($scope.detail_ra.jum_keluar);
               }
                 $scope.detail_ra.jenis_trans_keluar.push(
                   {
