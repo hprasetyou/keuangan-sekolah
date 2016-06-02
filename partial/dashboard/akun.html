@@ -57,7 +57,7 @@
                   for="nm_anggaran">Jenis Akun</label>
         <div class="col-sm-9">
           <select  class="form-control" name="" ng-model="form_akun.jenis_akun">
-            <option value="">--select--</option>
+            <option value="kosong">--select--</option>
             <option ng-repeat="jenis in jenis_akun" value="{{jenis.id}}">{{jenis.nama}}</option>
           </select>
         </div>
@@ -68,7 +68,7 @@
   <div class="panel-footer">
     <button ng-show="update==true" ng-click="ubah()" class="btn btn-primary">Ubah</button>
   <!--  <button ng-show="update==true" data-toggle="modal" data-target="#hapusAkun" class="btn btn-danger">Hapus</button> -->
-    <button ng-hide="update==true" ng-disabled="myForm.$invalid" ng-click="add()" class="btn btn-success">Tambah</button></div>
+    <button ng-hide="update==true" ng-disabled="form_akun.jenis_akun=='kosong';myForm.$invalid" ng-click="add()" class="btn btn-success">Tambah</button></div>
   </div>
   </div>
 
