@@ -37,7 +37,7 @@
     <!-- List group -->
     <div class="list-group">
       <div ng-repeat="data_trans in daftar_trans_keluar track by $index">
-        <a href="" data-toggle="collapse" data-target=".keluar{{$index}}" class="list-group-item list-group-item-success"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
+        <a href="" data-toggle="collapse" data-target=".keluar{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
         <div>
           <div ng-repeat="sub in data_trans.sub"  class="collapse keluar{{$parent.$index}}" ng-click="pilih(sub)">
             <a href=""  class="list-group-item list-group-item-primary">
