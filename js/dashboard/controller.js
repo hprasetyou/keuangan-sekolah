@@ -560,10 +560,19 @@ function($scope,jurnal,helper,tapelService){
     var tapel = tapelService.tapel_sekarang;
     console.log(tapel.substring(2, 2));
     console.log($scope.bulan_pilihan.id);
+    if($scope.bulan_pilihan.id >6){
+      $scope.tahunmulai = '20'+tapel.substring(0, 2);
+      $scope.tahunselesai = '20'+((tapel.substring(0, 2)*1)+1);
+
+    }
+    else{
+      $scope.tahunmulai = '20'+tapel.substring(2, 2);
+      $scope.tahunselesai = '20'+((tapel.substring(2, 2)*1)+1);
+    }
 //memanggil jumlah halaman untuk tiap bulan
     tampil_jumlah_data({
-      mulai:'2016-'+ $scope.bulan_pilihan.id +'-01',
-      selesai:'2016-'+ $scope.bulan_pilihan.id+'-31'
+      mulai:$scope.tahunmulai+ '-' + $scope.bulan_pilihan.id +'-01',
+      selesai:$scope.tahunselesai+ '-' + $scope.bulan_pilihan.id+'-31'
     })
 
 
