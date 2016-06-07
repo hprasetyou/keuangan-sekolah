@@ -559,6 +559,7 @@ function($scope,jurnal,helper,tapelService){
   $scope.$watch('bulan_pilihan',function(){
     var tapel = tapelService.tapel_sekarang;
     console.log(tapel.substring(2, 2));
+    console.log($scope.bulan_pilihan.id);
 //memanggil jumlah halaman untuk tiap bulan
     tampil_jumlah_data({
       mulai:'2016-'+ $scope.bulan_pilihan.id +'-01',
