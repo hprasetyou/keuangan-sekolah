@@ -498,7 +498,7 @@ function($scope,User,$rootScope,$routeParams){
 app.controller('jurnal',['$scope','jurnal','helper','tapelService',
 function($scope,jurnal,helper,tapelService){
   var TodayDate = new Date();
-
+console.log(tapelService.tapel_sekarang);
 
   $scope.daftar_bulan=helper.daftar_bulan
 
@@ -558,16 +558,16 @@ function($scope,jurnal,helper,tapelService){
 
   $scope.$watch('bulan_pilihan',function(){
     var tapel = tapelService.tapel_sekarang;
-    console.log(tapel.substring(2, 2));
+    console.log(tapel.substr(2, 2));
     console.log($scope.bulan_pilihan.id);
     if($scope.bulan_pilihan.id >6){
-      $scope.tahunmulai = '20'+tapel.substring(0, 2);
-      $scope.tahunselesai = '20'+((tapel.substring(0, 2)*1)+1);
+      $scope.tahunmulai = '20'+tapel.substr(0, 2);
+      $scope.tahunselesai = '20'+((tapel.substr(0, 2)*1)+1);
 
     }
     else{
-      $scope.tahunmulai = '20'+tapel.substring(2, 2);
-      $scope.tahunselesai = '20'+((tapel.substring(2, 2)*1)+1);
+      $scope.tahunmulai = '20'+tapel.substr(2, 2);
+      $scope.tahunselesai = '20'+((tapel.substr(2, 2)*1)+1);
     }
 //memanggil jumlah halaman untuk tiap bulan
     tampil_jumlah_data({
