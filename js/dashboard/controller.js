@@ -495,8 +495,8 @@ function($scope,User,$rootScope,$routeParams){
 }])
 
 
-app.controller('jurnal',['$scope','jurnal','helper',
-function($scope,jurnal,helper){
+app.controller('jurnal',['$scope','jurnal','helper','tapelService',
+function($scope,jurnal,helper,tapelService){
   var TodayDate = new Date();
 
 
@@ -543,7 +543,15 @@ function($scope,jurnal,helper){
   }
 
   $scope.tampil_halaman= function(halaman){
+    var tapel = tapelService.tapel_sekarang;
+    console.log(tapel.substring(0, 2))
+    console.log(tapel.substring(2, 2));
+    //memanggil tampil jurnal
+
+
+
     tampil_jurnal({
+
       mulai:'2015-'+ $scope.bulan_pilihan.id +'-01',
       selesai:'2016-'+ $scope.bulan_pilihan.id+'-31',
       index:jumlah_tampil*2*halaman
@@ -551,7 +559,7 @@ function($scope,jurnal,helper){
   }
 
   $scope.$watch('bulan_pilihan',function(){
-
+//memanggil jumlah halaman untuk tiap bulan
     tampil_jumlah_data({
       mulai:'2016-'+ $scope.bulan_pilihan.id +'-01',
       selesai:'2016-'+ $scope.bulan_pilihan.id+'-31'
