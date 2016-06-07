@@ -372,9 +372,10 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
         jumlah_tampil:'10'
       }).then(function(response){
         $scope.daftar_transaksi=response.data
+        $rootScope.addalert('success','transaksi tercatat');
+        
       })
       });
-      $rootScope.addalert('success','transaksi tercatat');
       $scope.formtrans={}
 
     }

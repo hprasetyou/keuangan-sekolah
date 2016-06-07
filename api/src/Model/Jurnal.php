@@ -54,8 +54,8 @@ public $nominal;
       }
       else{}
        $condition .= " date_format(waktu,'%Y-%m-%d') between '".$this->find['tanggal_mulai']."' AND '".$this->find['tanggal_akhir']."' " ;
-       return $this->db->execute("SELECT jenis_akun, uraian,date_format(waktu,'%Y-%m-%d') as tanggal,id_transaksi , nama_akun as akun, debet, kredit,pencatat FROM `jurnal`
-       join tb_transaksi on jurnal.id_transaksi=tb_transaksi.id join akun on jurnal.akun=akun.id_akun where ".$condition."  ORDER BY waktu DESC ".$this->limit);
+       return $this->db->execute("SELECT jenis_akun, uraian,date_format(waktu,'%Y-%m-%d') as tanggal,id_transaksi , nama_akun as akun, debet, kredit,pencatat, display_name FROM `jurnal`
+       join tb_transaksi on jurnal.id_transaksi=tb_transaksi.id join akun on jurnal.akun=akun.id_akun join KSAAS_main.user on akun.pencatat = KSAAS_main.user.user_id where ".$condition."  ORDER BY waktu DESC ".$this->limit);
    }
 
     public function sum($id,$jenis,$tapel){
