@@ -561,18 +561,15 @@ console.log(tapelService.tapel_sekarang);
     console.log(tapel.substr(2, 2));
     console.log($scope.bulan_pilihan.id);
     if($scope.bulan_pilihan.id >6){
-      $scope.tahunmulai = '20'+tapel.substr(0, 2);
-      $scope.tahunselesai = '20'+((tapel.substr(0, 2)*1)+1);
-
-    }
+      $scope.tahun = '20'+tapel.substr(0, 2);
+      }
     else{
-      $scope.tahunmulai = '20'+tapel.substr(2, 2);
-      $scope.tahunselesai = '20'+((tapel.substr(2, 2)*1)+1);
-    }
+      $scope.tahun = '20'+tapel.substr(2, 2);
+      }
 //memanggil jumlah halaman untuk tiap bulan
     tampil_jumlah_data({
-      mulai:$scope.tahunmulai+ '-' + $scope.bulan_pilihan.id +'-01',
-      selesai:$scope.tahunselesai+ '-' + $scope.bulan_pilihan.id+'-31'
+      mulai:$scope.tahun+ '-' + $scope.bulan_pilihan.id +'-01',
+      selesai:$scope.tahun+ '-' + $scope.bulan_pilihan.id+'-31'
     })
 
 
