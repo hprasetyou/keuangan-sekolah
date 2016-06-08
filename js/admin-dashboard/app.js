@@ -85,9 +85,7 @@ app.controller('request',['$scope','Sekolah',
         $scope.progress.detail.push({"task":"verifikasi"})
         $scope.progress.value='10';
         Sekolah.Verifikasi($scope.sekolah).then(function(response){
-          Sekolah.Show_belum_verifikasi().then(function(response){
-            $scope.sekolah_belum_verifikasi.splice(index, 1);
-          })
+
           $scope.progress.detail.push({"task":"ubah status"})
           $scope.progress.value='20';
 
@@ -98,6 +96,7 @@ app.controller('request',['$scope','Sekolah',
             Sekolah.Create_table($scope.sekolah).then(function(response){
               $scope.progress.detail.push({"task":"selesai"})
               $scope.progress.value='100'
+              $scope.sekolah_belum_verifikasi.splice(index, 1);
             })
           })
         })
