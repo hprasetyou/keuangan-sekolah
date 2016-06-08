@@ -76,15 +76,15 @@ app.controller('request',['$scope','Sekolah',
       Sekolah.Show_belum_verifikasi().then(function(response){
         $scope.sekolah_belum_verifikasi=response
       })
-      $scope.progress= {}
+      $scope.progress= {
+        detail:{"task":"verifikasi"},
+        value:'10'
+      }
 
       $scope.progress.detail=[]
       console.log(localStorage.getItem('token'));
       $scope.verifikasi= function(index){
-        var $scope.progress={
-          detail:{"task":"verifikasi"},
-          value:'10'
-        }
+
         Sekolah.Verifikasi($scope.sekolah).then(function(response){
 
           $scope.progress.detail.push({"task":"ubah status"})
