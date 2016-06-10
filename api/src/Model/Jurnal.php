@@ -93,4 +93,21 @@ public $nominal;
     }
 
 
+    function tutup_buku_exist($tapel){
+
+       $q= $this->db->execute(" SELECT *
+        FROM tb_transaksi
+        WHERE uraian LIKE '%dana%'
+        AND date_format( waktu, '%Y-%m-%d' )
+        BETWEEN '20".substr($tapel,0,2)."-07-01'
+        AND '20".substr($tapel,2,2)."-06-30'");
+        if($q->num_rows > 0){
+          return true;
+        }
+        else{
+          return false
+        }
+    }
+
+
 }

@@ -92,4 +92,24 @@ class Buku_besar{
         }
         return $output;
     }
+
+    function tutup_buku($args,$data,$userdata){
+      //1. cari jurnal tutup buku di tahun sebelumnya
+
+      $tapel=$args['tapel'];
+      return $this->jurnalmodel->tutup_buku_exist($tapel);
+
+
+
+
+      //2. a. jika jurnal tutup buku ada, jangan lakukan apa apa,
+      //2. b. jika tidak ada, buat jurnal penutupan buku
+      //3. ambil saldo dari tiap tiap akun pendapatan dan pengeluaran
+      //4. kreditkan saldo akun pendapatan ke rugi laba
+      //5. debetkan saldo akun pengeluaran ke rugi laba
+      //6. cek saldo rugi laba, jika debet, kreditkan ke akun modal, jika kredit, debetkan ke akun modal
+
+
+
+    }
 }

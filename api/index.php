@@ -413,6 +413,15 @@ $router->get($path.'/saldo', function() use($data){
   );
 },['before' => 'auth']);
 
+
+
+
+$router->get($path.'/tutupbuku/{tapel}', function($tapel){
+    $userdata= \App\Helper\Auth::user_data();
+    $buku_besaraction = new \App\Action\Buku_besar();
+    $args = array ('tapel' =>$tapel);
+    return $buku_besaraction-> tutup_buku($args,'',$userdata);
+});
 //
 //==============================================================================
 //==============================================================================
@@ -444,6 +453,8 @@ $router->get($path.'/log/{page}', function($page){
     $userdata= \App\Helper\Auth::user_data();
     return \App\Helper\Log::get($userdata->user_group,$page)->data;
 });
+
+
 
 
 //==============================================================
