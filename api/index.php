@@ -421,7 +421,7 @@ $router->get($path.'/tutupbuku/{tapel}', function($tapel){
     $buku_besaraction = new \App\Action\Buku_besar();
     $args = array ('tapel' =>$tapel);
     return $buku_besaraction-> tutup_buku($args,'',$userdata);
-});
+},['before' => 'auth']);
 //
 //==============================================================================
 //==============================================================================

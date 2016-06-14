@@ -36,12 +36,15 @@ public $nominal;
 
    }
    public function saldo(){
-     $sql="SELECT akun.nama_akun, akun.id_akun,akun.jenis_akun, case when sum(debet)-sum(kredit) > 0 then sum(debet)-sum(kredit)
+     $sql="SELECT akun.nama_akun, akun.id_akun,akun.jenis_akun,
+     case when sum(debet)-sum(kredit) > 0 then sum(debet)-sum(kredit)
       when sum(debet)-sum(kredit) is null then 0 else 0 end as debet,
        case when sum(kredit)-sum(debet) > 0 then sum(kredit)-sum(debet)
         when sum(kredit)-sum(debet) is null then 0 else 0 end as kredit
         FROM `jurnal` join akun on akun.id_akun= jurnal.akun
-        WHERE akun='".$this->find['akun']."' ";
+        join tb_transaksi on jurnal.id_transaksi= tb_transaksi.id
+        WHERE akun='".$this->find['akun']."'
+        and date_format(waktu,'%Y-%m-%d') <= '".$this->find['tanggal']."'";
         return $this->db->execute($sql);
 
    }
@@ -97,15 +100,15 @@ public $nominal;
 
        $q= $this->db->execute(" SELECT *
         FROM tb_transaksi
-        WHERE uraian LIKE '%dana%'
+        WHERE uraian LIKE '%tutup buku%'
         AND date_format( waktu, '%Y-%m-%d' )
         BETWEEN '20".substr($tapel,0,2)."-07-01'
         AND '20".substr($tapel,2,2)."-06-30'");
         if($q->num_rows > 0){
-          return true;
+          return "1";
         }
         else{
-          return false
+          return "0";
         }
     }
 
