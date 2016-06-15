@@ -373,10 +373,11 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
       }).then(function(response){
         $scope.daftar_transaksi=response.data
         $rootScope.addalert('success','transaksi tercatat');
-        
+
       })
       });
       $scope.formtrans={}
+      $scope.jenis_trans_pilih={}
 
     }
 
