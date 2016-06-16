@@ -20,7 +20,8 @@
       <div ng-repeat="data_trans in daftar_trans_masuk track by $index">
         <a href="" data-toggle="collapse" data-target=".coba{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
         <div>
-          <div ng-repeat="sub in data_trans.sub"  class="collapse coba{{$parent.$index}}" ng-click="pilih(sub)"><a href=""  class="list-group-item">
+          <div ng-repeat="sub in data_trans.sub"  class="collapse coba{{$parent.$index}}" ng-click="pilih(sub)">
+            <a  style="padding-left: 30px;" href=""  class="list-group-item">
             <span class="glyphicon glyphicon-chevron-right"></span>{{sub.nm_jenis_trans}}</a></div>
 
         </div>
@@ -41,7 +42,7 @@
         <a href="" data-toggle="collapse" data-target=".keluar{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
         <div>
           <div ng-repeat="sub in data_trans.sub"  class="collapse keluar{{$parent.$index}}" ng-click="pilih(sub)">
-            <a href=""  class="list-group-item list-group-item-primary">
+            <a href="" style="padding-left: 30px;" class="list-group-item list-group-item-primary">
                <span class="glyphicon glyphicon-chevron-right"></span>
                {{" "+sub.nm_jenis_trans}}
             </a></div>
