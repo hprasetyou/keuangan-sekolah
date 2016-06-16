@@ -18,7 +18,7 @@
     <!-- List group -->
     <div class="list-group">
       <div ng-repeat="data_trans in daftar_trans_masuk track by $index">
-        <a href="" data-toggle="collapse" data-target=".coba{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
+        <a style="padding: 0 0 0 5px" href="" data-toggle="collapse" data-target=".coba{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
         <div>
           <div ng-repeat="sub in data_trans.sub"  class="collapse coba{{$parent.$index}}" ng-click="pilih(sub)"><a href=""  class="list-group-item">
             <span class="glyphicon glyphicon-chevron-right"></span>{{sub.nm_jenis_trans}}</a></div>
@@ -41,8 +41,8 @@
         <a href="" data-toggle="collapse" data-target=".keluar{{$index}}" class="list-group-item"><span class="glyphicon glyphicon-chevron-down"></span> {{data_trans.nm_jenis_trans}}</a>
         <div>
           <div ng-repeat="sub in data_trans.sub"  class="collapse keluar{{$parent.$index}}" ng-click="pilih(sub)">
-            <a href=""  class="list-group-item list-group-item-primary">
-              <span class="glyphicon glyphicon-chevron-right"></span>
+            <a style="padding: 0 0 0 5px" href=""  class="list-group-item list-group-item-primary">
+             <span class="glyphicon glyphicon-chevron-right"></span>
                {{" "+sub.nm_jenis_trans}}
             </a></div>
 
@@ -55,7 +55,7 @@
 <div class="col-md-9">
   <div ng-show="jenis_trans_pilih.nm_jenis_trans" class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">  Detail Jenis Transaksi</div>
+    <div class="panel-heading"> Detail Jenis Transaksi</div>
     <div class="panel-body">
         <div class="col-sm-12">
           <label class="col-sm-6 control-label">Jenis Transaksi</label>
