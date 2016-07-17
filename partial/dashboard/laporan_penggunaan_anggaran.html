@@ -1,6 +1,10 @@
 <div id="data">
+  <p>pilih rencana anggaran :<select    name="" ng-model="ra_pilih"  ng-options="item as item.nm_anggaran for item in ra">  </select></p>
   <div class="page-header">
-    <h1>Perbandingan rencana anggaran dan realisasi penggunaan dana </h1>
+
+    <h1>Perbandingan rencana anggaran dan realisasi penggunaan dana <br><small>{{ra_pilih.nm_anggaran}}</small> </h1>
+
+
   </div>
     <div class="col-lg-6 col-md-12">
       <div class="panel panel-default">

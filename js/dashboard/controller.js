@@ -948,20 +948,23 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
     var output = document.getElementById("data").innerHTML;
     helper.print(output)
   }
-
+  //function untuk menampilkan semua ra
   var tampil_ra= function(){
-
     ra.Get().then(function(response){
 
       $scope.ra=response;
     })
   }
 
-  tampil_ra();
+    //get all rencana anggaran
+    tampil_ra();
+
+    //secara default ambil rencana anggaran dengan tahun yang sekarang sedang aktif
     ra.Tahun({'tahun':tapelService.tapel_sekarang}).then(function(response){
       $scope.ra_pilih = response[0];
 
     })
+    //eksekusi tiap ra_pilih valuenya berubah
     $scope.$watch('ra_pilih', function(){
       $("#loading").modal('show');
       console.log($scope.ra_pilih);
