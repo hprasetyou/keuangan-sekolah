@@ -562,7 +562,7 @@ console.log(tapelService.tapel_sekarang);
     var tapel = tapelService.tapel_sekarang;
     console.log(tapel.substr(2, 2));
     console.log($scope.bulan_pilihan.id);
-    if($scope.bulan_pilihan.id >= 6){
+    if($scope.bulan_pilihan.id > 6){
       $scope.tahun = '20'+tapel.substr(0, 2);
       }
     else{
