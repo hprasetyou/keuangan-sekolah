@@ -191,7 +191,7 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
                 )
             }
             else{
-              var jmlkeluar = 0
+              var jml_masuk = 0
               for(var i=0;i<$scope.subjenis.length;i++){
                 $scope.detail_ra.jum_masuk += $scope.subjenis[i].nominal*1
                 jml_masuk += $scope.subjenis[i].nominal*1
