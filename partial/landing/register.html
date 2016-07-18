@@ -62,6 +62,7 @@
               </label>
               <div class="col-sm-7">
                   <input type="text" ng-model="form_register.user_group" ng-minlength="8" ng-maxlength="8" id="txt_noinduk" required class="form-control" name="npsn" placeholder="NPSN Sekolah"/>
+                  <p ng-show="form_register.npsn.$error.minlength || form_register.npsn.$error.maxlength " class="help-block">Invalid</p>
               </div>
         </div>
         <div class="form-group">
