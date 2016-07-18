@@ -73,7 +73,7 @@ public $nominal;
       }else if($jenis=='neraca'){
         $cond=" and jenis_akun not in('p','b') ";
       }
-      $cond .= " AND waktu between '2010-03-17 00:00:00' and '20".$tahun."-06-31 23:50:00'";
+      $cond .= " AND waktu between '2010-03-17 00:00:00' and '20".$tahun."-06-30 23:50:00'";
       return $this->db->execute("SELECT case when sum(kredit)-sum(debet) > 0 then sum(kredit)-sum(debet) else 0 end as kredit,
       case when sum(debet) - sum(kredit) > 0 then sum(debet) - sum(kredit) else 0 end as debet
 
