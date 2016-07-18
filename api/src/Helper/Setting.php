@@ -7,7 +7,7 @@ class Setting{
   public static function get()
      {
          return array(
-            "root"=>"http://localhost/web/keuangansekolah",
+      //      "root"=>"http://localhost/web/keuangansekolah",
             "root"=>"http://keuangansekolah-hprasetyou.rhcloud.com",
   //           "path"=>"web/keuangansekolah/api/index.php",
            "path"=>"api/index.php",
