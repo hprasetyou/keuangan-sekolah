@@ -110,7 +110,8 @@ app.factory("Log",['$http','helper',function($http,helper){
 //_____________________SALDO_-_FACTORY__________________________________
 //====================================================================
 
-app.factory("Saldo", ['$http','helper', function($http,helper) {
+app.factory("Saldo", ['$http','helper','tapelService',
+ function($http,helper,tapelService) {
    return {
      Show: function(){
        return $http({
@@ -129,6 +130,24 @@ app.factory("Saldo", ['$http','helper', function($http,helper) {
 			 		}
        })
      },
+		 Tutup_buku: function(){
+			 var tahun= (tapelService.tapel_sekarang*1)-101
+			 return $http({
+				 headers: {
+					'token':  localStorage.getItem('token'),
+				 'Content-Type':'application/json'
+					},
+				 method:	'GET',
+				 url:'api/index.php/tutupbuku/'+ tahun
+			 }).then(function(response){
+				if(response.data.error){
+						 helper.go_home()
+					 }
+				 else{
+					 return helper.set_output(response.data)
+				 }
+			 })
+		 },
 
 		 Neraca_lajur: function(tapel){
        return $http({

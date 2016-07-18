@@ -82,6 +82,10 @@ function($scope,Log,$rootScope,Saldo){
   Log.Show(page).then(function(res){
     $scope.log = res
   })
+  
+  Saldo.Tutup_buku()
+
+
   $scope.more = function(){
     page = page+1;
     Log.Show(page).then(function(res){
