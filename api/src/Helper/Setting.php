@@ -7,17 +7,21 @@ class Setting{
   public static function get()
      {
          return array(
-      //      "root"=>"http://localhost/web/keuangansekolah",
-            "root"=>"http://keuangansekolah-hprasetyou.rhcloud.com",
-  //           "path"=>"web/keuangansekolah/api/index.php",
-           "path"=>"api/index.php",
+            "root"=>"http://localhost/web/keuangansekolah",
+             "path"=>"keuangansekolah/api/index.php",
              "db"=>array(
-                "username"=>"hprasetyou",
-                "password"=>"Rp.15000", //Rp.15000
+                "username"=>"root",
+                "password"=>"", 
                 "dbname"=>"KSAAS_main",
-    //           "dbhost"=>"localhost"
-               "dbhost"=>"127.3.136.2" //
-             )
+                "dbhost"=>"localhost"
+             ),
+             //email config
+             "mail"=>array(
+               "host"=>"ssl://smtp.gmail.com",
+               "username"=>"",
+               "password"=>"",
+               "port"=>465
+               )
          );
      }
 

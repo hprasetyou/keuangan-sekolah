@@ -12,17 +12,18 @@ function __construct(){
   function send($subject,$body,$recipient){
       $mail = new \PHPMailer();
 
+      $setting = \App\Helper\Setting::get();
           //$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
           $mail->isSMTP();                                      // Set mailer to use SMTP
-          $mail->Host = 'ssl://smtp.gmail.com';  // Specify main and backup SMTP servers
+          $mail->Host = $setting['mail']['host'];  // Specify main and backup SMTP servers
           $mail->SMTPAuth = true;                               // Enable SMTP authentication
-          $mail->Username = 'hprasetyou@gmail.com';                 // SMTP username
-          $mail->Password = 'anakpintar';                           // SMTP password
+          $mail->Username = $setting['mail']['username'];                 // SMTP username
+          $mail->Password = $setting['mail']['password'];                           // SMTP password
           $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-          $mail->Port = 465;                                    // TCP port to connect to
+          $mail->Port = $setting['mail']['port'];                                    // TCP port to connect to
 
-          $mail->setFrom('hprasetyou@gmail.com', 'Aplikasi Pengelolaan Keuangan Sekolah');
+          $mail->setFrom($setting['mail']['username'], 'Aplikasi Pengelolaan Keuangan Sekolah');
           $mail->addAddress($recipient);     // Add a recipient
 
           $mail->Subject = $subject;
