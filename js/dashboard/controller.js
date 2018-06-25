@@ -105,7 +105,7 @@ function($scope,Log,$rootScope,Saldo){
 //=========================================================================
 app.controller('rencana-anggaran',['$scope','tapelService','ra','jenis_transaksi','$rootScope','akun','helper',
 function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
-
+$scope.ra = []
     $scope.lsttapel=tapelService.tapel_2th
     $scope.tapel_pilih=tapelService.tapel_sekarang
     $scope.tapel_sekarang=tapelService.tapel_sekarang
@@ -218,7 +218,9 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
         }
       $scope.detail_ra=''
       //tampil detail ra
+
         $scope.$watch('ra_pilih', function(){
+          if($scope.ra.length > 0){
           $("#loading").modal('show');
           ra.Detail($scope.ra_pilih.id).then(function(response){
             $("#loading").modal('hide');
@@ -240,6 +242,8 @@ function($scope,tapelService,ra,jenis_transaksi,$rootScope,akun,helper){
               }
             }
           })
+          }
+
 
 
         })
@@ -811,7 +815,7 @@ app.controller('user',['$scope','userdata','$rootScope',
           $scope.form_user.user_level = '2';
           $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
-            	 $("#loading").modal('hide');
+               $("#loading").modal('hide');
                $rootScope.addalert('success','user ditambahkan')
                tampil();
           })
@@ -960,7 +964,6 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
 
     //get all rencana anggaran
     tampil_ra();
-
     //secara default ambil rencana anggaran dengan tahun yang sekarang sedang aktif
     ra.Tahun({'tahun':tapelService.tapel_sekarang}).then(function(response){
       $scope.ra_pilih = response[0];
