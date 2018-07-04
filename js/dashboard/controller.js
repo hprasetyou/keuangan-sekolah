@@ -316,6 +316,7 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
     $scope.jenis_input_trans=$routeParams.jenis
 
     var tampil= function(){
+      console.log($rootScope.Dt.y+'-'+$rootScope.Dt.m+'-'+$rootScope.Dt.d)
       $("#loading").modal('show');
       jurnal.Get_per_page({
       akun:'all',
@@ -324,6 +325,7 @@ function($scope,$rootScope,ra,$routeParams,akun,userdata,tapelService,jurnal){
       index:'0',
       jumlah_tampil:'10'
     }).then(function(response){
+      console.log(response)
        $("#loading").modal('hide');
       $scope.daftar_transaksi=response.data
     })
@@ -597,8 +599,8 @@ console.log(tapelService.tapel_sekarang);
 //=======================================================================
 
 
-app.controller('buku_besar',['$scope','jurnal','helper','akun',
-function($scope,jurnal,helper,akun){
+app.controller('buku_besar',['$scope','jurnal','helper','akun','tapelService',
+function($scope,jurnal,helper,akun,tapelService){
 
   $scope.daftar_bulan=helper.daftar_bulan
   var TodayDate = new Date();
@@ -612,12 +614,13 @@ function($scope,jurnal,helper,akun){
   })
 
   var tampil= function(){
+    var ts = tapelService.tapel_sekarang
      $("#loading").modal('show');
     var bulan=$scope.pilihan.id
     jurnal.Get({
       akun : $scope.pilihan.akun,
-      mulai:'2015-07-01',
-      akhir:'2016-06-31'
+      mulai:'20'+tapelService.tapel_sekarang.substr(0,2)+'-07-01',
+      akhir:'20'+tapelService.tapel_sekarang.substr(2,2)+'-06-31'
     }).then(function(response){
      $("#loading").modal('hide');
       $scope.daftar_jurnal=response.data
@@ -815,7 +818,7 @@ app.controller('user',['$scope','userdata','$rootScope',
           $scope.form_user.user_level = '2';
           $scope.form_user.password = 'hahahaha';
           userdata.Daftar($scope.form_user).then(function(response){
-               $("#loading").modal('hide');
+            	 $("#loading").modal('hide');
                $rootScope.addalert('success','user ditambahkan')
                tampil();
           })
@@ -957,7 +960,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
   //function untuk menampilkan semua ra
   var tampil_ra= function(){
     ra.Get().then(function(response){
-
+      console.log(response)
       $scope.ra=response;
     })
   }
@@ -966,6 +969,7 @@ function($scope,$rootScope,userdata,ra,tapelService,helper){
     tampil_ra();
     //secara default ambil rencana anggaran dengan tahun yang sekarang sedang aktif
     ra.Tahun({'tahun':tapelService.tapel_sekarang}).then(function(response){
+
       $scope.ra_pilih = response[0];
 
     })
