@@ -1,3 +1,4 @@
 /nbproject/private/
 /bower_components
 /api/vendor
+/api/src/Helper/Setting.php
