@@ -241,7 +241,7 @@ class Rencana_anggaran{
         $this->rencana_anggaranmodel->nm_anggaran    = $request_data['nm_anggaran'];
         $this->rencana_anggaranmodel->tahun_anggaran = $request_data['tahun_anggaran'];
         $this->rencana_anggaranmodel->pencatat       = $request_data['pencatat'];
-        $this->rencana_anggaranmodel->status        = 1;
+        $this->rencana_anggaranmodel->status        = 0;
         $this->rencana_anggaranmodel->add();
 
         return array('status'=>'ok','id'=>$this->rencana_anggaranmodel->id);
